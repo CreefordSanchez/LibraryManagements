@@ -1,4 +1,4 @@
 ﻿namespace LibraryManagement.Models {
-    public class BookRewiew {
+    public class BookReview {
     }
 }
