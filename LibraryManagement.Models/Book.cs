@@ -7,3 +7,4 @@
         public DateTime Published { get; set; }
         public ICollection<BookReview> BookReviews { get; set; }
     }
+}
