@@ -5,6 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LibraryManagement.Models {
-    internal class Book {
+    pub class Book {
     }
 }
