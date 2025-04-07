@@ -1,4 +1,5 @@
 ﻿using LibraryManagement.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.DAL {
 	public class BookReviewRepository(LibraryManagementContext context) {
@@ -16,5 +17,10 @@ namespace LibraryManagement.DAL {
 			return _context.BookReviews.Where(bk => bk.UserId == userId).ToList();
 		}
 
+		public async Task AddReview(BookReview review)
+		{
+			_context.BookReviews.Add(review);
+			await _context.SaveChangesAsync();
+		}
 	}
 }
