@@ -1,5 +1,6 @@
 ﻿using LibraryManagement.BLL;
 using LibraryManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.Controllers {
@@ -17,6 +18,23 @@ namespace LibraryManagement.Controllers {
 			} catch (KeyNotFoundException ex) {
 				return NotFound(ex.Message);
 			}
+		}
+
+		[HttpGet]
+		public IActionResult Add()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Add(Book book)
+		{
+			if (ModelState.IsValid)
+			{
+				await _service.AddBook(book);
+				return RedirectToAction("Index");
+			}
+			return View(book);
 		}
 	}
 }

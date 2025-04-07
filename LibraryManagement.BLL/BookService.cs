@@ -4,7 +4,7 @@ using LibraryManagement.Models;
 namespace LibraryManagement.BLL {
 	public class BookService(BookRepository repo) {
 		private readonly BookRepository _repo = repo;
-		public List<Book> GetAllBooks() {
+        public List<Book> GetAllBooks() {
 			return _repo.GetAllBooks();
 		}
 
@@ -15,5 +15,10 @@ namespace LibraryManagement.BLL {
 			}
 			return selected;
 		}
-	}
+
+        public async Task AddBook(Book book)
+        {
+            await _repo.AddBook(book);
+        }
+    }
 }
