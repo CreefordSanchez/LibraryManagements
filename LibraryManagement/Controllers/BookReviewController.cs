@@ -26,15 +26,5 @@ namespace LibraryManagement.Controllers {
 				return NotFound(ex.Message);
 			}
 		}
-
-		public async Task<IActionResult> AddReview(BookReview review)
-		{
-			if (ModelState.IsValid)
-			{
-				await _service.AddReview(review);
-				return RedirectToAction("Index");
-			}
-			return View(review);
-		}
 	}
 }

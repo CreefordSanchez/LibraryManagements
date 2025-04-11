@@ -19,22 +19,5 @@ namespace LibraryManagement.Controllers {
 				return NotFound(ex.Message);
 			}
 		}
-
-		[HttpGet]
-		public IActionResult Add()
-		{
-			return View();
-		}
-
-		[HttpPost]
-		public async Task<IActionResult> Add(Book book)
-		{
-			if (ModelState.IsValid)
-			{
-				await _service.AddBook(book);
-				return RedirectToAction("Index");
-			}
-			return View(book);
-		}
 	}
 }
