@@ -19,5 +19,20 @@ namespace LibraryManagement.Controllers {
         public IActionResult EventReview(int id) {
             return View(GetEventReviews(id));
         }
+
+        [HttpGet]
+        public IActionResult CreateEventReview() {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateEventReview(EventReview review) {
+            if (ModelState.IsValid) {
+                _service.CreateEventReview(review);
+                return RedirectToAction("Index");
+            }
+
+            return View(review);
+        }
     }
 }

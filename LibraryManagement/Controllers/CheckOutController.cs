@@ -26,5 +26,20 @@ namespace LibraryManagement.Controllers {
 				return NotFound(ex.Message);
 			}
 		}
+
+		[HttpGet]
+		public IActionResult CreateCheckOut() {
+			return View();
+		}
+
+		[HttpPost]
+		public IActionResult CreateCheckOut(CheckOut checkOut) {
+			if (ModelState.IsValid) {
+				_service.CreateCheckOut(checkOut);
+				return RedirectToAction("Index");
+			}
+
+			return View(checkOut);
+		}
 	}
 }

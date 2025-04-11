@@ -17,5 +17,21 @@ namespace LibraryManagement.Controllers {
 				return NotFound(ex.Message);
 			}
 		}
-	}
+
+		[HttpGet]
+		public IActionResult CreateEvent() {
+			return View();
+		}
+
+		[HttpPost]
+		public IActionResult CreateEvent(Event events) {
+			if (ModelState.IsValid) {
+				_service.CreateEvent(events);
+				return RedirectToAction("Index");
+			}
+
+			return View(events);
+		}
+
+    }
 }
