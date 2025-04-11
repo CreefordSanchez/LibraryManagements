@@ -23,5 +23,9 @@ namespace LibraryManagement.BLL {
 			}
 			return selected;
 		}
+
+		public void CreateBookReview(BookReview review) {
+			_repo.CreateBookReview(review);
+		}
 	}
 }

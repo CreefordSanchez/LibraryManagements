@@ -11,5 +11,10 @@ namespace LibraryManagement.DAL {
 			Book? selected = _context.Books.FirstOrDefault(b => b.BookId == id);
 			return selected;
 		}
+
+		public void CreateBook(Book book) {
+			_context.Books.Add(book);
+			_context.SaveChanges();
+		}
 	}
 }

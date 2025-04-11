@@ -16,5 +16,9 @@ namespace LibraryManagement.DAL {
 			return _context.BookReviews.Where(bk => bk.UserId == userId).ToList();
 		}
 
+		public void CreateBookReview(BookReview review) {
+			_context.BookReviews.Add(review);
+			_context.SaveChanges();
+		}
 	}
 }

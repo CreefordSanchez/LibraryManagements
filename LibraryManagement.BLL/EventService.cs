@@ -16,5 +16,9 @@ namespace LibraryManagement.BLL {
 			}
 			return selected;
 		}
-	}
+
+        public void CreateEvent(Event review) {
+			_repo.CreateEvent(review);
+        }
+    }
 }

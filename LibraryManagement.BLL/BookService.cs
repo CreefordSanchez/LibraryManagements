@@ -15,5 +15,9 @@ namespace LibraryManagement.BLL {
 			}
 			return selected;
 		}
+
+		public void CreateBook(Book book) {
+			_repo.CreateBook(book);
+		}
 	}
 }

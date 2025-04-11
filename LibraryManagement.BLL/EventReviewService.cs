@@ -11,6 +11,10 @@ namespace LibraryManagement.BLL {
 		public List<EventReview> GetReviewsByEvent(int eventId) {
 			return _repo.GetReviewsByEvent(eventId);
 		}
-	}
+
+        public void CreateEventReview(EventReview review) {
+            _repo.CreateEventReview(review);
+        }
+    }
 }
  
