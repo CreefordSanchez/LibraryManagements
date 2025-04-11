@@ -11,5 +11,11 @@ namespace LibraryManagement.DAL {
 			Book? selected = _context.Books.FirstOrDefault(b => b.BookId == id);
 			return selected;
 		}
+
+		public async Task Delete(Book book)
+		{
+			_context.Books.Remove(book);
+			await _context.SaveChangesAsync();
+		}
     }
 }

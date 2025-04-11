@@ -15,10 +15,15 @@ namespace LibraryManagement.BLL {
 			}
 			return selected;
 		}
+		
+		public async Task<bool> DeleteBook(int id)
+		{
+            Book? book = _repo.GetBook(id);
+			if (book == null)
+				return false;
 
-        public async Task AddBook(Book book)
-        {
-            await _repo.AddBook(book);
-        }
+			await _repo.Delete(book);
+			return true;
+		}
     }
 }
