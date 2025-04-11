@@ -16,11 +16,5 @@ namespace LibraryManagement.DAL {
 		public List<BookReview> GetReviewsByUser(string userId) {
 			return _context.BookReviews.Where(bk => bk.UserId == userId).ToList();
 		}
-
-		public async Task AddReview(BookReview review)
-		{
-			_context.BookReviews.Add(review);
-			await _context.SaveChangesAsync();
-		}
 	}
 }

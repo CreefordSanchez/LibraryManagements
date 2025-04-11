@@ -11,10 +11,5 @@ namespace LibraryManagement.DAL {
 			Book? selected = _context.Books.FirstOrDefault(b => b.BookId == id);
 			return selected;
 		}
-        public async Task AddBook(Book book)
-        {
-            _context.Books.Add(book);
-            await _context.SaveChangesAsync();
-        }
     }
 }
