@@ -26,12 +26,12 @@ namespace LibraryManagement.Controllers {
 
 		[HttpPost]
 		public IActionResult CreateBook(Book book) {
-			if (ModelState.IsValid) {
+            if (ModelState.IsValid) {
 				_service.CreateBook(book);
 				return RedirectToAction("Index");
 			}
 
-			return View(book);
+            return View(book);
 		}
 	}
 }
