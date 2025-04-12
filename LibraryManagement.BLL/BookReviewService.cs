@@ -24,9 +24,20 @@ namespace LibraryManagement.BLL {
 			return selected;
 		}
 
-		public async Task AddReview(BookReview review)
-		{
-			await _repo.AddReview(review);
-		}
-	}
+        public async Task<bool> DeleteBookReviewAsync(int bookId, string userId)
+        {
+            BookReview result = await _repo.GetByCompositeKeyAsync(bookId, userId);
+            if (result == null)
+                return false;
+
+            await _repo.DeleteAsync(result);
+            return true;
+        }
+
+        public async Task<BookReview?> GetByCompositeKeyAsync(int bookId, string userId)
+        {
+            return await _repo.GetByCompositeKeyAsync(bookId, userId);
+        }
+
+    }
 }

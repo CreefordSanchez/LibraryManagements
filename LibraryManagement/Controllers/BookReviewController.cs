@@ -26,5 +26,25 @@ namespace LibraryManagement.Controllers {
 				return NotFound(ex.Message);
 			}
 		}
-	}
+
+		[HttpGet]
+        public async Task<IActionResult> Delete(int bookId, string userId)
+        {
+            BookReview? result = await _service.GetByCompositeKeyAsync(bookId, userId);
+            if (result == null)
+                return NotFound();
+
+            return View(result);
+        }
+
+		[HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int bookId, string userId)
+        {
+            bool deleted = await _service.DeleteBookReviewAsync(bookId, userId);
+            if (!deleted)
+                return NotFound();
+
+            return RedirectToAction(nameof(Index));
+        }
+    }
 }
