@@ -19,5 +19,25 @@ namespace LibraryManagement.Controllers {
         public IActionResult EventReview(int id) {
             return View(GetEventReviews(id));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int eventId, string userId)
+        {
+            EventReview? result = await _service.GetByCompositeKeyAsync(eventId, userId);
+            if (result == null)
+                return NotFound();
+
+            return View(result);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int eventId, string userId)
+        {
+            bool deleted = await _service.DeleteBookReviewAsync(eventId, userId);
+            if (!deleted)
+                return NotFound();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
