@@ -1,4 +1,5 @@
 ﻿using LibraryManagement.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagement.DAL {
 	public class CheckOutRepository(LibraryManagementContext context) {
@@ -15,5 +16,18 @@ namespace LibraryManagement.DAL {
 		public List<CheckOut> GetCheckOutByDueDate(DateTime dueDate) {
 			return _context.CheckOuts.Where(x => x.DueDate == dueDate).ToList();
 		}
-	}
+
+        public async Task<CheckOut?> GetByCompositeKeyAsync(int bookId, string userId)
+        {
+            return await _context.CheckOuts
+                .Include(c => c.Book)
+                .FirstOrDefaultAsync(c => c.BookId == bookId && c.UserId == userId);
+        }
+
+        public async Task DeleteAsync(CheckOut checkout)
+        {
+            _context.CheckOuts.Remove(checkout);
+            await _context.SaveChangesAsync();
+        }
+    }
 }
