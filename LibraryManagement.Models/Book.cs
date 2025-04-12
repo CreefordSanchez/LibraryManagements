@@ -8,5 +8,6 @@ namespace LibraryManagement.Models {
         public string Genre { get; set; }
         public DateTime Published { get; set; }
         public ICollection<BookReview>? BookReviews { get; set; }
+        public CheckOut? CheckOut { get; set; }
     }
 }
