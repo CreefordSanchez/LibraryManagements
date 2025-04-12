@@ -30,7 +30,7 @@ namespace LibraryManagement.BLL {
 
         public async Task<bool> DeleteCheckOutAsync(int bookId, string userId)
         {
-            var checkout = await _repo.GetByCompositeKeyAsync(bookId, userId);
+            CheckOut? checkout = await _repo.GetByCompositeKeyAsync(bookId, userId);
             if (checkout == null)
                 return false;
 
