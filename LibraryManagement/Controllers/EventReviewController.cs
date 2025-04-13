@@ -1,10 +1,12 @@
 ﻿using LibraryManagement.BLL;
 using LibraryManagement.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LibraryManagement.Controllers {
-    public class EventReviewController(EventReviewService service) : Controller {
+    public class EventReviewController(EventReviewService service, EventService eventService) : Controller {
 		private readonly EventReviewService _service = service;
+        private readonly EventService _eventService = eventService;
         public List<EventReview> GetAllEventReviews() {
 			return _service.GetAllEventReviews();
 		}
@@ -22,6 +24,10 @@ namespace LibraryManagement.Controllers {
 
         [HttpGet]
         public IActionResult CreateEventReview() {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            ViewBag.UserId = userId;
+            ViewBag.EventList = _eventService.GetAllEvents();
+
             return View();
         }
 

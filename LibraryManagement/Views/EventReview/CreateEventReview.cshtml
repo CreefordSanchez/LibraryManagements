@@ -1,0 +1,24 @@
+﻿@model EventReview
+
+<h1>Event Review Creating</h1>
+
+<form asp-action="CreateEventReview">
+	<input asp-for="UserId" value="@ViewBag.UserId" type="hidden"/>
+
+	<label asp-for="EventId">Event: </label>
+	<select asp-for="EventId">
+		<option value="">None</option>
+		@foreach (Event events in ViewBag.EventList) {
+			<option value="@events.EventId">@events.Title</option>
+		}
+	</select>
+	
+	<label asp-for="Rating">Rating: </label>
+	<input asp-for="Rating"/>
+
+	
+	<label asp-for="Comment">Comment: </label>
+	<input asp-for="Comment"/>
+
+	<button type="submit">Post</button>
+</form>
