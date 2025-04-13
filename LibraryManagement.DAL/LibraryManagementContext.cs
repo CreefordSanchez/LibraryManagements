@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace LibraryManagement.DAL {
-    public class LibraryManagementContext : IdentityDbContext<IdentityUser> {
+namespace LibraryManagement.DAL
+{
+    public class LibraryManagementContext : IdentityDbContext<IdentityUser>
+    {
         public LibraryManagementContext(DbContextOptions<LibraryManagementContext> options) : base(options) { }
 
         public DbSet<Book> Books { set; get; }
@@ -15,7 +17,8 @@ namespace LibraryManagement.DAL {
         public DbSet<EventReview> EventReviews { set; get; }
         public DbSet<CheckOut> CheckOuts { set; get; }
 
-        protected override void OnModelCreating(ModelBuilder builder) {
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
             base.OnModelCreating(builder);
 
             builder.Entity<Book>(entity =>
@@ -34,51 +37,75 @@ namespace LibraryManagement.DAL {
 
             builder.Entity<BookReview>(entity =>
             {
-                entity.HasKey(bk => bk.UserId);
-                entity.HasKey(bk => bk.BookId);
+                entity.HasKey(bk => bk.BookReviewId);
+
                 entity.Property(bk => bk.Comment).IsRequired();
                 entity.Property(bk => bk.Rating).IsRequired();
 
-                //set User relation ship
+                entity.HasOne<IdentityUser>()
+                    .WithMany()
+                    .HasForeignKey(bk => bk.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(bk => bk.Book)
+                    .WithMany(b => b.BookReviews)
+                    .HasForeignKey(bk => bk.BookId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<Event>(entity =>
             {
                 entity.HasKey(e => e.EventId);
 
-                //set User Relationship
-                entity.Property(e => e.OrganiserId);
                 entity.Property(e => e.Title).IsRequired();
                 entity.Property(e => e.Date).IsRequired();
                 entity.Property(e => e.Time).IsRequired();
                 entity.Property(e => e.Location).IsRequired();
                 entity.Property(e => e.Description).IsRequired();
 
-                entity.HasMany(e => e.EventReviews)
-                    .WithOne(er => er.Event)
-                    .HasForeignKey(er => er.EventId)
+                entity.HasOne<IdentityUser>()
+                    .WithMany()
+                    .HasForeignKey(e => e.OrganiserId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<EventReview>(entity =>
             {
-                entity.HasKey(er => er.EventId);
-                entity.HasKey(er => er.UserId);
+                entity.HasKey(er => er.EventReviewId);
 
                 entity.Property(er => er.Rating).IsRequired();
                 entity.Property(er => er.Comment).IsRequired();
+
+                entity.HasOne<IdentityUser>()
+                   .WithMany()
+                   .HasForeignKey(er => er.UserId)
+                   .OnDelete(DeleteBehavior.NoAction);
+
+                entity.HasOne(er => er.Event)
+                    .WithMany(e => e.EventReviews)
+                    .HasForeignKey(er => er.EventId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<CheckOut>(entity =>
             {
                 entity.HasKey(co => co.BookId);
-                entity.HasKey(co => co.UserId);
 
                 entity.Property(co => co.IsReturned).IsRequired();
                 entity.Property(co => co.IsOverdue).IsRequired();
                 entity.Property(co => co.DueDate).IsRequired();
                 entity.Property(co => co.CheckoutDate).IsRequired();
                 entity.Property(co => co.AuthorizeCheckout).IsRequired();
+
+                entity.HasOne<IdentityUser>()
+                    .WithMany()
+                    .HasForeignKey(co => co.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(co => co.Book)
+                    .WithOne(b => b.CheckOut)
+                    .HasForeignKey<CheckOut>(co => co.BookId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }
