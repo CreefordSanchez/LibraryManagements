@@ -1,10 +1,12 @@
-﻿using LibraryManagement.BLL;
+﻿using System.Security.Claims;
+using LibraryManagement.BLL;
 using LibraryManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.Controllers {
-	public class BookReviewController(BookReviewService service) : Controller {
+    public class BookReviewController(BookReviewService service, BookService bookService) : Controller {
 		private readonly BookReviewService _service = service;
+		private readonly BookService _bookService = bookService;
 		public IActionResult Index() {
 			return View(_service.GetAllBookReviews());
 		}
@@ -29,7 +31,11 @@ namespace LibraryManagement.Controllers {
 
 		[HttpGet]
 		public IActionResult CreateBookReview() {
-			return View();
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            ViewBag.UserId = userId;
+			ViewBag.BookList = _bookService.GetAllBooks();
+
+            return View();
 		}
 
 		[HttpPost]
