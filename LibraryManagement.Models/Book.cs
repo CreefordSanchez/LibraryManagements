@@ -7,6 +7,7 @@ namespace LibraryManagement.Models {
         public string Author { get; set; }
         public string Genre { get; set; }
         public DateTime Published { get; set; }
+        public string Picture { get; set; }
         public ICollection<BookReview>? BookReviews { get; set; }
         public CheckOut? CheckOut { get; set; }
     }
