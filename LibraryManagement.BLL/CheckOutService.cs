@@ -22,21 +22,5 @@ namespace LibraryManagement.BLL {
 			}
 			return selected;
 		}
-
-        public async Task<CheckOut?> GetByCompositeKeyAsync(int bookId, string userId)
-        {
-            return await _repo.GetByCompositeKeyAsync(bookId, userId);
-        }
-
-        public async Task<bool> DeleteCheckOutAsync(int bookId, string userId)
-        {
-            CheckOut? checkout = await _repo.GetByCompositeKeyAsync(bookId, userId);
-            if (checkout == null)
-                return false;
-
-            await _repo.DeleteAsync(checkout);
-            return true;
-        }
-
     }
 }

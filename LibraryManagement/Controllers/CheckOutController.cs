@@ -1,11 +1,14 @@
-﻿using LibraryManagement.BLL;
+﻿using System.Security.Claims;
+using LibraryManagement.BLL;
 using LibraryManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.Controllers {
-	public class CheckOutController(CheckOutService service) : Controller {
+	public class CheckOutController(CheckOutService service, BookService bookService) : Controller {
 		private readonly CheckOutService _service = service;
-		public IActionResult Index() {
+		private readonly BookService _bookService = bookService;
+
+        public IActionResult Index() {
 			return View(_service.GetAllCheckOuts());
 		}
 
@@ -26,25 +29,5 @@ namespace LibraryManagement.Controllers {
 				return NotFound(ex.Message);
 			}
 		}
-
-		[HttpGet]
-        public async Task<IActionResult> Delete(int bookId, string userId)
-        {
-            CheckOut? checkout = await _service.GetByCompositeKeyAsync(bookId, userId);
-            if (checkout == null)
-                return NotFound();
-
-            return View(checkout);
-        }
-
-		[HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(int bookId, string userId)
-        {
-            bool deleted = await _service.DeleteCheckOutAsync(bookId, userId);
-            if (!deleted)
-                return NotFound();
-
-            return RedirectToAction(nameof(Index));
-        }
-    }
+	}
 }

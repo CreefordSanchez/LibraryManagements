@@ -7,7 +7,6 @@
         public string Location { get; set; }
         public string Description { get; set; }
         public string OrganiserId { get; set; }
-        //Add user reference here
-        public ICollection<EventReview> EventReviews { get; set; }
+        public ICollection<EventReview>? EventReviews { get; set; }
     }
 }

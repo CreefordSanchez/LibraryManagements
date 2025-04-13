@@ -12,6 +12,7 @@ namespace LibraryManagement.BLL {
 			return _repo.GetReviewsByEvent(eventId);
 		}
 
+<<<<<<< HEAD
         public async Task<bool> DeleteBookReviewAsync(int eventId, string userId)
         {
             EventReview? result = await _repo.GetByCompositeKeyAsync(eventId, userId);
@@ -25,6 +26,10 @@ namespace LibraryManagement.BLL {
         public async Task<EventReview?> GetByCompositeKeyAsync(int eventId, string userId)
         {
             return await _repo.GetByCompositeKeyAsync(eventId, userId);
+=======
+        public void CreateEventReview(EventReview review) {
+            _repo.CreateEventReview(review);
+>>>>>>> 09f740746b6e048dcf17af626ddcd0823cdb27ab
         }
     }
 }

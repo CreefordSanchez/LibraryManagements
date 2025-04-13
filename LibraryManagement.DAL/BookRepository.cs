@@ -17,5 +17,5 @@ namespace LibraryManagement.DAL {
 			_context.Books.Remove(book);
 			await _context.SaveChangesAsync();
 		}
-    }
+	}
 }

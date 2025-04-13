@@ -19,28 +19,5 @@ namespace LibraryManagement.Controllers {
 				return NotFound(ex.Message);
 			}
 		}
-
-		[HttpGet]
-		public async Task<IActionResult> Delete(int? id)
-		{
-			if (id == null)
-				return NotFound();
-
-			Book? book = _service.GetBook(id.Value);
-			if (book == null) 
-				return NotFound();
-
-			return View(book);
-		}
-
-		[HttpPost, ActionName("Delete")]
-		public async Task<IActionResult> DeleteConfirmed(int id)
-		{
-			bool result = await _service.DeleteBook(id);
-			if (!result) 
-				return NotFound();
-
-			return RedirectToAction("Index");
-		} 
 	}
 }
