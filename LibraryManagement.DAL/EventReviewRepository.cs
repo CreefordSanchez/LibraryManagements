@@ -13,10 +13,11 @@ namespace LibraryManagement.DAL {
 			return _context.EventReviews.Where(er => er.EventId == eventId).ToList();
 		}
 
-        public async Task<EventReview?> GetByCompositeKeyAsync(int eventId, string userId)
+        public async Task<EventReview?> GetByIdAsync(int id)
         {
             return await _context.EventReviews
-                .FirstOrDefaultAsync(er => er.EventId == eventId && er.UserId == userId);
+                .Include(r => r.Event)
+                .FirstOrDefaultAsync(r => r.EventReviewId == id);
         }
 
         public async Task DeleteAsync(EventReview review)

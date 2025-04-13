@@ -38,5 +38,25 @@ namespace LibraryManagement.Controllers {
 				return NotFound(ex.Message);
 			}
 		}
-	}
+
+		[HttpGet]
+        public IActionResult Delete(int id)
+        {
+            BookReview? review =  _service.GetBookReview(id);
+            if (review == null)
+                return NotFound();
+
+            return View(review);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            bool deleted = await _service.DeleteBookReview(id);
+            if (!deleted)
+                return NotFound();
+
+            return RedirectToAction(nameof(Index));
+        }
+    }
 }

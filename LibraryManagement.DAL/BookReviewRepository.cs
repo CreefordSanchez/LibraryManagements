@@ -24,6 +24,12 @@ namespace LibraryManagement.DAL {
                 .FirstOrDefaultAsync(br => br.BookId == bookId && br.UserId ==userId);
         }
 
+        public BookReview GetBookReview(int id)
+        {
+            BookReview? selected = _context.BookReviews.FirstOrDefault(b => b.BookId == id);
+            return selected;
+        }
+
         public async Task DeleteAsync(BookReview review)
         {
             _context.BookReviews.Remove(review);

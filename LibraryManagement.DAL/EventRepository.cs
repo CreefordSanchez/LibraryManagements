@@ -1,4 +1,5 @@
 ﻿using LibraryManagement.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagement.DAL {
 	public class EventRepository(LibraryManagementContext context) {
@@ -12,5 +13,19 @@ namespace LibraryManagement.DAL {
 			Event? selected = _context.Events.FirstOrDefault(e => e.EventId == id);
 			return selected;
 		}
+
+        public async Task<Event?> GetEventById(int id)
+        {
+            return await _context.Events
+                .Include(e => e.EventReviews)
+                .FirstOrDefaultAsync(e => e.EventId == id);
+        }
+
+        public async Task DeleteAsync(Event ev)
+        {
+            _context.Events.Remove(ev);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

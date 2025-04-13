@@ -29,5 +29,34 @@ namespace LibraryManagement.Controllers {
 				return NotFound(ex.Message);
 			}
 		}
-	}
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int bookId, string userId)
+        {
+            CheckOut checkout = await _service.GetByCompositeKeyAsync(bookId, userId);
+            if (checkout == null)
+                return NotFound();
+
+            if (!checkout.IsReturned)
+            {
+                TempData["Error"] = "Cannot delete a checkout that has not been returned.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(checkout);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int bookId, string userId)
+        {
+            bool deleted = await _service.DeleteIfReturnedAsync(bookId, userId);
+            if (!deleted)
+            {
+                TempData["Error"] = "Cannot delete a checkout that has not been returned.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+    }
 }

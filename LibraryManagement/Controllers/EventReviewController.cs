@@ -23,42 +23,24 @@ namespace LibraryManagement.Controllers {
         }
 
         [HttpGet]
-<<<<<<< HEAD
-        public async Task<IActionResult> Delete(int eventId, string userId)
+        public async Task<IActionResult> Delete(int id)
         {
-            EventReview? result = await _service.GetByCompositeKeyAsync(eventId, userId);
-            if (result == null)
+            EventReview? review = await _service.GetByIdAsync(id);
+            if (review == null)
                 return NotFound();
 
-            return View(result);
+            return View(review);
         }
 
-        [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int eventId, string userId)
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            bool deleted = await _service.DeleteBookReviewAsync(eventId, userId);
+            var deleted = await _service.DeleteAsync(id); // it wouldn't let me put a boolean as the type, most likely an error on my part
             if (!deleted)
                 return NotFound();
 
             return RedirectToAction(nameof(Index));
-=======
-        public IActionResult CreateEventReview() {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            ViewBag.UserId = userId;
-            ViewBag.EventList = _eventService.GetAllEvents();
-
-            return View();
         }
 
-        [HttpPost]
-        public IActionResult CreateEventReview(EventReview review) {
-            if (ModelState.IsValid) {
-                _service.CreateEventReview(review);
-                return RedirectToAction("Index");
-            }
-
-            return View(review);
->>>>>>> 09f740746b6e048dcf17af626ddcd0823cdb27ab
-        }
     }
 }

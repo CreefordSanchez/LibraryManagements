@@ -24,20 +24,34 @@ namespace LibraryManagement.BLL {
 			return selected;
 		}
 
-        public async Task<bool> DeleteBookReviewAsync(int bookId, string userId)
+        public BookReview GetBookReview(int id)
         {
-            BookReview result = await _repo.GetByCompositeKeyAsync(bookId, userId);
-            if (result == null)
+            BookReview? selected = _repo.GetBookReview(id);
+            if (selected == null)
+            {
+                throw new KeyNotFoundException($"No book review found with ID {id}");
+            }
+            return selected;
+        }
+
+        public BookReview GetBook(int id)
+        {
+            BookReview? selected = _repo.GetBookReview(id);
+            if (selected == null)
+            {
+                throw new KeyNotFoundException($"No book found with ID {id}");
+            }
+            return selected;
+        }
+
+        public async Task<bool> DeleteBookReview(int id)
+        {
+            BookReview? review = _repo.GetBookReview(id);
+            if (review == null)
                 return false;
 
-            await _repo.DeleteAsync(result);
+            await _repo.DeleteAsync(review);
             return true;
         }
-
-        public async Task<BookReview?> GetByCompositeKeyAsync(int bookId, string userId)
-        {
-            return await _repo.GetByCompositeKeyAsync(bookId, userId);
-        }
-
     }
 }

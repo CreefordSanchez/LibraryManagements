@@ -16,5 +16,20 @@ namespace LibraryManagement.BLL {
 			}
 			return selected;
 		}
+
+        public async Task<Event?> GetByIdAsync(int id)
+        {
+            return await _repo.GetEventById(id);
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var ev = await _repo.GetEventById(id);
+            if (ev == null)
+                return false;
+
+            await _repo.DeleteAsync(ev);
+            return true;
+        }
     }
 }
