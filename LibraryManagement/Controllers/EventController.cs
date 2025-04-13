@@ -1,4 +1,5 @@
-﻿using LibraryManagement.BLL;
+﻿using System.Security.Claims;
+using LibraryManagement.BLL;
 using LibraryManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +21,10 @@ namespace LibraryManagement.Controllers {
 
 		[HttpGet]
 		public IActionResult CreateEvent() {
-			return View();
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            ViewBag.UserId = userId;
+
+            return View();
 		}
 
 		[HttpPost]
