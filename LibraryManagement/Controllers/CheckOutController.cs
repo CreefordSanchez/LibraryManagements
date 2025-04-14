@@ -18,7 +18,7 @@ namespace LibraryManagement.Controllers {
 			return View(_service.GetCheckOutByUser(id));
 		}
 
-		public IActionResult DueDateCheckOuts(DateTime dueDate) {
+		public IActionResult DueDateCheckOuts(DateOnly dueDate) {
 			return View(_service.GetCheckOutByDueDate(dueDate));
 		}
 

@@ -4,6 +4,7 @@
 @model IEnumerable<CheckOut>
 @{
 	ViewData["Title"] = "All Active CheckOuts";
+	DateOnly today = DateOnly.FromDateTime(DateTime.Today);
 }
 
 <h1>Current CheckOuts</h1>
@@ -23,11 +24,11 @@
 			</thead>
 			<tbody>
 				@foreach (CheckOut checkout in Model) {
-					<tr class="@(checkout.GetDueDate() >= CheckOut.GetToday() ? "danger" : "" )">
+					<tr class="@(checkout.DueDate >= today ? "danger" : "" )">
 						<td>@checkout.Book.Title</td>
 						<td>@checkout.UserId</td>
-						<td>@checkout.GetCheckoutDate().ToString()</td>
-						<td>@checkout.GetDueDate().ToString()</td>
+						<td>@checkout.CheckoutDate</td>
+						<td>@checkout.DueDate</td>
 					</tr>
 				}
 			</tbody>

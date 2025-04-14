@@ -12,7 +12,7 @@ namespace LibraryManagement.DAL {
 			return _context.CheckOuts.Where(x => x.UserId == id).ToList();
 		}
 
-		public List<CheckOut> GetCheckOutByDueDate(DateTime dueDate) {
+		public List<CheckOut> GetCheckOutByDueDate(DateOnly dueDate) {
 			return _context.CheckOuts.Where(x => x.DueDate == dueDate).ToList();
 		}
 
