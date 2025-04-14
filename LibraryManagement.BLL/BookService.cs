@@ -16,7 +16,7 @@ namespace LibraryManagement.BLL {
 			return selected;
 		}
 	
-		public async Task<bool> DeleteBook(int id)
+		public bool DeleteBook(int id)
 		{
             Book? book = _repo.GetBook(id);
 			if (book == null)
