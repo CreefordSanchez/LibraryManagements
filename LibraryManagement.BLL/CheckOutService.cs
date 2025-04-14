@@ -10,15 +10,15 @@ namespace LibraryManagement.BLL {
 		}
 		public List<CheckOut> GetCheckOutByUser(string id) {
 			List<CheckOut>? selected = _repo.GetCheckOutByUser(id);
-			if (selected == null) {
-				throw new KeyNotFoundException($"No CheckOuts found with User Id being {id}");
+			if (selected == null || selected.Count == 0) {
+				return new List<CheckOut>();
 			}
 			return selected;
 		}
 		public List<CheckOut> GetCheckOutByDueDate(DateTime dueDate) {
-			List<CheckOut> selected = _repo.GetCheckOutByDueDate(dueDate);
+			List<CheckOut>? selected = _repo.GetCheckOutByDueDate(dueDate);
 			if (selected == null || selected.Count == 0) {
-				throw new KeyNotFoundException("No CheckOuts found for the given due date");
+				return new List<CheckOut>();
 			}
 			return selected;
 		}

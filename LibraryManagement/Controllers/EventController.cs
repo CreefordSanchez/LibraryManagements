@@ -11,20 +11,15 @@ namespace LibraryManagement.Controllers {
 		}
 
 		public IActionResult GetEvent(int id) {
-			try {
-				Event selected = _service.GetEvent(id);
-				return View(selected);
-			} catch (KeyNotFoundException ex) {
-				return NotFound(ex.Message);
-			}
+			return View(_service.GetEvent(id));
 		}
 
 		[HttpGet]
 		public IActionResult CreateEvent() {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            ViewBag.UserId = userId;
+			var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+			ViewBag.UserId = userId;
 
-            return View();
+			return View();
 		}
 
 		[HttpPost]
@@ -37,5 +32,5 @@ namespace LibraryManagement.Controllers {
 			return View(events);
 		}
 
-    }
+	}
 }
