@@ -1,5 +1,38 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject UserManager<IdentityUser> UserManager
+@inject RoleManager<IdentityRole> RoleManage
+@model IEnumerable<EventReview>
 @{
+	ViewData["Title"] = "All Evenets";
 }
+
+<h1>All Event Reviews</h1>
+@{
+	if (Model == null || !Model.Any()) {
+		<h4>No Reviews for any event Found</h4>
+	} else {
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Event Title</th>
+					<th>User Id</th>
+					<th>Rating</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (EventReview er in Model) {
+					<tr onclick="document.location.href='EventReview/EventReview/@er.EventReviewId'">
+						<td>@er.Event.Title</td>
+						<td>@er.UserId</td>
+						<td>@er.Rating</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+}
+
+@if (User.IsInRole("User")) {
+	<a asp-action="Create">Create New Event Review</a>
+}
+

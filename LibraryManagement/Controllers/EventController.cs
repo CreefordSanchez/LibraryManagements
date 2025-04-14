@@ -10,7 +10,7 @@ namespace LibraryManagement.Controllers {
 			return View(_service.GetAllEvents());
 		}
 
-		public IActionResult GetEvent(int id) {
+		public IActionResult Event(int id) {
 			return View(_service.GetEvent(id));
 		}
 
