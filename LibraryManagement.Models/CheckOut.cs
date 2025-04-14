@@ -8,5 +8,13 @@
         public DateTime DueDate { get; set; }
         public DateTime CheckoutDate { get; set; }
         public bool AuthorizeCheckout { get; set; }
-    }
+
+        public DateOnly GetDueDate() {
+            return DateOnly.FromDateTime(this.DueDate);
+		}
+
+        public static DateOnly GetToday() {
+			return DateOnly.FromDateTime(DateTime.Now);
+		}
+	}
 }
