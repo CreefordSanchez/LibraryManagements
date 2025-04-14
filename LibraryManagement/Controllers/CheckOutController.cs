@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using LibraryManagement.BLL;
 using LibraryManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.Controllers {
@@ -8,6 +9,7 @@ namespace LibraryManagement.Controllers {
 		private readonly CheckOutService _service = service;
 		private readonly BookService _bookService = bookService;
 
+		[Authorize(Roles = "Admin")]
 		public IActionResult Index() {
 			return View(_service.GetAllCheckOuts());
 		}
