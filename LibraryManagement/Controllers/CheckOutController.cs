@@ -27,8 +27,8 @@ namespace LibraryManagement.Controllers {
 			var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 			ViewBag.UserId = userId;
 			ViewBag.BookList = _bookService.GetAllBooks();
-			ViewBag.Checked = DateTime.Now;
-			ViewBag.DueDate = DateTime.Now.AddDays(30);
+			ViewBag.Checked = DateOnly.FromDateTime(DateTime.Today);
+			ViewBag.DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(30));
 
 			return View();
 		}
