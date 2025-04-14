@@ -25,6 +25,7 @@ namespace LibraryManagement.DAL {
                 entity.Property(b => b.Title).IsRequired();
                 entity.Property(b => b.Genre).IsRequired();
                 entity.Property(b => b.Published).IsRequired();
+                entity.Property(b => b.Picture).IsRequired();
 
                 entity.HasMany(b => b.BookReviews)
                     .WithOne(bk => bk.Book)

@@ -9,5 +9,6 @@ namespace LibraryManagement.Models {
         public DateOnly Published { get; set; }
         public ICollection<BookReview>? BookReviews { get; set; }
         public CheckOut? CheckOut { get; set; }
+        public string Picture { get; set; }
     }
 }
