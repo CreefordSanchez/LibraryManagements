@@ -25,5 +25,10 @@ namespace LibraryManagement.BLL {
 			await _repo.Delete(book);
 			return true;
 		}
-	}
+
+        public void CreateBook(Book book)
+        {
+            _repo.CreateBook(book);
+        }
+    }
 }

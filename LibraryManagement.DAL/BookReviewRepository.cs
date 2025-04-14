@@ -1,5 +1,4 @@
 ﻿using LibraryManagement.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagement.DAL {
@@ -35,5 +34,10 @@ namespace LibraryManagement.DAL {
             _context.BookReviews.Remove(review);
             await _context.SaveChangesAsync();
         }
+
+		public void CreateBookReview(BookReview review) {
+			_context.BookReviews.Add(review);
+			_context.SaveChanges();
+		}
 	}
 }

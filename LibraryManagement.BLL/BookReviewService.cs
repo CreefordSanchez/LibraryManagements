@@ -53,5 +53,10 @@ namespace LibraryManagement.BLL {
             await _repo.DeleteAsync(review);
             return true;
         }
+
+        public void CreateBookReview(BookReview review)
+        {
+            _repo.CreateBookReview(review);
+        }
     }
 }
