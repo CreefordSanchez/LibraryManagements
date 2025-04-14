@@ -22,7 +22,7 @@ namespace LibraryManagement.BLL {
 			if (book == null)
 				return false;
 
-			await _repo.Delete(book);
+			_repo.Delete(book);
 			return true;
 		}
 
