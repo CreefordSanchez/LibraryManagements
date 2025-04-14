@@ -45,14 +45,13 @@ namespace LibraryManagement.Controllers {
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
-        public IActionResult CreateEvent()
-        {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            ViewBag.UserId = userId;
+		[HttpGet]
+		public IActionResult CreateEvent() {
+			var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+			ViewBag.UserId = userId;
 
-            return View();
-        }
+			return View();
+		}
 
         [HttpPost]
         public IActionResult CreateEvent(Event events)
@@ -63,7 +62,8 @@ namespace LibraryManagement.Controllers {
                 return RedirectToAction("Index");
             }
 
-            return View(events);
-        }
-    }
+			return View(events);
+		}
+
+	}
 }

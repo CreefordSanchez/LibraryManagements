@@ -14,18 +14,9 @@ namespace LibraryManagement.Controllers {
             return View(_service.GetAllBooks());
         }
 
-        public IActionResult Book(int id)
-        {
-            try
-            {
-                Book selected = _service.GetBook(id);
-                return View(selected);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-        }
+		public IActionResult Book(int id) {
+			return View(_service.GetBook(id));
+		}
 
         [HttpGet]
         public IActionResult Delete(int id)
@@ -57,16 +48,14 @@ namespace LibraryManagement.Controllers {
             return View();
         }
 
-        [HttpPost]
-        public IActionResult CreateBook(Book book)
-        {
-            if (ModelState.IsValid)
-            {
-                _service.CreateBook(book);
-                return RedirectToAction("Index");
-            }
+		[HttpPost]
+		public IActionResult CreateBook(Book book) {
+			if (ModelState.IsValid) {
+				_service.CreateBook(book);
+				return RedirectToAction("Index");
+			}
 
-            return View(book);
-        }
-    }
+			return View(book);
+		}
+	}
 }

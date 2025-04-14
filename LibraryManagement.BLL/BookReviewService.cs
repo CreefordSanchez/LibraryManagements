@@ -11,7 +11,7 @@ namespace LibraryManagement.BLL {
 		public List<BookReview> GetReviewsByBook(int bookId) {
 			List<BookReview>? selected = _repo.GetReviewsByBook(bookId);
 			if (selected == null || selected.Count == 0) {
-				throw new KeyNotFoundException($"No reviews found for the book with ID {bookId}");
+				return new List<BookReview>();
 			}
 			return selected;
 		}
@@ -19,7 +19,7 @@ namespace LibraryManagement.BLL {
 		public List<BookReview> GetReviewsByUser(string userId) {
 			List<BookReview>? selected = _repo.GetReviewsByUser(userId);
 			if (selected == null || selected.Count == 0) {
-				throw new KeyNotFoundException($"No reviews found for the user with ID {userId}");
+				return new List<BookReview>();
 			}
 			return selected;
 		}

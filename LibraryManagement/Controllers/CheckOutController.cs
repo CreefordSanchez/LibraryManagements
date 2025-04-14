@@ -8,26 +8,16 @@ namespace LibraryManagement.Controllers {
 		private readonly CheckOutService _service = service;
 		private readonly BookService _bookService = bookService;
 
-        public IActionResult Index() {
+		public IActionResult Index() {
 			return View(_service.GetAllCheckOuts());
 		}
 
 		public IActionResult UserCheckOuts(string id) {
-			try {
-				List<CheckOut> selected = _service.GetCheckOutByUser(id);
-				return View(selected);
-			} catch (KeyNotFoundException ex) {
-				return NotFound(ex.Message);
-			}
+			return View(_service.GetCheckOutByUser(id));
 		}
 
 		public IActionResult DueDateCheckOuts(DateTime dueDate) {
-			try {
-				List<CheckOut> selected = _service.GetCheckOutByDueDate(dueDate);
-				return View(selected);
-			} catch (KeyNotFoundException ex) {
-				return NotFound(ex.Message);
-			}
+			return View(_service.GetCheckOutByDueDate(dueDate));
 		}
 
         [HttpGet]
@@ -71,16 +61,14 @@ namespace LibraryManagement.Controllers {
             return View();
         }
 
-        [HttpPost]
-        public IActionResult CreateCheckOut(CheckOut checkOut)
-        {
-            if (ModelState.IsValid)
-            {
-                _service.CreateCheckOut(checkOut);
-                return RedirectToAction("Index");
-            }
+		[HttpPost]
+		public IActionResult CreateCheckOut(CheckOut checkOut) {
+			if (ModelState.IsValid) {
+				_service.CreateCheckOut(checkOut);
+				return RedirectToAction("Index");
+			}
 
-            return View(checkOut);
-        }
-    }
+			return View(checkOut);
+		}
+	}
 }

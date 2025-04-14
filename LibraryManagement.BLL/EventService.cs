@@ -6,13 +6,17 @@ namespace LibraryManagement.BLL {
 		private readonly EventRepository _repo = repo;
 
 		public List<Event> GetAllEvents() {
-			return _repo.GetAllEvents();
+			List<Event> events = _repo.GetAllEvents();
+			if (events == null || events.Count == 0) {
+				return new List<Event>();
+			}
+			return events;
 		}
 
 		public Event GetEvent(int id) {
 			Event? selected = _repo.GetEvent(id);
 			if (selected == null) {
-				throw new KeyNotFoundException("Event not found");
+				return new Event();
 			}
 			return selected;
 		}

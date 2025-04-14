@@ -4,8 +4,7 @@ using LibraryManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.Controllers {
-	public class BookReviewController(BookReviewService service, BookService bookService) : Controller
-	{
+	public class BookReviewController(BookReviewService service, BookService bookService) : Controller {
 		private readonly BookReviewService _service = service;
 		private readonly BookService _bookService = bookService;
 		public IActionResult Index()
@@ -13,41 +12,32 @@ namespace LibraryManagement.Controllers {
 			return View(_service.GetAllBookReviews());
 		}
 
-		public IActionResult BookReviews(int id)
-		{
-			try
-			{
-				List<BookReview> selected = _service.GetReviewsByBook(id);
-				return View(selected);
-			}
-			catch (KeyNotFoundException ex)
-			{
-				return NotFound(ex.Message);
-			}
+		public IActionResult BookReviews(int id) {
+			return View(_service.GetReviewsByBook(id));
 		}
 
-		public IActionResult UserBookReviews(string id)
-		{
-			try
-			{
-				List<BookReview> selected = _service.GetReviewsByUser(id);
-				return View(selected);
-			}
-			catch (KeyNotFoundException ex)
-			{
-				return NotFound(ex.Message);
-			}
+		public IActionResult UserBookReviews(string id) {
+			return View(_service.GetReviewsByUser(id));
 		}
 
-		[HttpGet]
+        public IActionResult CreateBookReview()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            ViewBag.UserId = userId;
+            ViewBag.BookList = _bookService.GetAllBooks();
+
+            return View();
+        }
+
+        [HttpGet]
         public IActionResult Delete(int id)
         {
             BookReview? review =  _service.GetBookReview(id);
             if (review == null)
                 return NotFound();
 
-            return View(review);
-        }
+			return View();
+		}
 
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)

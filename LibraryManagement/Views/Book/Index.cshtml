@@ -7,33 +7,42 @@
 }
 
 <h1>All Books</h1>
-<table class="table">
-	<thead>
-		<tr>
-			<th>Title</th>
-			<th>Author</th>
-			<th>Published Date</th>
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var book in Model) {
-			<tr onclick="document.location.href='Book/Book/@book.BookId'">
-				<td>@book.Title</td>
-				<td>@book.Author</td>
-				<td>@book.Published.ToShortDateString()</td>
-				<td>
-					<a asp-controller="BookReview" asp-action="BookReviews" asp-route-id="@book.BookId">Reviews</a>
-					@if (User.IsInRole("Admin")){
-						<a asp-action="Delete" asp-route-id="@book.BookId">Delete</a>
-					}
-				</td>
-			</tr>
-		}
-	</tbody>
-</table>
+@{
+	if(Model == null || !Model.Any())
+	{
+		<h4>No Books Found</h4>
+	}
+	else
+	{
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Author</th>
+					<th>Published Date</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (Book book in Model) {
+					<tr onclick="document.location.href='Book/Book/@book.BookId'">
+						<td>@book.Title</td>
+						<td>@book.Author</td>
+						<td>@book.Published.ToShortDateString()</td>
+						<td>
+							<a asp-controller="BookReview" asp-action="BookReviews" asp-route-id="@book.BookId">Reviews</a>
+							@if (User.IsInRole("Admin")){
+								<a asp-action="Delete" asp-route-id="@book.BookId">Delete</a>
+							}
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+}
 
 <!--Update this for the create action whatever we name it -->
 @if (User.IsInRole("Admin")) {
 	<a asp-action="Create">Create New Book</a>
-})
+}

@@ -11,7 +11,7 @@ namespace LibraryManagement.BLL {
 		public Book GetBook(int id) {
 			Book? selected = _repo.GetBook(id);
 			if (selected == null) {
-				throw new KeyNotFoundException($"No book found with ID {id}");
+				return new Book();
 			}
 			return selected;
 		}
