@@ -27,5 +27,10 @@ namespace LibraryManagement.DAL {
             await _context.SaveChangesAsync();
         }
 
+        public void CreateEvent(Event events)
+        {
+            _context.Events.Add(events);
+            _context.SaveChanges();
+        }
     }
 }

@@ -28,5 +28,11 @@ namespace LibraryManagement.DAL {
             _context.CheckOuts.Remove(checkout);
             await _context.SaveChangesAsync();
         }
+
+        public void CreateCheckOut(CheckOut check)
+        {
+            _context.CheckOuts.Add(check);
+            _context.SaveChanges();
+        }
     }
 }

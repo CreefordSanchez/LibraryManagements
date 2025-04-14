@@ -58,5 +58,29 @@ namespace LibraryManagement.Controllers {
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public IActionResult CreateCheckOut()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            ViewBag.UserId = userId;
+            ViewBag.BookList = _bookService.GetAllBooks();
+            ViewBag.Checked = DateTime.Now;
+            ViewBag.DueDate = DateTime.Now.AddDays(30);
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateCheckOut(CheckOut checkOut)
+        {
+            if (ModelState.IsValid)
+            {
+                _service.CreateCheckOut(checkOut);
+                return RedirectToAction("Index");
+            }
+
+            return View(checkOut);
+        }
     }
 }

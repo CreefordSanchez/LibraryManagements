@@ -25,5 +25,11 @@ namespace LibraryManagement.DAL {
             _context.EventReviews.Remove(review);
             await _context.SaveChangesAsync();
         }
+
+        public void CreateEventReview(EventReview review)
+        {
+            _context.EventReviews.Add(review);
+            _context.SaveChanges();
+        }
     }
 }

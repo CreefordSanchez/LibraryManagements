@@ -26,6 +26,11 @@ namespace LibraryManagement.BLL {
             await _repo.DeleteAsync(review);
             return true;
         }
+
+        public void CreateEventReview(EventReview review)
+        {
+            _repo.CreateEventReview(review);
+        }
     }
 }
  

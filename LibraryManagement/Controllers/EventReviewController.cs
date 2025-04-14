@@ -35,12 +35,33 @@ namespace LibraryManagement.Controllers {
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var deleted = await _service.DeleteAsync(id); // it wouldn't let me put a boolean as the type, most likely an error on my part
+            var deleted = await _service.DeleteAsync(id); // it wouldn't let me put a boolean as the type, most likely an error on my part -Mat
             if (!deleted)
                 return NotFound();
 
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        public IActionResult CreateEventReview()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            ViewBag.UserId = userId;
+            ViewBag.EventList = _eventService.GetAllEvents();
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateEventReview(EventReview review)
+        {
+            if (ModelState.IsValid)
+            {
+                _service.CreateEventReview(review);
+                return RedirectToAction("Index");
+            }
+
+            return View(review);
+        }
     }
 }
