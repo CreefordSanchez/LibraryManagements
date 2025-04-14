@@ -23,9 +23,9 @@ namespace LibraryManagement.Controllers {
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
-            EventReview? review = await _service.GetByIdAsync(id);
+            EventReview? review = _service.GetById(id);
             if (review == null)
                 return NotFound();
 
@@ -33,9 +33,9 @@ namespace LibraryManagement.Controllers {
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var deleted = await _service.DeleteAsync(id); // it wouldn't let me put a boolean as the type, most likely an error on my part -Mat
+            bool deleted = _service.Delete(id);
             if (!deleted)
                 return NotFound();
 

@@ -26,9 +26,9 @@ namespace LibraryManagement.Controllers {
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
-            Event? ev = await _service.GetByIdAsync(id);
+            Event? ev = _service.GetById(id);
             if (ev == null)
                 return NotFound();
 
@@ -36,9 +36,9 @@ namespace LibraryManagement.Controllers {
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            bool deleted = await _service.DeleteAsync(id);
+            bool deleted = _service.Delete(id);
             if (!deleted)
                 return NotFound();
 

@@ -31,9 +31,9 @@ namespace LibraryManagement.Controllers {
 		}
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int bookId, string userId)
+        public IActionResult Delete(int bookId, string userId)
         {
-            CheckOut checkout = await _service.GetByCompositeKeyAsync(bookId, userId);
+            CheckOut checkout = _service.GetByCompositeKey(bookId, userId);
             if (checkout == null)
                 return NotFound();
 
@@ -49,7 +49,7 @@ namespace LibraryManagement.Controllers {
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int bookId, string userId)
         {
-            bool deleted = await _service.DeleteIfReturnedAsync(bookId, userId);
+            bool deleted = _service.DeleteIfReturned(bookId, userId);
             if (!deleted)
             {
                 TempData["Error"] = "Cannot delete a checkout that has not been returned.";

@@ -17,16 +17,15 @@ namespace LibraryManagement.DAL {
 			return _context.CheckOuts.Where(x => x.DueDate == dueDate).ToList();
 		}
 
-        public async Task<CheckOut?> GetByCompositeKeyAsync(int bookId, string userId)
+        public CheckOut? GetByCompositeKey(int bookId, string userId)
         {
-            return await _context.CheckOuts
-                .FirstOrDefaultAsync(c => c.BookId == bookId && c.UserId == userId);
+            return _context.CheckOuts.FirstOrDefault(c => c.BookId == bookId && c.UserId == userId);
         }
 
-        public async Task DeleteAsync(CheckOut checkout)
+        public void Delete(CheckOut checkout)
         {
             _context.CheckOuts.Remove(checkout);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public void CreateCheckOut(CheckOut check)

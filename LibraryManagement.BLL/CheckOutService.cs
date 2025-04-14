@@ -23,18 +23,18 @@ namespace LibraryManagement.BLL {
 			return selected;
 		}
 
-        public async Task<CheckOut?> GetByCompositeKeyAsync(int bookId, string userId)
+        public CheckOut? GetByCompositeKey(int bookId, string userId)
         {
-            return await _repo.GetByCompositeKeyAsync(bookId, userId);
+            return _repo.GetByCompositeKey(bookId, userId);
         }
 
-        public async Task<bool> DeleteIfReturnedAsync(int bookId, string userId)
+        public bool DeleteIfReturned(int bookId, string userId)
         {
-            var checkout = await _repo.GetByCompositeKeyAsync(bookId, userId);
+            CheckOut? checkout = _repo.GetByCompositeKey(bookId, userId);
             if (checkout == null || !checkout.IsReturned)
                 return false;
 
-            await _repo.DeleteAsync(checkout);
+            _repo.Delete(checkout);
             return true;
         }
 

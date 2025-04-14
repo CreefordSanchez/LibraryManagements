@@ -17,10 +17,9 @@ namespace LibraryManagement.DAL {
 			return _context.BookReviews.Where(bk => bk.UserId == userId).ToList();
 		}
 
-        public async Task<BookReview?> GetByCompositeKeyAsync(int bookId, string userId)
+        public BookReview? GetByCompositeKeyAsync(int bookId, string userId)
         {
-            return await _context.BookReviews
-                .FirstOrDefaultAsync(br => br.BookId == bookId && br.UserId ==userId);
+            return _context.BookReviews.FirstOrDefault(br => br.BookId == bookId && br.UserId ==userId);
         }
 
         public BookReview GetBookReview(int id)
@@ -29,10 +28,10 @@ namespace LibraryManagement.DAL {
             return selected;
         }
 
-        public async Task DeleteAsync(BookReview review)
+        public void Delete(BookReview review)
         {
             _context.BookReviews.Remove(review);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
 		public void CreateBookReview(BookReview review) {

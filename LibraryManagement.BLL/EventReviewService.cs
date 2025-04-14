@@ -12,18 +12,18 @@ namespace LibraryManagement.BLL {
 			return _repo.GetReviewsByEvent(eventId);
 		}
 
-        public async Task<EventReview?> GetByIdAsync(int id)
+        public EventReview GetById(int id)
         {
-            return await _repo.GetByIdAsync(id);
+            return _repo.GetById(id);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public bool Delete(int id)
         {
-            EventReview? review = await _repo.GetByIdAsync(id);
+            EventReview? review = _repo.GetById(id);
             if (review == null)
                 return false;
 
-            await _repo.DeleteAsync(review);
+            _repo.Delete(review);
             return true;
         }
 

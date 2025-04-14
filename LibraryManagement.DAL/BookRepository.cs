@@ -12,10 +12,10 @@ namespace LibraryManagement.DAL {
 			return selected;
 		}
 
-		public async Task Delete(Book book)
+		public void Delete(Book book)
 		{
 			_context.Books.Remove(book);
-			await _context.SaveChangesAsync();
+			_context.SaveChanges();
 		}
 
         public void CreateBook(Book book)

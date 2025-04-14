@@ -50,7 +50,7 @@ namespace LibraryManagement.BLL {
             if (review == null)
                 return false;
 
-            await _repo.DeleteAsync(review);
+            _repo.Delete(review);
             return true;
         }
 

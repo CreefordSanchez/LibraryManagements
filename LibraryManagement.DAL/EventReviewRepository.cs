@@ -13,17 +13,15 @@ namespace LibraryManagement.DAL {
 			return _context.EventReviews.Where(er => er.EventId == eventId).ToList();
 		}
 
-        public async Task<EventReview?> GetByIdAsync(int id)
+        public EventReview? GetById(int id)
         {
-            return await _context.EventReviews
-                .Include(r => r.Event)
-                .FirstOrDefaultAsync(r => r.EventReviewId == id);
+            return _context.EventReviews.FirstOrDefault(r => r.EventReviewId == id);
         }
 
-        public async Task DeleteAsync(EventReview review)
+        public void Delete(EventReview review)
         {
             _context.EventReviews.Remove(review);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public void CreateEventReview(EventReview review)
