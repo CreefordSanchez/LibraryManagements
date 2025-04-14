@@ -1,0 +1,23 @@
+﻿@model BookReview;
+
+<h2>New Book Review</h2>
+
+<form asp-action="CreateBookReview">
+	<input asp-for="UserId" value="@ViewBag.UserId" type="hidden"/>
+
+	<label asp-for="BookId">Book: </label>
+	<select asp-for="BookId">
+		<option value="">None</option>
+		@foreach (Book book in ViewBag.BookList) {
+			<option value="@book.BookId">@book.Title</option>
+		}
+	</select>
+
+	<label asp-for="Rating">Rating: </label>
+	<input asp-for="Rating"/>
+
+	<label asp-for="Comment">Comment: </label>
+	<input asp-for="Comment"/>
+
+	<button type="submit">Post</button>
+</form>

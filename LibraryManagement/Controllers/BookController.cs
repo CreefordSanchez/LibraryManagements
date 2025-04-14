@@ -36,5 +36,20 @@ namespace LibraryManagement.Controllers {
 			}
 			return View(book);
 		}
+
+		[HttpGet]
+		public IActionResult CreateBook() {
+			return View();
+		}
+
+		[HttpPost]
+		public IActionResult CreateBook(Book book) {
+            if (ModelState.IsValid) {
+				_service.CreateBook(book);
+				return RedirectToAction("Index");
+			}
+
+            return View(book);
+		}
 	}
 }

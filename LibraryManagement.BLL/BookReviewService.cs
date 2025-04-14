@@ -24,9 +24,8 @@ namespace LibraryManagement.BLL {
 			return selected;
 		}
 
-		public async Task AddReview(BookReview review)
-		{
-			await _repo.AddReview(review);
+		public void CreateBookReview(BookReview review) {
+			_repo.CreateBookReview(review);
 		}
 	}
 }

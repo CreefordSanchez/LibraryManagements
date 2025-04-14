@@ -12,5 +12,10 @@ namespace LibraryManagement.DAL {
 			Event? selected = _context.Events.FirstOrDefault(e => e.EventId == id);
 			return selected;
 		}
-	}
+
+        public void CreateEvent(Event events) {
+			_context.Events.Add(events);
+			_context.SaveChanges();
+		}
+    }
 }

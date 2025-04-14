@@ -1,4 +1,5 @@
-﻿using LibraryManagement.BLL;
+﻿using System.Security.Claims;
+using LibraryManagement.BLL;
 using LibraryManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,5 +18,24 @@ namespace LibraryManagement.Controllers {
 				return NotFound(ex.Message);
 			}
 		}
-	}
+
+		[HttpGet]
+		public IActionResult CreateEvent() {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            ViewBag.UserId = userId;
+
+            return View();
+		}
+
+		[HttpPost]
+		public IActionResult CreateEvent(Event events) {
+			if (ModelState.IsValid) {
+				_service.CreateEvent(events);
+				return RedirectToAction("Index");
+			}
+
+			return View(events);
+		}
+
+    }
 }

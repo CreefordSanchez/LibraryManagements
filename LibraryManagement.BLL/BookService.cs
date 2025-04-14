@@ -16,9 +16,8 @@ namespace LibraryManagement.BLL {
 			return selected;
 		}
 
-        public async Task AddBook(Book book)
-        {
-            await _repo.AddBook(book);
-        }
-    }
+		public void CreateBook(Book book) {
+			_repo.CreateBook(book);
+		}
+	}
 }

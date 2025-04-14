@@ -1,0 +1,27 @@
+﻿@model Event
+
+<h1>Creating Event</h1>
+
+<form asp-action="CreateEvent">
+	<input asp-for="OrganiserId" value="@ViewBag.UserId" type="hidden"/>
+
+	<label asp-for="Title">Title: </label>
+	<input asp-for="Title"/>
+	
+	<label asp-for="Date">Date: </label>
+	<input asp-for="Date"/>
+
+	
+	<label asp-for="Time">Time: </label>
+	<input asp-for="Time"/>
+
+	
+	<label asp-for="Location">Location: </label>
+	<input asp-for="Location"/>
+
+	
+	<label asp-for="Description">Description</label>
+	<input asp-for="Description"/>
+
+	<button type="submit">Create</button>
+</form>

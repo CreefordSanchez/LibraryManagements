@@ -1,0 +1,24 @@
+﻿@model CheckOut;
+
+<h1>New Checkout Page</h1>
+
+<form asp-action="CreateCheckOut">
+	<input asp-for="UserId" value="@ViewBag.UserId" type="hidden"/>
+	<input asp-for="IsReturned" value="false" type="hidden"/>
+	<input asp-for="IsOverdue" value="false" type="hidden" />
+	<input asp-for="AuthorizeCheckout" value="true" type="hidden" />
+	<input asp-for="DueDate" value="@ViewBag.DueDate" type="hidden" />
+	<input asp-for="CheckoutDate" value="@ViewBag.Checked" type="hidden" />
+
+	<label asp-for="BookId">Book Id: </label>
+	<select asp-for="BookId">
+		<option value="">None</option>
+		@foreach (Book book in ViewBag.BookList) {
+			<option value="@book.BookId">@book.Title</option>
+		}
+	</select>
+
+	<button type="submit">Checkout</button>
+</form>
+<p>ooekd {@ViewBag.UserId}</p>
+<p>User {@ViewBag.UserId}  Date: {@ViewBag.DueDate}  Check: @ViewBag.Checked</p>

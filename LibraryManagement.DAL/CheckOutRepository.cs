@@ -15,5 +15,10 @@ namespace LibraryManagement.DAL {
 		public List<CheckOut> GetCheckOutByDueDate(DateTime dueDate) {
 			return _context.CheckOuts.Where(x => x.DueDate == dueDate).ToList();
 		}
+
+		public void CreateCheckOut(CheckOut check) {
+			_context.CheckOuts.Add(check);
+			_context.SaveChanges();
+		}
 	}
 }

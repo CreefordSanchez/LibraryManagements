@@ -11,5 +11,10 @@ namespace LibraryManagement.DAL {
 		public List<EventReview> GetReviewsByEvent(int eventId) {
 			return _context.EventReviews.Where(er => er.EventId == eventId).ToList();
 		}
+
+		public void CreateEventReview(EventReview review) {
+			_context.EventReviews.Add(review);
+			_context.SaveChanges();
+		}
 	}
 }

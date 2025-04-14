@@ -22,5 +22,9 @@ namespace LibraryManagement.BLL {
 			}
 			return selected;
 		}
+
+		public void CreateCheckOut(CheckOut check) {
+			_repo.CreateCheckOut(check);
+		}
 	}
 }
