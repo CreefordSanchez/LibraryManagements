@@ -26,13 +26,8 @@
 					<tr class="@(checkout.GetDueDate() >= CheckOut.GetToday() ? "danger" : "" )">
 						<td>@checkout.Book.Title</td>
 						<td>@checkout.UserId</td>
-						<td>@checkout.CheckoutDate.ToString()</td>
-						@if (checkout.DueDate > DateTime.Now) {
-							<td>@checkout.DueDate.ToString()</td>
-						} else {
-							<td class="table-danger">@checkout.DueDate.ToString()</td>
-						})
-						<td>@checkout.DueDate.ToString()</td>
+						<td>@checkout.GetCheckoutDate().ToString()</td>
+						<td>@checkout.GetDueDate().ToString()</td>
 					</tr>
 				}
 			</tbody>
