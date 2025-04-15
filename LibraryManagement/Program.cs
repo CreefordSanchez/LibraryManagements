@@ -77,10 +77,18 @@ namespace LibraryManagements {
                     Email = "AdminUser@gmail.com",
                     EmailConfirmed = true
                 };
+                await userManager.CreateAsync(adminUser, "Admin_1234");
+                await userManager.AddToRoleAsync(adminUser, "Admin");
 
-                if (await userManager.FindByEmailAsync(adminUser.Email) == null) {
-                    await userManager.CreateAsync(adminUser, "Admin_1234");
-                    await userManager.AddToRoleAsync(adminUser, "Admin");
+                for (int i = 0; i < 5; i++) {
+                    IdentityUser user = new IdentityUser
+                    {
+                        UserName = $"User{i}@gmail.com",
+                        Email = $"User{i}@gmail.com",
+                        EmailConfirmed = true
+                    };
+                    await userManager.CreateAsync(user, "User_123");
+                    await userManager.AddToRoleAsync(user, "User");
                 }
             }
         }
