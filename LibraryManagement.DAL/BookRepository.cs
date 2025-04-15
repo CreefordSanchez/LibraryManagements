@@ -19,9 +19,16 @@ namespace LibraryManagement.DAL {
 			return selected;
 		}
 
-		public void CreateBook(Book book) {
-			_context.Books.Add(book);
+		public void Delete(Book book)
+		{
+			_context.Books.Remove(book);
 			_context.SaveChanges();
 		}
-	}
+
+        public void CreateBook(Book book)
+        {
+            _context.Books.Add(book);
+            _context.SaveChanges();
+        }
+    }
 }

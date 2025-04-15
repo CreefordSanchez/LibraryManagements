@@ -12,6 +12,24 @@ namespace LibraryManagement.Controllers {
 			return View(_service.GetAllEvents());
 		}
 
+		[HttpGet]
+		public IActionResult Delete(int id) {
+			Event? ev = _service.GetById(id);
+			if (ev == null)
+				return NotFound();
+
+			return View(ev);
+		}
+
+		[HttpPost]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            bool deleted = _service.Delete(id);
+            if (!deleted)
+                return NotFound();
+
+            return RedirectToAction(nameof(Index));
+        }
 		public IActionResult Event(int id) {
 			List<EventReview> eventReviews = _eventReviewService.GetReviewsByEvent(id);
 			List<Event> events = _service.GetAllEvents();
@@ -41,12 +59,14 @@ namespace LibraryManagement.Controllers {
 			return View();
 		}
 
-		[HttpPost]
-		public IActionResult CreateEvent(Event events) {
-			if (ModelState.IsValid) {
-				_service.CreateEvent(events);
-				return RedirectToAction("Index");
-			}
+        [HttpPost]
+        public IActionResult CreateEvent(Event events)
+        {
+            if (ModelState.IsValid)
+            {
+                _service.CreateEvent(events);
+                return RedirectToAction("Index");
+            }
 
 			return View(events);
 		}

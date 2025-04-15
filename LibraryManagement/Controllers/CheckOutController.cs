@@ -26,6 +26,35 @@ namespace LibraryManagement.Controllers {
 			return View(_service.GetCheckOutByDueDate(today));
 		}
 
+        [HttpGet]
+        public IActionResult Delete(int bookId, string userId)
+        {
+            CheckOut checkout = _service.GetByCompositeKey(bookId, userId);
+            if (checkout == null)
+                return NotFound();
+
+            if (!checkout.IsReturned)
+            {
+                TempData["Error"] = "Cannot delete a checkout that has not been returned.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(checkout);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteConfirmed(int bookId, string userId)
+        {
+            bool deleted = _service.DeleteIfReturned(bookId, userId);
+            if (!deleted)
+            {
+                TempData["Error"] = "Cannot delete a checkout that has not been returned.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
 		[HttpGet]
 		public IActionResult CreateCheckOut() {
 			var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -34,8 +63,8 @@ namespace LibraryManagement.Controllers {
 			ViewBag.Checked = DateOnly.FromDateTime(DateTime.Today);
 			ViewBag.DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(30));
 
-			return View();
-		}
+            return View();
+        }
 
 		[HttpPost]
 		public IActionResult CreateCheckOut(CheckOut checkOut) {

@@ -14,9 +14,15 @@ namespace LibraryManagement.DAL {
 			return selected;
 		}
 
-		public void CreateEvent(Event events) {
+        public void Delete(Event ev)
+        {
+            _context.Events.Remove(ev);
+            _context.SaveChanges();
+        }
+
+        public void CreateEvent(Event events) {
 			_context.Events.Add(events);
 			_context.SaveChanges();
 		}
-	}
+    }
 }

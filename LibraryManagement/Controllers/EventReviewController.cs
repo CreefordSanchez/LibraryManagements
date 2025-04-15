@@ -23,7 +23,28 @@ namespace LibraryManagement.Controllers {
         }
 
         [HttpGet]
-        public IActionResult CreateEventReview() {
+        public IActionResult Delete(int id)
+        {
+            EventReview? review = _service.GetById(id);
+            if (review == null)
+                return NotFound();
+
+            return View(review);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            bool deleted = _service.Delete(id);
+            if (!deleted)
+                return NotFound();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult CreateEventReview()
+        {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             ViewBag.UserId = userId;
             ViewBag.EventList = _eventService.GetAllEvents();
@@ -32,8 +53,10 @@ namespace LibraryManagement.Controllers {
         }
 
         [HttpPost]
-        public IActionResult CreateEventReview(EventReview review) {
-            if (ModelState.IsValid) {
+        public IActionResult CreateEventReview(EventReview review)
+        {
+            if (ModelState.IsValid)
+            {
                 _service.CreateEventReview(review);
                 return RedirectToAction("Index");
             }
