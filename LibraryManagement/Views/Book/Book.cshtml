@@ -1,18 +1,19 @@
-﻿@using Microsoft.AspNetCore.Identity;
+﻿@using LibraryManagement.Models.ModelViews
+@using Microsoft.AspNetCore.Identity;
 @inject UserManager<IdentityUser> UserManager
 @inject RoleManager<IdentityRole> RoleManage
-@model Book;
+@model IQueryable<BookAndReview>
 @{
-	IEnumerable<BookReview> reviews = ViewBag.Reviews;
-	ViewData["Title"] = Model.Title;
+	BookAndReview first = Model.First();
+	ViewData["Title"] = first.Title;
 }
 
 <div>
 	<div class="bookInfo">
-		<h1>@Model.Title</h1>
-		<h5>@Model.Author</h5>
-		<p>@Model.Genre</p>
-		<p>@Model.Published</p>
+		<h1>@first.Title</h1>
+		<h5>@first.Author</h5>
+		<p>@first.Genre</p>
+		<p>@first.Published</p>
 	</div>
 	<div class="reviews">
 		<table class="table">
@@ -24,7 +25,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (BookReview review in reviews) {
+				@foreach (BookAndReview review in Model) {
 					<tr>
 						<td>@review.UserId</td>
 						<td>@review.Rating</td>
