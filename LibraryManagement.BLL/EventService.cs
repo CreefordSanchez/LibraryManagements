@@ -21,8 +21,24 @@ namespace LibraryManagement.BLL {
 			return selected;
 		}
 
-		public void CreateEvent(Event review) {
-			_repo.CreateEvent(review);
-		}
-	}
+        public Event? GetById(int id)
+        {
+            return _repo.GetEvent(id);
+        }
+
+        public bool Delete(int id)
+        {
+            Event ev = _repo.GetEvent(id);
+            if (ev == null)
+                return false;
+
+            _repo.Delete(ev);
+            return true;
+        }
+
+        public void CreateEvent(Event review)
+        {
+            _repo.CreateEvent(review);
+        }
+    }
 }

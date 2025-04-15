@@ -1,4 +1,5 @@
-﻿using LibraryManagement.BLL;
+﻿using System.Security.Claims;
+using LibraryManagement.BLL;
 using LibraryManagement.Models;
 using LibraryManagement.Models.ModelViews;
 using Microsoft.AspNetCore.Mvc;
@@ -8,9 +9,10 @@ namespace LibraryManagement.Controllers {
 		private readonly BookService _service = service;
 		private readonly BookReviewService _reviewService = rService;
 
-		public IActionResult Index() {
-			return View(_service.GetAllBooks());
-		}
+        public IActionResult Index()
+        {
+            return View(_service.GetAllBooks());
+        }
 
 		public IActionResult Book(int id) {
 			List<BookReview> bookReviews = _reviewService.GetReviewsByBook(id);
@@ -32,10 +34,35 @@ namespace LibraryManagement.Controllers {
 			return View(bookAndReviews);
 		}
 
-		[HttpGet]
-		public IActionResult CreateBook() {
-			return View();
-		}
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            Book? review = _service.GetBook(id);
+            if (review == null)
+                return NotFound();
+
+            return View(review);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            bool deleted = _service.DeleteBook(id);
+            if (!deleted)
+                return NotFound();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult CreateBookReview()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            ViewBag.UserId = userId;
+            ViewBag.BookList = _service.GetAllBooks();
+
+            return View();
+        }
 
 		[HttpPost]
 		public IActionResult CreateBook(Book book) {

@@ -24,8 +24,39 @@ namespace LibraryManagement.BLL {
 			return selected;
 		}
 
-		public void CreateBookReview(BookReview review) {
-			_repo.CreateBookReview(review);
-		}
-	}
+        public BookReview GetBookReview(int id)
+        {
+            BookReview? selected = _repo.GetBookReview(id);
+            if (selected == null)
+            {
+                throw new KeyNotFoundException($"No book review found with ID {id}");
+            }
+            return selected;
+        }
+
+        public BookReview GetBook(int id)
+        {
+            BookReview? selected = _repo.GetBookReview(id);
+            if (selected == null)
+            {
+                throw new KeyNotFoundException($"No book found with ID {id}");
+            }
+            return selected;
+        }
+
+        public async Task<bool> DeleteBookReview(int id)
+        {
+            BookReview? review = _repo.GetBookReview(id);
+            if (review == null)
+                return false;
+
+            _repo.Delete(review);
+            return true;
+        }
+
+        public void CreateBookReview(BookReview review)
+        {
+            _repo.CreateBookReview(review);
+        }
+    }
 }

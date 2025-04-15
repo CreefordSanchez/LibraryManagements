@@ -20,6 +20,21 @@ namespace LibraryManagement.BLL {
 			return reviews;
 		}
 
+        public EventReview GetById(int id)
+        {
+            return _repo.GetById(id);
+        }
+
+        public bool Delete(int id)
+        {
+            EventReview? review = _repo.GetById(id);
+            if (review == null)
+                return false;
+
+            _repo.Delete(review);
+            return true;
+        }
+
 		public void CreateEventReview(EventReview review) {
 			_repo.CreateEventReview(review);
 		}
