@@ -37,7 +37,7 @@ namespace LibraryManagement.Controllers {
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(int bookId, string userId)
+        public IActionResult DeleteConfirmed(int bookId, string userId)
         {
             bool deleted = _service.DeleteIfReturned(bookId, userId);
             if (!deleted)
