@@ -14,12 +14,16 @@ namespace LibraryManagement.Controllers {
 			return View(_service.GetAllCheckOuts());
 		}
 
+		[Authorize(Roles = "User")]
 		public IActionResult UserCheckOuts(string id) {
+			// Will need to be able to tell who is logged in
 			return View(_service.GetCheckOutByUser(id));
 		}
 
-		public IActionResult DueDateCheckOuts(DateOnly dueDate) {
-			return View(_service.GetCheckOutByDueDate(dueDate));
+		[Authorize(Roles = "Admin")]
+		public IActionResult DueDateCheckOuts() {
+			DateOnly today = DateOnly.FromDateTime(DateTime.Today);
+			return View(_service.GetCheckOutByDueDate(today));
 		}
 
         [HttpGet]

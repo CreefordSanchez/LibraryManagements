@@ -12,6 +12,7 @@ namespace LibraryManagement.Controllers {
 			return View(_service.GetAllBookReviews());
 		}
 
+		// This action may be not needed, as currently the book reviews are displayed on the book page.
 		public IActionResult BookReviews(int id) {
 			return View(_service.GetReviewsByBook(id));
 		}
