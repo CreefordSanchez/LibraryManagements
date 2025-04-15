@@ -1,9 +1,73 @@
-﻿@{
+﻿@using LibraryManagement.Models.ModelViews
+@model IEnumerable<BookAndEvent>
+@{
     ViewData["Title"] = "Home Page";
 }
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<div class="books">
+	<h1>All Books</h1>
+	@{
+		if (Model == null || !Model.Any()) {
+			<h4>No Books Found</h4>
+		} else {
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Author</th>
+						<th>Published Date</th>
+						<th>Reviews</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (BookAndEvent book in Model) {
+						<tr onclick="document.location.href='Book/Book/@book.BookId'">
+							<td>@book.BookTitle</td>
+							<td>@book.BookAuthor</td>
+							<td>@book.BookPublished.ToShortDateString()</td>
+							<td>
+								<a asp-controller="BookReview" asp-action="BookReviews" asp-route-id="@book.BookId">Reviews</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		}
+	}
+</div>
+<div class="events">
+	<h1>Upcomming Events</h1>
+	@{
+		if (Model == null || !Model.Any()) {
+			<h4>No Upcomming Events Found</h4>
+		} else {
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Location</th>
+						<th>Date & Time</th>
+						<th>Reviews</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (BookAndEvent e in Model) {
+						<tr onclick="document.location.href='Event/Event/@e.EventId'">
+							<td>@e.EventTitle</td>
+							<td>@e.EventLocation</td>
+							<td>@e.EventDate.ToString(), @e.EventTime.ToString()</td>
+							<td>
+								<a asp-controller="EventReview" asp-action="EventReviews" asp-route-id="@e.EventId">Reviews</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		}
+	}
 </div>
 
 <!--

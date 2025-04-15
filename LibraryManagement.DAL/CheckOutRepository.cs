@@ -17,9 +17,21 @@ namespace LibraryManagement.DAL {
 			return _context.CheckOuts.Where(x => x.DueDate == dueDate).Include(c => c.Book).ToList();
 		}
 
-		public void CreateCheckOut(CheckOut check) {
-			_context.CheckOuts.Add(check);
-			_context.SaveChanges();
-		}
-	}
+        public CheckOut? GetByCompositeKey(int bookId, string userId)
+        {
+            return _context.CheckOuts.FirstOrDefault(c => c.BookId == bookId && c.UserId == userId);
+        }
+
+        public void Delete(CheckOut checkout)
+        {
+            _context.CheckOuts.Remove(checkout);
+            _context.SaveChanges();
+        }
+
+        public void CreateCheckOut(CheckOut check)
+        {
+            _context.CheckOuts.Add(check);
+            _context.SaveChanges();
+        }
+    }
 }

@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace LibraryManagement.DAL {
-    public class LibraryManagementContext : IdentityDbContext<IdentityUser> {
+namespace LibraryManagement.DAL
+{
+    public class LibraryManagementContext : IdentityDbContext<IdentityUser>
+    {
         public LibraryManagementContext(DbContextOptions<LibraryManagementContext> options) : base(options) { }
 
         public DbSet<Book> Books { set; get; }
@@ -15,7 +17,8 @@ namespace LibraryManagement.DAL {
         public DbSet<EventReview> EventReviews { set; get; }
         public DbSet<CheckOut> CheckOuts { set; get; }
 
-        protected override void OnModelCreating(ModelBuilder builder) {
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
             base.OnModelCreating(builder);
 
             builder.Entity<Book>(entity =>
@@ -87,7 +90,7 @@ namespace LibraryManagement.DAL {
 
             builder.Entity<CheckOut>(entity =>
             {
-                entity.HasKey(co => co.BookId);               
+                entity.HasKey(co => co.BookId);
 
                 entity.Property(co => co.IsReturned).IsRequired();
                 entity.Property(co => co.IsOverdue).IsRequired();
@@ -102,7 +105,7 @@ namespace LibraryManagement.DAL {
 
                 entity.HasOne(co => co.Book)
                     .WithOne(b => b.CheckOut)
-                    .HasForeignKey<CheckOut>(co => co.BookId) 
+                    .HasForeignKey<CheckOut>(co => co.BookId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
 

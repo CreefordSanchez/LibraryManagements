@@ -17,6 +17,23 @@ namespace LibraryManagement.DAL {
 			return _context.BookReviews.Where(bk => bk.UserId == userId).Include(c => c.Book).ToList();
 		}
 
+        public BookReview? GetByCompositeKeyAsync(int bookId, string userId)
+        {
+            return _context.BookReviews.FirstOrDefault(br => br.BookId == bookId && br.UserId ==userId);
+        }
+
+        public BookReview GetBookReview(int id)
+        {
+            BookReview? selected = _context.BookReviews.FirstOrDefault(b => b.BookId == id);
+            return selected;
+        }
+
+        public void Delete(BookReview review)
+        {
+            _context.BookReviews.Remove(review);
+            _context.SaveChanges();
+        }
+
 		public void CreateBookReview(BookReview review) {
 			_context.BookReviews.Add(review);
 			_context.SaveChanges();

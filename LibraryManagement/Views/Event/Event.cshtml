@@ -1,8 +1,41 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using LibraryManagement.Models.ModelViews
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<IdentityUser> UserManager
+@inject RoleManager<IdentityRole> RoleManage
+@model IQueryable<EventAndReview>
 @{
+	EventAndReview first = Model.First();
+	ViewData["Title"] = first.Title;
 }
+
+<div>
+	<div class="bookInfo">
+		<h1>@first.Title</h1>
+		<h5>@first.Date, @first.Time</h5>
+		<p>@first.Location</p>
+	</div>
+	<div class="reviews">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>UserId</th>
+					<th>Rating</th>
+					<th>Comment</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (EventAndReview review in Model) {
+					<tr>
+						<td>@review.UserId</td>
+						<td>@review.Rating</td>
+						<td>@review.Comment</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
+
 @if (User.IsInRole("User")) {
-	<a asp-action="Create">Create New Event Review</a>
+	<a asp-controller="EventReview" asp-action="CreateEventReview">Add Review for this Event</a>
 }
