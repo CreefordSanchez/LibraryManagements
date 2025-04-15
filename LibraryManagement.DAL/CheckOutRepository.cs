@@ -6,15 +6,15 @@ namespace LibraryManagement.DAL {
 		private readonly LibraryManagementContext _context = context;
 
 		public List<CheckOut> GetAllCheckOuts() {
-			return _context.CheckOuts.ToList();
+			return _context.CheckOuts.Include(c => c.Book).ToList();
 		}
 
 		public List<CheckOut> GetCheckOutByUser(string id) {
-			return _context.CheckOuts.Where(x => x.UserId == id).ToList();
+			return _context.CheckOuts.Where(x => x.UserId == id).Include(c => c.Book).ToList();
 		}
 
-		public List<CheckOut> GetCheckOutByDueDate(DateTime dueDate) {
-			return _context.CheckOuts.Where(x => x.DueDate == dueDate).ToList();
+		public List<CheckOut> GetCheckOutByDueDate(DateOnly dueDate) {
+			return _context.CheckOuts.Where(x => x.DueDate == dueDate).Include(c => c.Book).ToList();
 		}
 
         public CheckOut? GetByCompositeKey(int bookId, string userId)

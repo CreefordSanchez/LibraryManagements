@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using LibraryManagement.BLL;
 using LibraryManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.Controllers {
@@ -8,6 +9,7 @@ namespace LibraryManagement.Controllers {
 		private readonly CheckOutService _service = service;
 		private readonly BookService _bookService = bookService;
 
+		[Authorize(Roles = "Admin")]
 		public IActionResult Index() {
 			return View(_service.GetAllCheckOuts());
 		}
@@ -16,7 +18,7 @@ namespace LibraryManagement.Controllers {
 			return View(_service.GetCheckOutByUser(id));
 		}
 
-		public IActionResult DueDateCheckOuts(DateTime dueDate) {
+		public IActionResult DueDateCheckOuts(DateOnly dueDate) {
 			return View(_service.GetCheckOutByDueDate(dueDate));
 		}
 
@@ -49,14 +51,13 @@ namespace LibraryManagement.Controllers {
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
-        public IActionResult CreateCheckOut()
-        {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            ViewBag.UserId = userId;
-            ViewBag.BookList = _bookService.GetAllBooks();
-            ViewBag.Checked = DateTime.Now;
-            ViewBag.DueDate = DateTime.Now.AddDays(30);
+		[HttpGet]
+		public IActionResult CreateCheckOut() {
+			var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+			ViewBag.UserId = userId;
+			ViewBag.BookList = _bookService.GetAllBooks();
+			ViewBag.Checked = DateOnly.FromDateTime(DateTime.Today);
+			ViewBag.DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(30));
 
             return View();
         }

@@ -44,6 +44,9 @@ namespace LibraryManagement.Controllers {
 
             return RedirectToAction(nameof(Index));
         }
+		public IActionResult Event(int id) {
+			return View(_service.GetEvent(id));
+		}
 
 		[HttpGet]
 		public IActionResult CreateEvent() {

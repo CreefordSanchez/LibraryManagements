@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagement.DAL {
-    public class EventReviewRepository(LibraryManagementContext context) {
-        private readonly LibraryManagementContext _context = context;
+	public class EventReviewRepository(LibraryManagementContext context) {
+		private readonly LibraryManagementContext _context = context;
 
-        public List<EventReview> GetAllEventReviews() {
-			return _context.EventReviews.ToList();
+		public List<EventReview> GetAllEventReviews() {
+			return _context.EventReviews.Include(er => er.Event).ToList();
 		}
 
 		public List<EventReview> GetReviewsByEvent(int eventId) {

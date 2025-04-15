@@ -7,3 +7,40 @@
 }
 
 <h1>Reviews for All Books</h1>
+
+@{
+	if (Model == null || !Model.Any()) {
+		<h4>No Reviews Found for any book</h4>
+	} else {
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Book Title</th>
+					<th>Review by</th>
+					<th>Rating</th>
+					<th>Comment</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (BookReview review in Model) {
+					<tr>
+						<td>@review.Book.Title</td>
+						<td>@review.UserId</td>
+						<td>@review.Rating</td>
+						<td>@review.Comment</td>
+						<td>
+							@if (User.IsInRole("Admin")) {
+								<a asp-action="Delete" asp-route-id="@review.BookReviewId">Delete</a>
+							}
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+}
+
+<!--Update this for the create action whatever we name it -->
+@if (User.IsInRole("Admin")) {
+	<a asp-action="CreateBookReview">Create New Book</a>
+}

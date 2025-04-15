@@ -1,5 +1,45 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject UserManager<IdentityUser> UserManager
+@inject RoleManager<IdentityRole> RoleManage
+@model IEnumerable<Event>
 @{
+	ViewData["Title"] = "All Evenets";
+}
+
+<h1>All Events</h1>
+@{
+	if (Model == null || !Model.Any()) {
+		<h4>No Events Found</h4>
+	} else {
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Location</th>
+					<th>Date & Time</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (Event e in Model) {
+					<tr onclick="document.location.href='Event/Event/@e.EventId'">
+						<td>@e.Title</td>
+						<td>@e.Location</td>
+						<td>@e.Date.ToString(), @e.Time.ToString()</td>
+						<td>
+							<a asp-controller="EventReview" asp-action="EventReviews" asp-route-id="@e.EventId">Reviews</a>
+							@if (User.IsInRole("Admin")) {
+								<a asp-action="Delete" asp-route-id="@e.EventId">Delete</a>
+							}
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+}
+
+<!--Update this for the create action whatever we name it -->
+@if (User.IsInRole("Admin")) {
+	<a asp-action="CreateEvent">Create New Event</a>
 }

@@ -15,7 +15,7 @@ namespace LibraryManagement.BLL {
 			}
 			return selected;
 		}
-		public List<CheckOut> GetCheckOutByDueDate(DateTime dueDate) {
+		public List<CheckOut> GetCheckOutByDueDate(DateOnly dueDate) {
 			List<CheckOut>? selected = _repo.GetCheckOutByDueDate(dueDate);
 			if (selected == null || selected.Count == 0) {
 				return new List<CheckOut>();

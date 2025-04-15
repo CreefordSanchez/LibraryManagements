@@ -3,3 +3,6 @@
 *@
 @{
 }
+@if (User.IsInRole("User")) {
+	<a asp-action="Create">Create New Event Review</a>
+}

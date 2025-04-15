@@ -15,6 +15,16 @@
 	<label asp-for="Published">Published: </label>
 	<input asp-for="Published" />
 
-		
+	<label asp-for="Picture">Cover Picture: </label>
+	<select asp-for="Picture">
+		<option value="">None</option>
+
+		<option value="~/assets/AirbornBook">Air Born</option>
+		<option value="~/img/HarryPotterBook.jpg">Harry Potter Cover Book</option>
+		<option value="~/img/HungerGameBook.webp">Hunger Game Cover Book</option>
+		<option value="~/img/PercyJacksonBook.jpg">Percy Jackson Cover Book</option>
+		<option value="~/img/TwilightBook.jpg">Twilight Cover Book</option>
+		<option value="~/img/WonderBook.jpg">Wonder Cover Book</option>
+	</select>
 	<button type="submit">Post</button>
 </form>
