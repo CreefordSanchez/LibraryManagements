@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using LibraryManagement.BLL;
 using LibraryManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.Controllers {
@@ -31,6 +32,7 @@ namespace LibraryManagement.Controllers {
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin"), Authorize(Roles = "User")]
         public IActionResult CreateBookReview(BookReview review) {
             if (ModelState.IsValid) {
                 _service.CreateBookReview(review);

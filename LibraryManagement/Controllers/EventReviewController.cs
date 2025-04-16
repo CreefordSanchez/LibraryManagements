@@ -1,5 +1,6 @@
 ﻿using LibraryManagement.BLL;
 using LibraryManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -41,8 +42,9 @@ namespace LibraryManagement.Controllers {
 
             return RedirectToAction(nameof(Index));
         }
-
+                
         [HttpGet]
+        [Authorize(Roles = "Admin"), Authorize(Roles = "User")]
         public IActionResult CreateEventReview()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -51,12 +53,10 @@ namespace LibraryManagement.Controllers {
 
             return View();
         }
-
+       
         [HttpPost]
-        public IActionResult CreateEventReview(EventReview review)
-        {
-            if (ModelState.IsValid)
-            {
+        public IActionResult CreateEventReview(EventReview review) {
+            if (ModelState.IsValid) {
                 _service.CreateEventReview(review);
                 return RedirectToAction("Index");
             }

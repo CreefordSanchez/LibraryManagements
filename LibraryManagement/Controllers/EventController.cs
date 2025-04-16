@@ -2,6 +2,7 @@
 using LibraryManagement.BLL;
 using LibraryManagement.Models;
 using LibraryManagement.Models.ModelViews;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.Controllers {
@@ -52,7 +53,8 @@ namespace LibraryManagement.Controllers {
 		}
 
 		[HttpGet]
-		public IActionResult CreateEvent() {
+        [Authorize(Roles = "Admin")]
+        public IActionResult CreateEvent() {
 			var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 			ViewBag.UserId = userId;
 

@@ -2,6 +2,7 @@
 using LibraryManagement.BLL;
 using LibraryManagement.Models;
 using LibraryManagement.Models.ModelViews;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.Controllers {
@@ -55,7 +56,8 @@ namespace LibraryManagement.Controllers {
         }
 
         [HttpGet]
-		public IActionResult CreateBook() {
+        [Authorize(Roles = "Admin")]
+        public IActionResult CreateBook() {
 			return View();
 		}
 

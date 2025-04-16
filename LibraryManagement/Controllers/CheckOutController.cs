@@ -56,7 +56,8 @@ namespace LibraryManagement.Controllers {
         }
 
 		[HttpGet]
-		public IActionResult CreateCheckOut() {
+        [Authorize(Roles = "Admin"), Authorize(Roles = "User")]
+        public IActionResult CreateCheckOut() {
 			var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 			ViewBag.UserId = userId;
 			ViewBag.BookList = _bookService.GetAllBooks();
