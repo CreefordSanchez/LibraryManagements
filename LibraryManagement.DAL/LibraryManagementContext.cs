@@ -120,7 +120,7 @@ namespace LibraryManagement.DAL
                     Author = "Kenneth Oppel",
                     Genre = "Adventure",
                     Published = new DateOnly(2004, 5, 1),
-                    Picture = "~/assets/AirbornBook.jpg"
+                    Picture = "~/img/AirbornBook.jpg"
                 },
                 new Book
                 {
@@ -129,7 +129,7 @@ namespace LibraryManagement.DAL
                     Author = "J.K. Rowling",
                     Genre = "Fantasy",
                     Published = new DateOnly(1997, 6, 26),
-                    Picture = "~/assets/HarryPotterBook.jpg"
+                    Picture = "~/img/HarryPotterBook.jpg"
                 },
                 new Book
                 {
@@ -138,7 +138,7 @@ namespace LibraryManagement.DAL
                     Author = "Suzanne Collins",
                     Genre = "Dystopian",
                     Published = new DateOnly(2008, 9, 14),
-                    Picture = "~/assets/HungerGameBook.webp"
+                    Picture = "~/img/HungerGameBook.webp"
                 },
                 new Book
                 {
@@ -147,7 +147,7 @@ namespace LibraryManagement.DAL
                     Author = "Rick Riordan",
                     Genre = "Fantasy",
                     Published = new DateOnly(2005, 6, 28),
-                    Picture = "~/assets/PercyJacksonBook.jpg"
+                    Picture = "~/img/PercyJacksonBook.jpg"
                 },
                 new Book
                 {
@@ -156,7 +156,7 @@ namespace LibraryManagement.DAL
                     Author = "Stephenie Meyer",
                     Genre = "Romance",
                     Published = new DateOnly(2005, 10, 5),
-                    Picture = "~/assets/TwilightBook.jpg"
+                    Picture = "~/img/TwilightBook.jpg"
                 },
                 new Book
                 {
@@ -165,7 +165,7 @@ namespace LibraryManagement.DAL
                     Author = "R.J. Palacio",
                     Genre = "Drama",
                     Published = new DateOnly(2012, 2, 14),
-                    Picture = "~/assets/WonderBook.jpg"
+                    Picture = "~/img/WonderBook.jpg"
                 }
             );
 
