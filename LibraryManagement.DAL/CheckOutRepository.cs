@@ -22,12 +22,6 @@ namespace LibraryManagement.DAL {
             return _context.CheckOuts.FirstOrDefault(c => c.BookId == bookId && c.UserId == userId);
         }
 
-        public void Delete(CheckOut checkout)
-        {
-            _context.CheckOuts.Remove(checkout);
-            _context.SaveChanges();
-        }
-
         public void CreateCheckOut(CheckOut check)
         {
             _context.CheckOuts.Add(check);
