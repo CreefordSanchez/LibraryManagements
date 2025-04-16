@@ -28,8 +28,8 @@
 						<td>@er.Rating</td>
 						<td>
 							@if (User.IsInRole("Admin")) {
-								<a asp-action="Delete" asp-route-id="@er.EventReviewId">Delete</a>
-								<a asp-action="Edit" asp-route-id="@er.EventReviewId">Edit</a>
+								<a asp-controller="EventReview" asp-action="Delete" asp-route-id="@er.EventReviewId">Delete</a>
+								<a asp-action="EditReview" asp-route-id="@er.EventReviewId">Edit</a>
 							}
 						
 						</td>
