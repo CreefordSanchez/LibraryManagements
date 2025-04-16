@@ -70,7 +70,7 @@ namespace LibraryManagement.Controllers {
             if (review == null) {
                 return NotFound();
             }
-            ViewBag.EventList = _eventService.GetAllEvents(); // for the dropdown
+            ViewBag.EventList = _eventService.GetAllEvents();
             return View(review);
         }
 
@@ -80,7 +80,7 @@ namespace LibraryManagement.Controllers {
                 _service.EditEventReview(review);
                 return RedirectToAction("Index");
             }
-            ViewBag.EventList = _eventService.GetAllEvents(); // in case of error
+            ViewBag.EventList = _eventService.GetAllEvents();
             return View(review);
         }
     }

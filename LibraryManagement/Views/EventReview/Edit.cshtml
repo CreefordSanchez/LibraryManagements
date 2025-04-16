@@ -8,7 +8,7 @@
 
     <div class="form-group">
         <label asp-for="EventId">Event</label>
-        <select asp-for="EventId" class="form-control">
+        <select asp-for="EventId">
             <option value="">-- Select Event --</option>
             @foreach (Event ev in ViewBag.EventList)
             {
