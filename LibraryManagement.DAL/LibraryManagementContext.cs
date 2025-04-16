@@ -90,7 +90,7 @@ namespace LibraryManagement.DAL
 
             builder.Entity<CheckOut>(entity =>
             {
-                entity.HasKey(co => co.BookId);
+                entity.HasKey(co => co.CheckOutId);
 
                 entity.Property(co => co.IsReturned).IsRequired();
                 entity.Property(co => co.IsOverdue).IsRequired();
@@ -104,14 +104,14 @@ namespace LibraryManagement.DAL
                     .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasOne(co => co.Book)
-                    .WithOne(b => b.CheckOut)
-                    .HasForeignKey<CheckOut>(co => co.BookId)
+                    .WithMany(b => b.CheckOut)
+                    .HasForeignKey(co => co.BookId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
             //NOTE: run the program first and go to SQL server to grab Users id and put it here
-
             /*
+            
             builder.Entity<Book>().HasData(
                 new Book
                 {
@@ -173,7 +173,7 @@ namespace LibraryManagement.DAL
                 new BookReview
                 {
                     BookReviewId = 1,
-                    UserId = "71b47160-7a97-438f-87f0-d4e523853133",
+                    UserId = " ",
                     Rating = 5,
                     Comment = "An absolutely amazing read! Couldn't put it down.",
                     BookId = 2 
@@ -181,7 +181,7 @@ namespace LibraryManagement.DAL
                 new BookReview
                 {
                     BookReviewId = 2,
-                    UserId = "095e5cbb-9f43-4cb6-9a80-7f833c882184",
+                    UserId = " ",
                     Rating = 4,
                     Comment = "Great story and characters. Really enjoyed it.",
                     BookId = 3 
@@ -192,8 +192,9 @@ namespace LibraryManagement.DAL
                 // 1. Not Returned, Overdue (30 days ago)
                 new CheckOut
                 {
+                    CheckOutId = 1,
                     BookId = 1,
-                    UserId = "71b47160-7a97-438f-87f0-d4e523853133",
+                    UserId = " ",
                     IsReturned = false,
                     IsOverdue = true,
                     DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-30)), // 30 days ago
@@ -203,8 +204,9 @@ namespace LibraryManagement.DAL
                 // 2. Not Returned, Still On Time (Due in 5 days)
                 new CheckOut
                 {
+                    CheckOutId = 2,
                     BookId = 2,
-                    UserId = "71b47160-7a97-438f-87f0-d4e523853133",
+                    UserId = " ",
                     IsReturned = false,
                     IsOverdue = false,
                     DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(5)), // 5 days from now
@@ -214,8 +216,9 @@ namespace LibraryManagement.DAL
                 // 3. Returned (Returned 10 days ago)
                 new CheckOut
                 {
+                    CheckOutId = 3,
                     BookId = 3,
-                    UserId = "095e5cbb-9f43-4cb6-9a80-7f833c882184",
+                    UserId = " ",
                     IsReturned = true,
                     IsOverdue = false, 
                     DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(30)), 
@@ -233,7 +236,7 @@ namespace LibraryManagement.DAL
                     Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(14)), // 2:00 PM
                     Location = "Library Hall A",
                     Description = "Join us for the launch of the book 'Airborn' by Kenneth Oppel. Meet the author and other fans!",
-                    OrganiserId = "71b47160-7a97-438f-87f0-d4e523853133"
+                    OrganiserId = " "
                 },
                 new Event
                 {
@@ -243,7 +246,7 @@ namespace LibraryManagement.DAL
                     Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(18)), // 6:00 PM
                     Location = "Library Hall B",
                     Description = "Test your knowledge of the Harry Potter universe at our trivia night. Great prizes for the winners!",
-                    OrganiserId = "71b47160-7a97-438f-87f0-d4e523853133"
+                    OrganiserId = " "
                 },
                 new Event
                 {
@@ -253,7 +256,7 @@ namespace LibraryManagement.DAL
                     Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(19)), 
                     Location = "Library Hall C",
                     Description = "Come watch 'Twilight' with fellow fans and participate in a discussion afterward.",
-                    OrganiserId = "71b47160-7a97-438f-87f0-d4e523853133"
+                    OrganiserId = " "
                 },
                 new Event
                 {
@@ -263,7 +266,7 @@ namespace LibraryManagement.DAL
                     Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(11)), // 11:00 AM
                     Location = "Library Hall D",
                     Description = "Join us for a reading of 'Percy Jackson' and meet other fans of the series.",
-                    OrganiserId = "71b47160-7a97-438f-87f0-d4e523853133"
+                    OrganiserId = " "
                 }
             );          
 
@@ -271,7 +274,7 @@ namespace LibraryManagement.DAL
                 new EventReview
                 {
                     EventReviewId = 1,
-                    UserId = "095e5cbb-9f43-4cb6-9a80-7f833c882184",
+                    UserId = " ",
                     Rating = 5, 
                     Comment = "Fantastic event! Great organization and the speakers were excellent.",
                     EventId = 1 
@@ -279,12 +282,13 @@ namespace LibraryManagement.DAL
                 new EventReview
                 {
                     EventReviewId = 2,
-                    UserId = "095e5cbb-9f43-4cb6-9a80-7f833c882184",
+                    UserId = " ",
                     Rating = 4,
                     Comment = "Good event, but the schedule could've been a bit tighter. Still enjoyable.",
                     EventId = 2 
                 }
-            );*/
+            );
+            */
         }
     }
 }
