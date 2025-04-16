@@ -10,9 +10,13 @@ namespace LibraryManagement.Controllers {
 		private readonly BookService _bookService = bookService;
 		private readonly CheckOutService _checkService = checkService;
 
-		[Authorize(Roles = "Admin")]
+		[Authorize]
 		public IActionResult Index() {
-			return View(_service.GetAllCheckOuts());
+			if (User.IsInRole("Admin")) {
+				return View(_service.GetAllCheckOuts());
+			} else {
+				return RedirectToAction("UserCheckOuts");
+			}
 		}
 
 		[Authorize(Roles = "User")]
@@ -28,52 +32,48 @@ namespace LibraryManagement.Controllers {
 			return View(_service.GetCheckOutByDueDate(today));
 		}
 
-        [HttpGet]
-        public IActionResult Delete(int bookId, string userId)
-        {
-            CheckOut checkout = _service.GetByCompositeKey(bookId, userId);
-            if (checkout == null)
-                return NotFound();
+		[HttpGet]
+		public IActionResult Delete(int bookId, string userId) {
+			CheckOut checkout = _service.GetByCompositeKey(bookId, userId);
+			if (checkout == null)
+				return NotFound();
 
-            if (!checkout.IsReturned)
-            {
-                TempData["Error"] = "Cannot delete a checkout that has not been returned.";
-                return RedirectToAction(nameof(Index));
-            }
+			if (!checkout.IsReturned) {
+				TempData["Error"] = "Cannot delete a checkout that has not been returned.";
+				return RedirectToAction(nameof(Index));
+			}
 
-            return View(checkout);
-        }
+			return View(checkout);
+		}
 
-        [HttpPost]
-        public IActionResult DeleteConfirmed(int bookId, string userId)
-        {
-            bool deleted = _service.DeleteIfReturned(bookId, userId);
-            if (!deleted)
-            {
-                TempData["Error"] = "Cannot delete a checkout that has not been returned.";
-                return RedirectToAction(nameof(Index));
-            }
+		[HttpPost]
+		public IActionResult DeleteConfirmed(int bookId, string userId) {
+			bool deleted = _service.DeleteIfReturned(bookId, userId);
+			if (!deleted) {
+				TempData["Error"] = "Cannot delete a checkout that has not been returned.";
+				return RedirectToAction(nameof(Index));
+			}
 
-            return RedirectToAction(nameof(Index));
-        }
+			return RedirectToAction(nameof(Index));
+		}
 
-        [Authorize(Roles = "Admin, User")]
-        [HttpGet]
-        public IActionResult CreateCheckOut() {
+		[Authorize(Roles = "Admin, User")]
+		[HttpGet]
+		public IActionResult CreateCheckOut() {
 			var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-			 List<int> notReturnedId = _checkService.GetAllCheckOuts()
-				.Where(co => co.IsReturned == false)
-				.Select(co => co.BookId)
-				.ToList();				
+			List<int> notReturnedId = _checkService.GetAllCheckOuts()
+			   .Where(co => co.IsReturned == false)
+			   .Select(co => co.BookId)
+			   .ToList();
 
 			ViewBag.UserId = userId;
 			ViewBag.Checked = DateOnly.FromDateTime(DateTime.Today);
 			ViewBag.DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(30));
-            ViewBag.BookList = _bookService.GetAllBooks()
-                .Where(b => !notReturnedId.Contains(b.BookId));
+			ViewBag.BookList = _bookService.GetAllBooks()
+				.Where(b => !notReturnedId.Contains(b.BookId));
 
-            return View();
-        }
+			return View();
+		}
 
 		[HttpPost]
 		public IActionResult CreateCheckOut(CheckOut checkOut) {
@@ -85,24 +85,24 @@ namespace LibraryManagement.Controllers {
 			return View(checkOut);
 		}
 
-        [HttpGet]
-        public IActionResult Edit(int bookId, string userId) {
-            CheckOut? checkout = _service.GetByCompositeKey(bookId, userId);
-            if (checkout == null) { 
-                return NotFound();
-            }
-            ViewBag.BookList = _bookService.GetAllBooks();
-            return View(checkout);
-        }
+		[HttpGet]
+		public IActionResult Edit(int bookId, string userId) {
+			CheckOut? checkout = _service.GetByCompositeKey(bookId, userId);
+			if (checkout == null) {
+				return NotFound();
+			}
+			ViewBag.BookList = _bookService.GetAllBooks();
+			return View(checkout);
+		}
 
-        [HttpPost]
-        public IActionResult Edit(CheckOut checkout) {
-            if (ModelState.IsValid) {
-                _service.EditCheckOut(checkout);
-                return RedirectToAction("Index");
-            }
-            ViewBag.BookList = _bookService.GetAllBooks();
-            return View(checkout);
-        }
-    }
+		[HttpPost]
+		public IActionResult Edit(CheckOut checkout) {
+			if (ModelState.IsValid) {
+				_service.EditCheckOut(checkout);
+				return RedirectToAction("Index");
+			}
+			ViewBag.BookList = _bookService.GetAllBooks();
+			return View(checkout);
+		}
+	}
 }
