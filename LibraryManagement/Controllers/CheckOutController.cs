@@ -16,9 +16,10 @@ namespace LibraryManagement.Controllers {
 		}
 
 		[Authorize(Roles = "User")]
-		public IActionResult UserCheckOuts(string id) {
+		public IActionResult UserCheckOuts() {
+			var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 			// Will need to be able to tell who is logged in
-			return View(_service.GetCheckOutByUser(id));
+			return View(_service.GetCheckOutByUser(userId));
 		}
 
 		[Authorize(Roles = "Admin")]

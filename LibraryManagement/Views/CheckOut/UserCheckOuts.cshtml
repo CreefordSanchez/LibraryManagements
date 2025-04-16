@@ -4,7 +4,8 @@
 @model IEnumerable<CheckOut>
 @{
 	string userId = UserManager.GetUserId(User);
-	ViewData["Title"] = $"CheckOuts for {userId}";
+	var user = UserManager.FindByIdAsync(userId).Result;
+	ViewData["Title"] = $"CheckOuts for {user}";
 	DateOnly today = DateOnly.FromDateTime(DateTime.Today);
 }
 
