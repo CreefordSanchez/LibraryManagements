@@ -34,11 +34,11 @@ namespace LibraryManagement.Controllers {
 				AuthOrLocation = e.Location,
 				Genre = null,
 				Source = "Event"
-			}).Where(e => e.Date > DateOnly.FromDateTime(DateTime.Now) && e.Time > TimeOnly.FromDateTime(DateTime.Now));
+			}).Where(e => e.Date > DateOnly.FromDateTime(DateTime.Now) && e.Date < DateOnly.FromDateTime(DateTime.Now.AddDays(14)));
 
 			IEnumerable<BookAndEvent> bookAndEvents = books.Concat(events);
 			return View(bookAndEvents);
-			}
+		}
 
 		public IActionResult Privacy() {
 			return View();

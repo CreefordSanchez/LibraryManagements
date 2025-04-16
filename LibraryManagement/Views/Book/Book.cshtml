@@ -4,7 +4,7 @@
 @inject RoleManager<IdentityRole> RoleManage
 @model List<BookAndReview>
 @{
-	BookAndReview first = null;
+	BookAndReview? first = null;
 	if (Model == null || !Model.Any()) {
 		ViewData["Title"] = "No Book Found";
 	} else {

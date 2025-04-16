@@ -65,7 +65,7 @@
 								<td>@e.AuthOrLocation</td>
 								<td>@e.Date.ToString(), @e.Time.ToString()</td>
 								<td>
-									<a asp-controller="EventReview" asp-action="EventReviews" asp-route-id="@e.ID">Reviews</a>
+									<a asp-controller="Event" asp-action="Event" asp-route-id="@e.ID">Reviews</a>
 								</td>
 							</tr>
 						}
