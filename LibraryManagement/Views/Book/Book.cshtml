@@ -2,40 +2,57 @@
 @using Microsoft.AspNetCore.Identity;
 @inject UserManager<IdentityUser> UserManager
 @inject RoleManager<IdentityRole> RoleManage
-@model IQueryable<BookAndReview>
+@model List<BookAndReview>
 @{
-	BookAndReview first = Model.First();
-	ViewData["Title"] = first.Title;
+	BookAndReview? first = null;
+	if (Model == null || !Model.Any()) {
+		ViewData["Title"] = "No Book Found";
+	} else {
+		first = Model.First();
+		ViewData["Title"] = first.Title;
+	}
+	
 }
-
-<div>
-	<div class="bookInfo">
-		<h1>@first.Title</h1>
-		<h5>@first.Author</h5>
-		<p>@first.Genre</p>
-		<p>@first.Published</p>
-	</div>
-	<div class="reviews">
-		<table class="table">
-			<thead>
-				<tr>
-					<th>UserId</th>
-					<th>Rating</th>
-					<th>Comment</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (BookAndReview review in Model) {
+@if (first == null) {
+	<h1>@ViewBag.Book.Title</h1>
+	<h5>by @ViewBag.Book.Author</h5>
+	<p>@ViewBag.Book.Genre</p>
+	<p>@ViewBag.Book.Published</p>
+	<img src="@ViewBag.Book.Picture" asp-append-version="true" />
+	<br /><br />
+	<p>No Reviews found for this book</p>
+} else {
+	<div>
+		<div class="bookInfo">
+			<h1>@first.Title</h1>
+			<h5>@first.Author</h5>
+			<p>@first.Genre</p>
+			<p>@first.Published</p>
+			<img src="@first.Picture" asp-append-version="true" />
+		</div>
+		<div class="reviews">
+			<table class="table">
+				<thead>
 					<tr>
-						<td>@review.UserId</td>
-						<td>@review.Rating</td>
-						<td>@review.Comment</td>
+						<th>User</th>
+						<th>Rating</th>
+						<th>Comment</th>
 					</tr>
-				}
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					@foreach (BookAndReview review in Model) {
+						var user = UserManager.FindByIdAsync(review.UserId).Result;
+						<tr>
+							<td>@user</td>
+							<td>@review.Rating</td>
+							<td>@review.Comment</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
 	</div>
-</div>
+}
 
 @if(User.IsInRole("User")){
 	<a asp-controller="BookReview" asp-action="CreateBookReview">Add Review for this Book</a>

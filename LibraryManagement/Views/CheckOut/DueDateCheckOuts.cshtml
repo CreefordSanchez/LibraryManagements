@@ -23,9 +23,10 @@
 			</thead>
 			<tbody>
 				@foreach (CheckOut checkout in Model) {
+					var user = UserManager.FindByIdAsync(checkout.UserId).Result;
 					<tr>
 						<td>@checkout.Book.Title</td>
-						<td>@checkout.UserId</td>
+						<td>@user</td>
 						<td>@checkout.CheckoutDate</td>
 					</tr>
 				}

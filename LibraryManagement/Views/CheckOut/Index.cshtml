@@ -6,7 +6,7 @@
 	ViewData["Title"] = "All Active CheckOuts";
 	DateOnly today = DateOnly.FromDateTime(DateTime.Today);
 }
-
+<a asp-action="DueDateCheckOuts">All Due Today</a>
 <h1>Current CheckOuts</h1>
 
 @{
@@ -24,9 +24,10 @@
 			</thead>
 			<tbody>
 				@foreach (CheckOut checkout in Model) {
+					var user = UserManager.FindByIdAsync(checkout.UserId).Result;
 					<tr class="@(checkout.DueDate >= today ? "danger" : "" )">
 						<td>@checkout.Book.Title</td>
-						<td>@checkout.UserId</td>
+						<td>@user</td>
 						<td>@checkout.CheckoutDate</td>
 						<td>@checkout.DueDate</td>
 						<td>

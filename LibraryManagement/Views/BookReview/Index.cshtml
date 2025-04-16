@@ -23,9 +23,10 @@
 			</thead>
 			<tbody>
 				@foreach (BookReview review in Model) {
+					var user = UserManager.FindByIdAsync(review.UserId).Result;
 					<tr>
 						<td>@review.Book.Title</td>
-						<td>@review.UserId</td>
+						<td>@user</td>
 						<td>@review.Rating</td>
 						<td>@review.Comment</td>
 						<td>
