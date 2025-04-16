@@ -2,39 +2,56 @@
 @using Microsoft.AspNetCore.Identity;
 @inject UserManager<IdentityUser> UserManager
 @inject RoleManager<IdentityRole> RoleManage
-@model IQueryable<EventAndReview>
+@model List<EventAndReview>
 @{
-	EventAndReview first = Model.First();
-	ViewData["Title"] = first.Title;
+	EventAndReview? first = null;
+	if (Model == null || !Model.Any()) {
+		ViewData["Title"] = "No Event Found";
+	} else {
+		first = Model.First();
+		ViewData["Title"] = first.Title;
+	}
 }
 
-<div>
-	<div class="bookInfo">
-		<h1>@first.Title</h1>
-		<h5>@first.Date, @first.Time</h5>
-		<p>@first.Location</p>
-	</div>
-	<div class="reviews">
-		<table class="table">
-			<thead>
-				<tr>
-					<th>UserId</th>
-					<th>Rating</th>
-					<th>Comment</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (EventAndReview review in Model) {
+@if (first == null)
+{
+	<h1>@ViewBag.Event.Title</h1>
+	<h5>Scheduled on @ViewBag.Event.Date.ToString()</h5>
+	<p>At @ViewBag.Event.Time.ToString()</p>
+	<p>@ViewBag.Event.Location</p>
+} else
+{
+	
+	<div>
+		<div class="eventInfo">
+			<h1>@first.Title</h1>
+			<h5>@first.Date, @first.Time</h5>
+			<p>@first.Location</p>
+		</div>
+		<div class="reviews">
+			<h5>Reviews</h5>
+			<table class="table">
+				<thead>
 					<tr>
-						<td>@review.UserId</td>
-						<td>@review.Rating</td>
-						<td>@review.Comment</td>
+						<th>User</th>
+						<th>Rating</th>
+						<th>Comment</th>
 					</tr>
-				}
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					@foreach (EventAndReview review in Model) {
+						var user = UserManager.FindByIdAsync(review.UserId).Result;
+						<tr>
+							<td>@user</td>
+							<td>@review.Rating</td>
+							<td>@review.Comment</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
 	</div>
-</div>
+}
 
 @if (User.IsInRole("User")) {
 	<a asp-controller="EventReview" asp-action="CreateEventReview">Add Review for this Event</a>

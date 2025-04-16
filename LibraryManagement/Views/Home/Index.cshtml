@@ -1,16 +1,16 @@
 ﻿@using LibraryManagement.Models.ModelViews
 @model IEnumerable<BookAndEvent>
 @{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+	<h1 class="display-4">Welcome</h1>
+	<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 <div class="books">
 	<h1>All Books</h1>
 	@{
-		if (Model == null || !Model.Any()) {
+		if (!Model.Any()) {
 			<h4>No Books Found</h4>
 		} else {
 			<table class="table">
@@ -24,14 +24,17 @@
 				</thead>
 				<tbody>
 					@foreach (BookAndEvent book in Model) {
-						<tr onclick="document.location.href='Book/Book/@book.BookId'">
-							<td>@book.BookTitle</td>
-							<td>@book.BookAuthor</td>
-							<td>@book.BookPublished.ToShortDateString()</td>
-							<td>
-								<a asp-controller="BookReview" asp-action="BookReviews" asp-route-id="@book.BookId">Reviews</a>
-							</td>
-						</tr>
+						@if(book.Source.Equals("Book"))
+						{
+							<tr onclick="document.location.href='Book/Book/@book.ID'">
+								<td>@book.Title</td>
+								<td>@book.AuthOrLocation</td>
+								<td>@book.Date</td>
+								<td>
+									<a asp-controller="Book" asp-action="Book" asp-route-id="@book.ID">Reviews</a>
+								</td>
+							</tr>
+						}
 					}
 				</tbody>
 			</table>
@@ -41,7 +44,7 @@
 <div class="events">
 	<h1>Upcomming Events</h1>
 	@{
-		if (Model == null || !Model.Any()) {
+		if (!Model.Any()) {
 			<h4>No Upcomming Events Found</h4>
 		} else {
 			<table class="table">
@@ -55,14 +58,17 @@
 				</thead>
 				<tbody>
 					@foreach (BookAndEvent e in Model) {
-						<tr onclick="document.location.href='Event/Event/@e.EventId'">
-							<td>@e.EventTitle</td>
-							<td>@e.EventLocation</td>
-							<td>@e.EventDate.ToString(), @e.EventTime.ToString()</td>
-							<td>
-								<a asp-controller="EventReview" asp-action="EventReviews" asp-route-id="@e.EventId">Reviews</a>
-							</td>
-						</tr>
+						@if (e.Source.Equals("Event"))
+						{
+							<tr onclick="document.location.href='Event/Event/@e.ID'">
+								<td>@e.Title</td>
+								<td>@e.AuthOrLocation</td>
+								<td>@e.Date.ToString(), @e.Time.ToString()</td>
+								<td>
+									<a asp-controller="Event" asp-action="Event" asp-route-id="@e.ID">Reviews</a>
+								</td>
+							</tr>
+						}
 					}
 				</tbody>
 			</table>

@@ -1,107 +1,98 @@
-﻿using System.Collections.Generic;
-using System.Reflection.Emit;
-using LibraryManagement.Models;
+﻿using LibraryManagement.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace LibraryManagement.DAL
-{
-    public class LibraryManagementContext : IdentityDbContext<IdentityUser>
-    {
-        public LibraryManagementContext(DbContextOptions<LibraryManagementContext> options) : base(options) { }
+namespace LibraryManagement.DAL {
+	public class LibraryManagementContext : IdentityDbContext<IdentityUser> {
+		public LibraryManagementContext(DbContextOptions<LibraryManagementContext> options) : base(options) { }
 
-        public DbSet<Book> Books { set; get; }
-        public DbSet<BookReview> BookReviews { set; get; }
-        public DbSet<Event> Events { set; get; }
-        public DbSet<EventReview> EventReviews { set; get; }
-        public DbSet<CheckOut> CheckOuts { set; get; }
+		public DbSet<Book> Books { set; get; }
+		public DbSet<BookReview> BookReviews { set; get; }
+		public DbSet<Event> Events { set; get; }
+		public DbSet<EventReview> EventReviews { set; get; }
+		public DbSet<CheckOut> CheckOuts { set; get; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
+		protected override void OnModelCreating(ModelBuilder builder) {
+			base.OnModelCreating(builder);
 
-            builder.Entity<Book>(entity =>
-            {
-                entity.HasKey(b => b.BookId);
-                entity.Property(b => b.Author).IsRequired();
-                entity.Property(b => b.Title).IsRequired();
-                entity.Property(b => b.Genre).IsRequired();
-                entity.Property(b => b.Published).IsRequired();
-                entity.Property(b => b.Picture).IsRequired();
+			builder.Entity<Book>(entity => {
+				entity.HasKey(b => b.BookId);
+				entity.Property(b => b.Author).IsRequired();
+				entity.Property(b => b.Title).IsRequired();
+				entity.Property(b => b.Genre).IsRequired();
+				entity.Property(b => b.Published).IsRequired();
+				entity.Property(b => b.Picture).IsRequired();
 
-                entity.HasMany(b => b.BookReviews)
-                    .WithOne(bk => bk.Book)
-                    .HasForeignKey(bk => bk.BookId)
-                    .OnDelete(DeleteBehavior.Cascade);
-            });
+				entity.HasMany(b => b.BookReviews)
+					.WithOne(bk => bk.Book)
+					.HasForeignKey(bk => bk.BookId)
+					.OnDelete(DeleteBehavior.Cascade);
+			});
 
-            builder.Entity<BookReview>(entity =>
-            {
-                entity.HasKey(bk => bk.BookReviewId);
+			builder.Entity<BookReview>(entity => {
+				entity.HasKey(bk => bk.BookReviewId);
 
-                entity.Property(bk => bk.Comment).IsRequired();
-                entity.Property(bk => bk.Rating).IsRequired();
+				entity.Property(bk => bk.Comment).IsRequired();
+				entity.Property(bk => bk.Rating).IsRequired();
 
-                entity.HasOne<IdentityUser>()
-                    .WithMany()
-                    .HasForeignKey(bk => bk.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
+				entity.HasOne<IdentityUser>()
+					.WithMany()
+					.HasForeignKey(bk => bk.UserId)
+					.OnDelete(DeleteBehavior.Cascade);
 
-                entity.HasOne(bk => bk.Book)
-                    .WithMany(b => b.BookReviews)
-                    .HasForeignKey(bk => bk.BookId)
-                    .OnDelete(DeleteBehavior.Cascade);
-            });
+				entity.HasOne(bk => bk.Book)
+					.WithMany(b => b.BookReviews)
+					.HasForeignKey(bk => bk.BookId)
+					.OnDelete(DeleteBehavior.Cascade);
+			});
 
-            builder.Entity<Event>(entity =>
-            {
-                entity.HasKey(e => e.EventId);
+			builder.Entity<Event>(entity => {
+				entity.HasKey(e => e.EventId);
 
-                entity.Property(e => e.Title).IsRequired();
-                entity.Property(e => e.Date).IsRequired();
-                entity.Property(e => e.Time).IsRequired();
-                entity.Property(e => e.Location).IsRequired();
-                entity.Property(e => e.Description).IsRequired();
+				entity.Property(e => e.Title).IsRequired();
+				entity.Property(e => e.Date).IsRequired();
+				entity.Property(e => e.Time).IsRequired();
+				entity.Property(e => e.Location).IsRequired();
+				entity.Property(e => e.Description).IsRequired();
 
-                entity.HasOne<IdentityUser>()
-                    .WithMany()
-                    .HasForeignKey(e => e.OrganiserId)
-                    .OnDelete(DeleteBehavior.Cascade);
-            });
+				entity.HasOne<IdentityUser>()
+					.WithMany()
+					.HasForeignKey(e => e.OrganiserId)
+					.OnDelete(DeleteBehavior.Cascade);
+			});
 
-            builder.Entity<EventReview>(entity =>
-            {
-                entity.HasKey(er => er.EventReviewId);
+			builder.Entity<EventReview>(entity => {
+				entity.HasKey(er => er.EventReviewId);
 
-                entity.Property(er => er.Rating).IsRequired();
-                entity.Property(er => er.Comment).IsRequired();
+				entity.Property(er => er.Rating).IsRequired();
+				entity.Property(er => er.Comment).IsRequired();
 
-                entity.HasOne<IdentityUser>()
-                   .WithMany()
-                   .HasForeignKey(er => er.UserId)
-                   .OnDelete(DeleteBehavior.NoAction);
+				entity.HasOne<IdentityUser>()
+				   .WithMany()
+				   .HasForeignKey(er => er.UserId)
+				   .OnDelete(DeleteBehavior.NoAction);
 
-                entity.HasOne(er => er.Event)
-                    .WithMany(e => e.EventReviews)
-                    .HasForeignKey(er => er.EventId)
-                    .OnDelete(DeleteBehavior.Cascade);
-            });
+				entity.HasOne(er => er.Event)
+					.WithMany(e => e.EventReviews)
+					.HasForeignKey(er => er.EventId)
+					.OnDelete(DeleteBehavior.Cascade);
+			});
 
             builder.Entity<CheckOut>(entity =>
             {
                 entity.HasKey(co => co.CheckOutId);
 
-                entity.Property(co => co.IsReturned).IsRequired();
-                entity.Property(co => co.IsOverdue).IsRequired();
-                entity.Property(co => co.DueDate).IsRequired();
-                entity.Property(co => co.CheckoutDate).IsRequired();
-                entity.Property(co => co.AuthorizeCheckout).IsRequired();
+				entity.Property(co => co.IsReturned).IsRequired();
+				entity.Property(co => co.IsOverdue).IsRequired();
+				entity.Property(co => co.DueDate).IsRequired();
+				entity.Property(co => co.CheckoutDate).IsRequired();
+				entity.Property(co => co.AuthorizeCheckout).IsRequired();
 
-                entity.HasOne<IdentityUser>()
-                    .WithMany()
-                    .HasForeignKey(co => co.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
+				entity.HasOne<IdentityUser>()
+					.WithMany()
+					.HasForeignKey(co => co.UserId)
+					.OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasOne(co => co.Book)
                     .WithMany(b => b.CheckOut)
@@ -110,7 +101,7 @@ namespace LibraryManagement.DAL
             });
 
             //NOTE: run the program first and go to SQL server to grab Users id and put it here
-            /*
+            
             
             builder.Entity<Book>().HasData(
                 new Book
@@ -120,7 +111,7 @@ namespace LibraryManagement.DAL
                     Author = "Kenneth Oppel",
                     Genre = "Adventure",
                     Published = new DateOnly(2004, 5, 1),
-                    Picture = "~/assets/AirbornBook.jpg"
+                    Picture = "~/img/AirbornBook.jpg"
                 },
                 new Book
                 {
@@ -129,7 +120,7 @@ namespace LibraryManagement.DAL
                     Author = "J.K. Rowling",
                     Genre = "Fantasy",
                     Published = new DateOnly(1997, 6, 26),
-                    Picture = "~/assets/HarryPotterBook.jpg"
+                    Picture = "~/img/HarryPotterBook.jpg"
                 },
                 new Book
                 {
@@ -138,7 +129,7 @@ namespace LibraryManagement.DAL
                     Author = "Suzanne Collins",
                     Genre = "Dystopian",
                     Published = new DateOnly(2008, 9, 14),
-                    Picture = "~/assets/HungerGameBook.webp"
+                    Picture = "~/img/HungerGameBook.webp"
                 },
                 new Book
                 {
@@ -147,7 +138,7 @@ namespace LibraryManagement.DAL
                     Author = "Rick Riordan",
                     Genre = "Fantasy",
                     Published = new DateOnly(2005, 6, 28),
-                    Picture = "~/assets/PercyJacksonBook.jpg"
+                    Picture = "~/img/PercyJacksonBook.jpg"
                 },
                 new Book
                 {
@@ -156,7 +147,7 @@ namespace LibraryManagement.DAL
                     Author = "Stephenie Meyer",
                     Genre = "Romance",
                     Published = new DateOnly(2005, 10, 5),
-                    Picture = "~/assets/TwilightBook.jpg"
+                    Picture = "~/img/TwilightBook.jpg"
                 },
                 new Book
                 {
@@ -165,7 +156,7 @@ namespace LibraryManagement.DAL
                     Author = "R.J. Palacio",
                     Genre = "Drama",
                     Published = new DateOnly(2012, 2, 14),
-                    Picture = "~/assets/WonderBook.jpg"
+                    Picture = "~/img/WonderBook.jpg"
                 }
             );
 
@@ -288,7 +279,7 @@ namespace LibraryManagement.DAL
                     EventId = 2 
                 }
             );
-            */
+            
         }
     }
 }

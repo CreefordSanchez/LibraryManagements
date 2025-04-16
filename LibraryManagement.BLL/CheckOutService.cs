@@ -28,6 +28,16 @@ namespace LibraryManagement.BLL {
             return _repo.GetByCompositeKey(bookId, userId);
         }
 
+        public bool DeleteIfReturned(int bookId, string userId)
+        {
+            CheckOut? checkout = _repo.GetByCompositeKey(bookId, userId);
+            if (checkout == null || !checkout.IsReturned)
+                return false;
+
+            _repo.Delete(checkout);
+            return true;
+        }
+
         public void CreateCheckOut(CheckOut check)
         {
             _repo.CreateCheckOut(check);
