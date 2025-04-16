@@ -101,7 +101,7 @@ namespace LibraryManagement.DAL {
             });
 
             //NOTE: run the program first and go to SQL server to grab Users id and put it here
-            /*
+            
             
             builder.Entity<Book>().HasData(
                 new Book
@@ -279,7 +279,7 @@ namespace LibraryManagement.DAL {
                     EventId = 2 
                 }
             );
-            */
+            
         }
     }
 }
