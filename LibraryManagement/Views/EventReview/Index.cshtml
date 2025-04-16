@@ -21,9 +21,10 @@
 			</thead>
 			<tbody>
 				@foreach (EventReview er in Model) {
+					var user = UserManager.FindByIdAsync(er.UserId).Result;
 					<tr>
 						<td>@er.Event.Title</td>
-						<td>@er.UserId</td>
+						<td>@user</td>
 						<td>@er.Rating</td>
 						<td>
 							@if (User.IsInRole("Admin")) {
