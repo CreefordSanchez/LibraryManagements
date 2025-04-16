@@ -14,8 +14,13 @@
 	
 }
 @if (first == null) {
-	<h1>No Reviews for @ViewBag.Book.Title</h1>
+	<h1>@ViewBag.Book.Title</h1>
 	<h5>by @ViewBag.Book.Author</h5>
+	<p>@ViewBag.Book.Genre</p>
+	<p>@ViewBag.Book.Published</p>
+	<img src="@ViewBag.Book.Picture" asp-append-version="true" />
+	<br /><br />
+	<p>No Reviews found for this book</p>
 } else {
 	<div>
 		<div class="bookInfo">
@@ -23,6 +28,7 @@
 			<h5>@first.Author</h5>
 			<p>@first.Genre</p>
 			<p>@first.Published</p>
+			<img src="@first.Picture" asp-append-version="true" />
 		</div>
 		<div class="reviews">
 			<table class="table">

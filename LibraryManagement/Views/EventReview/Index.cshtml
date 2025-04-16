@@ -21,15 +21,16 @@
 			</thead>
 			<tbody>
 				@foreach (EventReview er in Model) {
-					<tr onclick="document.location.href='EventReview/EventReview/@er.EventReviewId'">
+					<tr>
 						<td>@er.Event.Title</td>
 						<td>@er.UserId</td>
 						<td>@er.Rating</td>
 						<td>
-							@if (User.IsInRole("Admin"))
-							{
+							@if (User.IsInRole("Admin")) {
+								<a asp-action="Delete" asp-route-id="@er.EventReviewId">Delete</a>
 								<a asp-action="Edit" asp-route-id="@er.EventReviewId">Edit</a>
 							}
+						
 						</td>
 					</tr>
 				}

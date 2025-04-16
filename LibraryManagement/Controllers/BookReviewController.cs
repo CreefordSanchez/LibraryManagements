@@ -12,8 +12,10 @@ namespace LibraryManagement.Controllers {
 			return View(_service.GetAllBookReviews());
 		}
 
-		public IActionResult UserBookReviews(string id) {
-			return View(_service.GetReviewsByUser(id));
+		[Authorize(Roles = "Admin, User")]
+		public IActionResult UserBookReviews() {
+			var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+			return View(_service.GetReviewsByUser(userId));
 		}
 
 		[Authorize(Roles = "Admin, User")]

@@ -25,6 +25,7 @@ namespace LibraryManagement.Controllers {
 					Title = item.book.Title,
 					Author = item.book.Author,
 					Genre = item.book.Genre,
+					Picture = item.book.Picture,
 					Published = item.book.Published.ToShortDateString(),
 					UserId = item.review.UserId,
 					Rating = item.review.Rating,

@@ -30,7 +30,7 @@
 						<td>@book.Author</td>
 						<td>@book.Published.ToShortDateString()</td>
 						<td>
-							<a asp-controller="BookReview" asp-action="BookReviews" asp-route-id="@book.BookId">Reviews</a>
+							<a asp-controller="Book" asp-action="Book" asp-route-id="@book.BookId">Reviews</a>
 							@if (User.IsInRole("Admin")){
 								<a asp-action="Delete" asp-route-id="@book.BookId">Delete</a>
 							}
