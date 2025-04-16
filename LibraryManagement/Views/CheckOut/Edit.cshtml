@@ -1,0 +1,35 @@
+﻿@model CheckOut
+
+<h2>Edit Checkout</h2>
+
+<form asp-action="Edit">
+    <input asp-for="UserId" type="hidden" />
+    <input asp-for="BookId" type="hidden" />
+
+    <div class="form-group">
+        <label asp-for="CheckoutDate">Checkout Date</label>
+        <input asp-for="CheckoutDate" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DueDate">Due Date</label>
+        <input asp-for="DueDate"  />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="IsReturned">Returned?</label>
+        <input asp-for="IsReturned" type="checkbox" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="IsOverdue">Overdue?</label>
+        <input asp-for="IsOverdue" type="checkbox" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AuthorizeCheckout">Authorized?</label>
+        <input asp-for="AuthorizeCheckout" type="checkbox" />
+    </div>
+
+    <button type="submit" class="btn">Update</button>
+</form>

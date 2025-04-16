@@ -29,6 +29,12 @@
 						<td>@checkout.UserId</td>
 						<td>@checkout.CheckoutDate</td>
 						<td>@checkout.DueDate</td>
+						<td>
+							@if (User.IsInRole("Admin"))
+							{
+								<a asp-action="Edit" asp-route-bookId="@checkout.BookId" asp-route-userId="@checkout.UserId">Edit</a>
+							}
+						</td>
 					</tr>
 				}
 			</tbody>

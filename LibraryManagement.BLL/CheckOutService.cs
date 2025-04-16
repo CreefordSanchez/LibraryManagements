@@ -42,5 +42,9 @@ namespace LibraryManagement.BLL {
         {
             _repo.CreateCheckOut(check);
         }
+
+        public void EditCheckOut(CheckOut checkout) {
+            _repo.Edit(checkout);
+        }
     }
 }

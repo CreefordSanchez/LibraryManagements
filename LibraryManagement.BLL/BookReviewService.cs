@@ -58,5 +58,9 @@ namespace LibraryManagement.BLL {
         {
             _repo.CreateBookReview(review);
         }
+
+        public void EditBookReview(BookReview review) {
+            _repo.Edit(review);
+        }
     }
 }

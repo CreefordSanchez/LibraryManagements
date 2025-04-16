@@ -76,5 +76,25 @@ namespace LibraryManagement.Controllers {
 
 			return View(checkOut);
 		}
-	}
+
+        [HttpGet]
+        public IActionResult Edit(int bookId, string userId) {
+            CheckOut? checkout = _service.GetByCompositeKey(bookId, userId);
+            if (checkout == null) { 
+                return NotFound();
+            }
+            ViewBag.BookList = _bookService.GetAllBooks();
+            return View(checkout);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(CheckOut checkout) {
+            if (ModelState.IsValid) {
+                _service.EditCheckOut(checkout);
+                return RedirectToAction("Index");
+            }
+            ViewBag.BookList = _bookService.GetAllBooks();
+            return View(checkout);
+        }
+    }
 }

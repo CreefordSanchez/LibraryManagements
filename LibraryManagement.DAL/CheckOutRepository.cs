@@ -33,5 +33,10 @@ namespace LibraryManagement.DAL {
             _context.CheckOuts.Add(check);
             _context.SaveChanges();
         }
+
+        public void Edit(CheckOut checkout) {
+            _context.CheckOuts.Update(checkout);
+            _context.SaveChanges();
+        }
     }
 }

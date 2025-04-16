@@ -40,5 +40,9 @@ namespace LibraryManagement.BLL {
         {
             _repo.CreateEvent(review);
         }
+
+        public void EditEvent(Event ev) {
+            _repo.Edit(ev);
+        }
     }
 }

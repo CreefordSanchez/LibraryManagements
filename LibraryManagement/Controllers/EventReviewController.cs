@@ -63,5 +63,25 @@ namespace LibraryManagement.Controllers {
 
             return View(review);
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id) {
+            EventReview? review = _service.GetById(id);
+            if (review == null) {
+                return NotFound();
+            }
+            ViewBag.EventList = _eventService.GetAllEvents(); // for the dropdown
+            return View(review);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EventReview review) {
+            if (ModelState.IsValid) {
+                _service.EditEventReview(review);
+                return RedirectToAction("Index");
+            }
+            ViewBag.EventList = _eventService.GetAllEvents(); // in case of error
+            return View(review);
+        }
     }
 }

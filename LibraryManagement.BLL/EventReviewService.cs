@@ -38,5 +38,9 @@ namespace LibraryManagement.BLL {
 		public void CreateEventReview(EventReview review) {
 			_repo.CreateEventReview(review);
 		}
-	}
+
+        public void EditEventReview(EventReview review) {
+            _repo.Edit(review);
+        }
+    }
 }

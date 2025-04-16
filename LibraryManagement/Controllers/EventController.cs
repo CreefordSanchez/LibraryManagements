@@ -72,6 +72,22 @@ namespace LibraryManagement.Controllers {
 
 			return View(events);
 		}
+        [HttpGet]
+        public IActionResult Edit(int id) {
+            Event? ev = _service.GetById(id);
+			if (ev == null) {
+				return NotFound();
+			}
+            return View(ev);
+        }
 
-	}
+        [HttpPost]
+        public IActionResult Edit(Event ev) {
+            if (ModelState.IsValid) {
+                _service.EditEvent(ev);
+                return RedirectToAction("Index");
+            }
+            return View(ev);
+        }
+    }
 }

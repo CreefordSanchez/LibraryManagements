@@ -61,5 +61,26 @@ namespace LibraryManagement.Controllers {
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id) {
+            BookReview review = _service.GetBookReview(id);
+            if (review == null) {
+                return NotFound();
+            }
+            ViewBag.BookList = _bookService.GetAllBooks();
+            return View(review);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(BookReview review) {
+            if (ModelState.IsValid) {
+                _service.EditBookReview(review);
+                return RedirectToAction("Index");
+            }
+            ViewBag.BookList = _bookService.GetAllBooks();
+            return View(review);
+        }
+
     }
 }

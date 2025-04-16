@@ -38,5 +38,10 @@ namespace LibraryManagement.DAL {
 			_context.BookReviews.Add(review);
 			_context.SaveChanges();
 		}
-	}
+
+        public void Edit(BookReview review) {
+            _context.BookReviews.Update(review);
+            _context.SaveChanges();
+        }
+    }
 }

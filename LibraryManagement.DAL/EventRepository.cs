@@ -24,5 +24,10 @@ namespace LibraryManagement.DAL {
 			_context.Events.Add(events);
 			_context.SaveChanges();
 		}
+
+        public void Edit(Event ev) {
+            _context.Events.Update(ev);
+            _context.SaveChanges();
+        }
     }
 }

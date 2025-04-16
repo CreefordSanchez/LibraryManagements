@@ -25,6 +25,12 @@
 						<td>@er.Event.Title</td>
 						<td>@er.UserId</td>
 						<td>@er.Rating</td>
+						<td>
+							@if (User.IsInRole("Admin"))
+							{
+								<a asp-action="Edit" asp-route-id="@er.EventReviewId">Edit</a>
+							}
+						</td>
 					</tr>
 				}
 			</tbody>
