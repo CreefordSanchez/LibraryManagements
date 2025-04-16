@@ -42,6 +42,7 @@ namespace LibraryManagement.Controllers {
             return View(review);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Delete(int id)
         {

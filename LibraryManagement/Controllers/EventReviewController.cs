@@ -23,6 +23,7 @@ namespace LibraryManagement.Controllers {
             return View(GetEventReviews(id));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Delete(int id)
         {
@@ -43,7 +44,7 @@ namespace LibraryManagement.Controllers {
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Roles = "Admin, User")]
+        [Authorize]
         [HttpGet]
         public IActionResult CreateEventReview()
         {
