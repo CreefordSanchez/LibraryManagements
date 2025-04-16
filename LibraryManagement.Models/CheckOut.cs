@@ -1,5 +1,6 @@
 ﻿namespace LibraryManagement.Models {
 	public class CheckOut {
+		public int CheckOutId { get; set; }
 		public int BookId { get; set; }
 		public Book? Book { get; set; }
 		public string UserId { get; set; }
