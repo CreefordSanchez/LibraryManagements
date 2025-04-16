@@ -79,9 +79,8 @@ namespace LibraryManagement.DAL {
 					.OnDelete(DeleteBehavior.Cascade);
 			});
 
-            builder.Entity<CheckOut>(entity =>
-            {
-                entity.HasKey(co => co.CheckOutId);
+			builder.Entity<CheckOut>(entity => {
+				entity.HasKey(co => co.CheckOutId);
 
 				entity.Property(co => co.IsReturned).IsRequired();
 				entity.Property(co => co.IsOverdue).IsRequired();
@@ -94,11 +93,11 @@ namespace LibraryManagement.DAL {
 					.HasForeignKey(co => co.UserId)
 					.OnDelete(DeleteBehavior.Cascade);
 
-                entity.HasOne(co => co.Book)
-                    .WithMany(b => b.CheckOut)
-                    .HasForeignKey(co => co.BookId)
-                    .OnDelete(DeleteBehavior.Cascade);
-            });
+				entity.HasOne(co => co.Book)
+					.WithMany(b => b.CheckOut)
+					.HasForeignKey(co => co.BookId)
+					.OnDelete(DeleteBehavior.Cascade);
+			});
 
             //NOTE: run the program first and go to SQL server to grab Users id and put it here
             

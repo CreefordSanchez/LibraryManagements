@@ -13,19 +13,19 @@
 	if (Model == null || !Model.Any()) {
 		<h4>Nothing due today</h4>
 	} else {
-		<table class="table">
+		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
-					<th>Book Title</th>
-					<th>User</th>
-					<th>CheckOut Date</th>
+					<th scope="col">Book Title</th>
+					<th scope="col">User</th>
+					<th scope="col">CheckOut Date</th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach (CheckOut checkout in Model) {
 					var user = UserManager.FindByIdAsync(checkout.UserId).Result;
 					<tr>
-						<td>@checkout.Book.Title</td>
+						<th scope="row">@checkout.Book.Title</th>
 						<td>@user</td>
 						<td>@checkout.CheckoutDate</td>
 					</tr>
