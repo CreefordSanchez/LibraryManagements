@@ -55,23 +55,18 @@ namespace LibraryManagement.Controllers {
         }
 
         [HttpGet]
-        public IActionResult CreateBookReview()
-        {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            ViewBag.UserId = userId;
-            ViewBag.BookList = _service.GetAllBooks();
-
-            return View();
-        }
+		public IActionResult CreateBook() {
+			return View();
+		}
 
 		[HttpPost]
 		public IActionResult CreateBook(Book book) {
-			if (ModelState.IsValid) {
+            if (ModelState.IsValid) {
 				_service.CreateBook(book);
 				return RedirectToAction("Index");
 			}
 
-			return View(book);
+            return View(book);
 		}
 	}
 }

@@ -21,13 +21,23 @@ namespace LibraryManagement.Controllers {
 			return View(_service.GetReviewsByUser(id));
 		}
 
-        public IActionResult CreateBookReview()
-        {
+        [HttpGet]
+        public IActionResult CreateBookReview() {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             ViewBag.UserId = userId;
             ViewBag.BookList = _bookService.GetAllBooks();
 
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateBookReview(BookReview review) {
+            if (ModelState.IsValid) {
+                _service.CreateBookReview(review);
+                return RedirectToAction("Index");
+            }
+
+            return View(review);
         }
 
         [HttpGet]
