@@ -6,15 +6,15 @@
 	ViewData["Title"] = "All Books";
 }
 
-<h1>All Books</h1>
+<h3 class="text-center"><u>All Books</u></h3>
 @{
 	if(Model == null || !Model.Any())
 	{
-		<h4>No Books Found</h4>
+		<h5>No Books Found</h5>
 	}
 	else
 	{
-		<table class="table table-striped table-hover table-bordered">
+		<table class="table table-striped table-hover table-bordered table-sm">
 			<thead>
 				<tr>
 					<th scope="col">Title</th>
@@ -25,11 +25,11 @@
 			</thead>
 			<tbody>
 				@foreach (Book book in Model) {
-					<tr onclick="document.location.href='Book/Book/@book.BookId'">
-						<th scope="row">@book.Title</th>
-						<td>@book.Author</td>
-						<td>@book.Published.ToShortDateString()</td>
-						<td>
+					<tr onclick="document.location.href='Book/Book/@book.BookId'" style="cursor: pointer;">
+						<th scope="row"  class="user-select-none">@book.Title</th>
+						<td class="user-select-none">@book.Author</td>
+						<td class="user-select-none">@book.Published.ToShortDateString()</td>
+						<td class="user-select-none">
 							<a asp-controller="Book" asp-action="Book" asp-route-id="@book.BookId">Reviews</a>
 							@if (User.IsInRole("Admin")){
 								<a asp-action="Delete" asp-route-id="@book.BookId">Delete</a>

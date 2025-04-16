@@ -3,7 +3,7 @@
 @inject RoleManager<IdentityRole> RoleManage
 @model IEnumerable<Event>
 @{
-	ViewData["Title"] = "All Evenets";
+	ViewData["Title"] = "All Events";
 }
 
 <h1>All Events</h1>
@@ -22,7 +22,7 @@
 			</thead>
 			<tbody>
 				@foreach (Event e in Model) {
-					<tr onclick="document.location.href='Event/Event/@e.EventId'">
+					<tr onclick="document.location.href='Event/Event/@e.EventId'" style="cursor: pointer;">
 						<th itemscope="col">@e.Title</th>
 						<td>@e.Location</td>
 						<td>@e.Date.ToString(), @e.Time.ToString()</td>

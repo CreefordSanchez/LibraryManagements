@@ -4,19 +4,19 @@
 	ViewData["Title"] = "Home Page";
 }
 <div class="text-center">
-	<h1 class="display-4">Welcome to the Library Management!</h1>
+	<h1>Welcome to the Library Management!</h1>
 	<p>A place where all the exciting events and books in our library come together!</p>
 </div>
 <br /><br /><br />
 <div class="container-fluid">
 	<div class="row">
 		<div class="books col">
-			<h1 class="text-center">All Books</h1>
+			<h3 class="text-center"><u>Top Books</u></h3>
 			@{
 				if (!Model.Any()) {
-					<h4>No Books Found</h4>
+					<h4 class="text-center">No books with at least one review of 3 or more found</h4>
 				} else {
-					<table class="table table-striped table-hover">
+					<table class="table table-striped table-hover table-bordered table-sm">
 						<thead>
 							<tr>
 								<th scope="col">Title</th>
@@ -29,7 +29,7 @@
 							@foreach (BookAndEvent book in Model) {
 								@if(book.Source.Equals("Book"))
 								{
-									<tr onclick="document.location.href='Book/Book/@book.ID'">
+									<tr onclick="document.location.href='Book/Book/@book.ID'" style="cursor: pointer;">
 										<th scope="row">@book.Title</th>
 										<td>@book.AuthOrLocation</td>
 										<td>@book.Date</td>
@@ -45,12 +45,12 @@
 			}
 		</div>
 		<div class="events col">
-			<h1 class="text-center">Upcomming Events</h1>
+			<h3 class="text-center"><u>Upcomming Events</u></h3>
 			@{
 				if (!Model.Any()) {
 					<h4>No Upcomming Events Found</h4>
 				} else {
-					<table class="table table-striped table-hover">
+					<table class="table table-striped table-hover table-bordered table-sm">
 						<thead>
 							<tr>
 								<th scope="col">Title</th>
@@ -63,7 +63,7 @@
 							@foreach (BookAndEvent e in Model) {
 								@if (e.Source.Equals("Event"))
 								{
-									<tr onclick="document.location.href='Event/Event/@e.ID'">
+									<tr onclick="document.location.href='Event/Event/@e.ID'" style="cursor: pointer;">
 										<th scope="row">@e.Title</th>
 										<td>@e.AuthOrLocation</td>
 										<td>@e.Date.ToString(), @e.Time.ToString()</td>
