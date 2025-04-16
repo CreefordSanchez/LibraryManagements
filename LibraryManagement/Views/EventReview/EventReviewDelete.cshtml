@@ -1,4 +1,4 @@
-﻿@model BookReview
+﻿@model EventReview
 
 @{
     ViewData["Title"] = "Delete Review";
@@ -10,10 +10,10 @@
 <div>
     <dl class="row">
         <dt class="col-sm-2">
-            Book Title
+            Event Name
         </dt>
         <dd class="col-sm-10">
-            @Model.Book?.Title
+            @Model.Event.Title
         </dd>
 
         <dt class="col-sm-2">
@@ -32,7 +32,7 @@
     </dl>
 
     <form asp-action="DeleteConfirmed" method="post">
-        <input type="hidden" asp-for="BookReviewId" />
+        <input type="hidden" asp-for="EventReviewId" />
         <button type="submit" class="btn btn-danger">Delete</button>
         <a asp-action="Index" class="btn btn-secondary">Cancel</a>
     </form>

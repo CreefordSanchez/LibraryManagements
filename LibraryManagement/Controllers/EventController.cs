@@ -13,6 +13,7 @@ namespace LibraryManagement.Controllers {
 			return View(_service.GetAllEvents());
 		}
 
+		[Authorize(Roles = "Admin")]
 		[HttpGet]
 		public IActionResult Delete(int id) {
 			Event? ev = _service.GetById(id);
@@ -55,7 +56,7 @@ namespace LibraryManagement.Controllers {
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult CreateEvent() {
-			var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+			string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 			ViewBag.UserId = userId;
 
 			return View();

@@ -38,6 +38,10 @@ namespace LibraryManagement.Controllers {
             {
                 TempData["Error"] = "Cannot delete a checkout that has not been returned.";
                 return RedirectToAction(nameof(Index));
+            } 
+            else
+            {
+                _service.DeleteIfReturned(bookId, userId);
             }
 
             return View(checkout);
