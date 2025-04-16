@@ -52,8 +52,8 @@ namespace LibraryManagement.Controllers {
 			return View();
 		}
 
-		[HttpGet]
         [Authorize(Roles = "Admin")]
+        [HttpGet]
         public IActionResult CreateEvent() {
 			var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 			ViewBag.UserId = userId;
