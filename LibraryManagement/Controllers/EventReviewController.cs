@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using LibraryManagement.BLL;
 using LibraryManagement.Models;
+using LibraryManagement.Models.ModelViews;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,8 +26,17 @@ namespace LibraryManagement.Controllers {
 			if (review == null)
 				return NotFound();
 
-			return View(review);
-		}
+            DeleteConfirmationViewModel? vm = new DeleteConfirmationViewModel
+            {
+                Id = review.EventReviewId,
+                Title = review.Comment.Length > 50 ? review.Comment[..50] + "..." : review.Comment,
+                EntityName = "Event Review",
+                DeleteAction = "DeleteConfirmed",
+                DeleteController = "EventReview"
+            };
+
+            return View(review);
+        }
 
 		[HttpPost]
 		public IActionResult DeleteConfirmed(int id) {

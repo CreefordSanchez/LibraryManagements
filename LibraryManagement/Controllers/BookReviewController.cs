@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using LibraryManagement.BLL;
 using LibraryManagement.Models;
+using LibraryManagement.Models.ModelViews;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,13 +39,23 @@ namespace LibraryManagement.Controllers {
 			return View(review);
 		}
 
-		[HttpGet]
-		public IActionResult Delete(int id) {
-			BookReview? review = _service.GetBookReview(id);
-			if (review == null)
-				return NotFound();
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            BookReview? review =  _service.GetBookReview(id);
+            if (review == null)
+                return NotFound();
+            
+            DeleteConfirmationViewModel? vm = new DeleteConfirmationViewModel
+            {
+                Id = review.BookReviewId,
+                Title = review.Comment.Length > 50 ? review.Comment[..50] + "..." : review.Comment,
+                EntityName = "Book Review",
+                DeleteAction = "DeleteConfirmed",
+                DeleteController = "BookReview"
+            };
 
-			return View();
+            return View();
 		}
 
         [HttpPost]

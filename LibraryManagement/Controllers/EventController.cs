@@ -19,7 +19,16 @@ namespace LibraryManagement.Controllers {
 			if (ev == null)
 				return NotFound();
 
-			return View(ev);
+            DeleteConfirmationViewModel? vm = new DeleteConfirmationViewModel
+            {
+                Id = ev.EventId,
+                Title = ev.Description.Length > 50 ? ev.Description[..50] + "..." : ev.Description,
+                EntityName = "Event",
+                DeleteAction = "DeleteConfirmed",
+                DeleteController = "Event"
+            };
+
+            return View(ev);
 		}
 
 		[HttpPost]

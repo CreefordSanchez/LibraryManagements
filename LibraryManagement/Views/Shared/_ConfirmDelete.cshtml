@@ -1,0 +1,16 @@
+﻿@model LibraryManagement.Models.ModelViews.DeleteConfirmationViewModel
+
+<div class="modal-header">
+    <h5 class="modal-title">Delete @Model.EntityName</h5>
+</div>
+<div class="modal-body">
+    <p>Are you sure you want to delete this @Model.EntityName?</p>
+    <p><strong>@Model.Title</strong></p>
+</div>
+<div class="modal-footer">
+    <form asp-action="@Model.DeleteAction" asp-controller="@Model.DeleteController" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-action="Index" asp-controller="@Model.DeleteController" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

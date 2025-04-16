@@ -1,31 +1,65 @@
 ﻿@model EventReview
+@{
+    ViewData["Title"] = "Event Review";
+}
+<div class="container mt-5">
+    <div class="card shadow border-0 bg-white">
+        <div class="card-body">
+            <h3 class="mb-4 text-primary-custom">Edit @ViewData["Title"]</h3>
+            <form asp-action="Edit">
+                <input asp-for="EventReviewId" type="hidden" />
+                <input asp-for="UserId" type="hidden" />
 
-<h2>Edit Event Review</h2>
+                <div class="mb-3">
+                    <label asp-for="EventId" class="form-label text-primary-custom"></label>
+                    <select asp-for="EventId" class="form-control">
+                        @foreach (Event ev in ViewBag.EventList)
+                        {
+                            <option value="@ev.EventId">@ev.Title</option>
+                        }
+                    </select>
+                </div>
 
-<form asp-action="Edit">
-    <input asp-for="EventReviewId" type="hidden" />
-    <input asp-for="UserId" type="hidden" />
+                <div class="mb-3">
+                    <label asp-for="Rating" class="form-label text-primary-custom"></label>
+                    <input asp-for="Rating" class="form-control" />
+                </div>
 
-    <div class="form-group">
-        <label asp-for="EventId">Event</label>
-        <select asp-for="EventId">
-            <option value="">-- Select Event --</option>
-            @foreach (Event ev in ViewBag.EventList)
-            {
-                <option value="@ev.EventId">@ev.Title</option>
-            }
-        </select>
+                <div class="mb-3">
+                    <label asp-for="Comment" class="form-label text-primary-custom"></label>
+                    <input asp-for="Comment" class="form-control" />
+                </div>
+
+                <button type="submit" class="btn btn-primary-custom">Update</button>
+                <a asp-action="Index" class="btn btn-outline-custom ms-2">Cancel</a>
+            </form>
+        </div>
     </div>
+</div>
 
-    <div class="form-group">
-        <label asp-for="Rating">Rating</label>
-        <input asp-for="Rating"/>
-    </div>
+<style>
+    .text-primary-custom {
+        color: #00669b;
+    }
 
-    <div class="form-group">
-        <label asp-for="Comment">Comment</label>
-        <input asp-for="Comment" />
-    </div>
+    .btn-primary-custom {
+        background-color: #00669b;
+        color: white;
+        border: none;
+    }
 
-    <button type="submit" class="btn">Update</button>
-</form>
+    .btn-outline-custom {
+        border: 1px solid #00669b;
+        color: #00669b;
+        background-color: white;
+    }
+
+    .btn-outline-custom:hover {
+        background-color: #00669b;
+        color: white;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+</style>

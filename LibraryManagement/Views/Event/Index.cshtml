@@ -29,7 +29,8 @@
 						<td>
 							<a asp-controller="Event" asp-action="Event" asp-route-id="@e.EventId">Reviews</a>
 							@if (User.IsInRole("Admin")) {
-								<a asp-action="Delete" asp-route-id="@e.EventId">Delete</a>
+								<a asp-controller="Event" asp-action="Delete" asp-route-id="@e.EventId">Delete</a>
+								<a asp-controller="Event" asp-action="Edit" asp-route-id="@e.EventId">Edit</a>
 							}
 						</td>
 					</tr>

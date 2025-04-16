@@ -42,8 +42,17 @@ namespace LibraryManagement.Controllers {
 			if (review == null)
 				return NotFound();
 
-			return View(review);
-		}
+            DeleteConfirmationViewModel? vm = new DeleteConfirmationViewModel
+            {
+                Id = review.BookId,
+                Title = review.Title.Length > 50 ? review.Title[..50] + "..." : review.Title,
+                EntityName = "Book",
+                DeleteAction = "DeleteConfirmed",
+                DeleteController = "Book"
+            };
+
+            return View(review);
+        }
 
 		[HttpPost]
 		public IActionResult DeleteConfirmed(int id) {

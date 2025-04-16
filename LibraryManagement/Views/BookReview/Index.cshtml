@@ -31,8 +31,8 @@
 						<td>@review.Comment</td>
 						<td>
 							@if (User.IsInRole("Admin")) {
-								<a asp-action="Delete" asp-route-id="@review.BookReviewId">Delete</a>
-								<a asp-action="Edit" asp-route-id="@review.BookReviewId">Edit</a>
+								<a asp-controller="BookReview" asp-action="Delete" asp-route-id="@review.BookReviewId">Delete</a>
+								<a asp-controller="BookReview" asp-action="Edit" asp-route-id="@review.BookReviewId">Edit</a>
 							}
 						</td>
 					</tr>

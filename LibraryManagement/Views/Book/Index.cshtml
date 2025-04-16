@@ -32,7 +32,7 @@
 						<td class="user-select-none">
 							<a asp-controller="Book" asp-action="Book" asp-route-id="@book.BookId">Reviews</a>
 							@if (User.IsInRole("Admin")){
-								<a asp-action="Delete" asp-route-id="@book.BookId">Delete</a>
+								<a asp-controller="Book" asp-action="Delete" asp-route-id="@book.BookId">Delete</a>
 							}
 						</td>
 					</tr>
