@@ -14,19 +14,19 @@
 	}
 	else
 	{
-		<table class="table">
+		<table class="table table-striped table-hover table-bordered">
 			<thead>
 				<tr>
-					<th>Title</th>
-					<th>Author</th>
-					<th>Published Date</th>
-					<th>Actions</th>
+					<th scope="col">Title</th>
+					<th scope="col">Author</th>
+					<th scope="col">Published Date</th>
+					<th scope="col">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach (Book book in Model) {
 					<tr onclick="document.location.href='Book/Book/@book.BookId'">
-						<td>@book.Title</td>
+						<th scope="row">@book.Title</th>
 						<td>@book.Author</td>
 						<td>@book.Published.ToShortDateString()</td>
 						<td>

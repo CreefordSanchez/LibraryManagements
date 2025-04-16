@@ -11,19 +11,19 @@
 	if (Model == null || !Model.Any()) {
 		<h4>No Events Found</h4>
 	} else {
-		<table class="table">
+		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
-					<th>Title</th>
-					<th>Location</th>
-					<th>Date & Time</th>
-					<th>Actions</th>
+					<th scope="col">Title</th>
+					<th scope="col">Location</th>
+					<th scope="col">Date & Time</th>
+					<th scope="col">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach (Event e in Model) {
 					<tr onclick="document.location.href='Event/Event/@e.EventId'">
-						<td>@e.Title</td>
+						<th itemscope="col">@e.Title</th>
 						<td>@e.Location</td>
 						<td>@e.Date.ToString(), @e.Time.ToString()</td>
 						<td>

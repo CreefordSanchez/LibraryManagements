@@ -79,9 +79,8 @@ namespace LibraryManagement.DAL {
 					.OnDelete(DeleteBehavior.Cascade);
 			});
 
-            builder.Entity<CheckOut>(entity =>
-            {
-                entity.HasKey(co => co.CheckOutId);
+			builder.Entity<CheckOut>(entity => {
+				entity.HasKey(co => co.CheckOutId);
 
 				entity.Property(co => co.IsReturned).IsRequired();
 				entity.Property(co => co.IsOverdue).IsRequired();
@@ -94,192 +93,175 @@ namespace LibraryManagement.DAL {
 					.HasForeignKey(co => co.UserId)
 					.OnDelete(DeleteBehavior.Cascade);
 
-                entity.HasOne(co => co.Book)
-                    .WithMany(b => b.CheckOut)
-                    .HasForeignKey(co => co.BookId)
-                    .OnDelete(DeleteBehavior.Cascade);
-            });
+				entity.HasOne(co => co.Book)
+					.WithMany(b => b.CheckOut)
+					.HasForeignKey(co => co.BookId)
+					.OnDelete(DeleteBehavior.Cascade);
+			});
 
-            //NOTE: run the program first and go to SQL server to grab Users id and put it here
-            /*
-            
-            builder.Entity<Book>().HasData(
-                new Book
-                {
-                    BookId = 1,
-                    Title = "Airborn",
-                    Author = "Kenneth Oppel",
-                    Genre = "Adventure",
-                    Published = new DateOnly(2004, 5, 1),
-                    Picture = "~/img/AirbornBook.jpg"
-                },
-                new Book
-                {
-                    BookId = 2,
-                    Title = "Harry Potter",
-                    Author = "J.K. Rowling",
-                    Genre = "Fantasy",
-                    Published = new DateOnly(1997, 6, 26),
-                    Picture = "~/img/HarryPotterBook.jpg"
-                },
-                new Book
-                {
-                    BookId = 3,
-                    Title = "The Hunger Games",
-                    Author = "Suzanne Collins",
-                    Genre = "Dystopian",
-                    Published = new DateOnly(2008, 9, 14),
-                    Picture = "~/img/HungerGameBook.webp"
-                },
-                new Book
-                {
-                    BookId = 4,
-                    Title = "Percy Jackson",
-                    Author = "Rick Riordan",
-                    Genre = "Fantasy",
-                    Published = new DateOnly(2005, 6, 28),
-                    Picture = "~/img/PercyJacksonBook.jpg"
-                },
-                new Book
-                {
-                    BookId = 5,
-                    Title = "Twilight",
-                    Author = "Stephenie Meyer",
-                    Genre = "Romance",
-                    Published = new DateOnly(2005, 10, 5),
-                    Picture = "~/img/TwilightBook.jpg"
-                },
-                new Book
-                {
-                    BookId = 7,
-                    Title = "Wonder",
-                    Author = "R.J. Palacio",
-                    Genre = "Drama",
-                    Published = new DateOnly(2012, 2, 14),
-                    Picture = "~/img/WonderBook.jpg"
-                }
-            );
+			//NOTE: run the program first and go to SQL server to grab Users id and put it here
 
-            builder.Entity<BookReview>().HasData(
-                new BookReview
-                {
-                    BookReviewId = 1,
-                    UserId = " ",
-                    Rating = 5,
-                    Comment = "An absolutely amazing read! Couldn't put it down.",
-                    BookId = 2 
-                },
-                new BookReview
-                {
-                    BookReviewId = 2,
-                    UserId = " ",
-                    Rating = 4,
-                    Comment = "Great story and characters. Really enjoyed it.",
-                    BookId = 3 
-                }
-            );
 
-            builder.Entity<CheckOut>().HasData(
-                // 1. Not Returned, Overdue (30 days ago)
-                new CheckOut
-                {
-                    CheckOutId = 1,
-                    BookId = 1,
-                    UserId = " ",
-                    IsReturned = false,
-                    IsOverdue = true,
-                    DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-30)), // 30 days ago
-                    CheckoutDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-35)), // 5 days before due
-                    AuthorizeCheckout = true
-                },
-                // 2. Not Returned, Still On Time (Due in 5 days)
-                new CheckOut
-                {
-                    CheckOutId = 2,
-                    BookId = 2,
-                    UserId = " ",
-                    IsReturned = false,
-                    IsOverdue = false,
-                    DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(5)), // 5 days from now
-                    CheckoutDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-25)), // 25 days ago
-                    AuthorizeCheckout = true
-                },
-                // 3. Returned (Returned 10 days ago)
-                new CheckOut
-                {
-                    CheckOutId = 3,
-                    BookId = 3,
-                    UserId = " ",
-                    IsReturned = true,
-                    IsOverdue = false, 
-                    DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(30)), 
-                    CheckoutDate = DateOnly.FromDateTime(DateTime.Now), 
-                    AuthorizeCheckout = true
-                }
-            );
+			builder.Entity<Book>().HasData(
+				new Book {
+					BookId = 1,
+					Title = "Airborn",
+					Author = "Kenneth Oppel",
+					Genre = "Adventure",
+					Published = new DateOnly(2004, 5, 1),
+					Picture = "~/img/AirbornBook.jpg"
+				},
+				new Book {
+					BookId = 2,
+					Title = "Harry Potter",
+					Author = "J.K. Rowling",
+					Genre = "Fantasy",
+					Published = new DateOnly(1997, 6, 26),
+					Picture = "~/img/HarryPotterBook.jpg"
+				},
+				new Book {
+					BookId = 3,
+					Title = "The Hunger Games",
+					Author = "Suzanne Collins",
+					Genre = "Dystopian",
+					Published = new DateOnly(2008, 9, 14),
+					Picture = "~/img/HungerGameBook.webp"
+				},
+				new Book {
+					BookId = 4,
+					Title = "Percy Jackson",
+					Author = "Rick Riordan",
+					Genre = "Fantasy",
+					Published = new DateOnly(2005, 6, 28),
+					Picture = "~/img/PercyJacksonBook.jpg"
+				},
+				new Book {
+					BookId = 5,
+					Title = "Twilight",
+					Author = "Stephenie Meyer",
+					Genre = "Romance",
+					Published = new DateOnly(2005, 10, 5),
+					Picture = "~/img/TwilightBook.jpg"
+				},
+				new Book {
+					BookId = 7,
+					Title = "Wonder",
+					Author = "R.J. Palacio",
+					Genre = "Drama",
+					Published = new DateOnly(2012, 2, 14),
+					Picture = "~/img/WonderBook.jpg"
+				}
+			);
 
-            builder.Entity<Event>().HasData(
-                new Event
-                {
-                    EventId = 1,
-                    Title = "Book Launch: Airborn",
-                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(10)), // Event happening 10 days from today
-                    Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(14)), // 2:00 PM
-                    Location = "Library Hall A",
-                    Description = "Join us for the launch of the book 'Airborn' by Kenneth Oppel. Meet the author and other fans!",
-                    OrganiserId = " "
-                },
-                new Event
-                {
-                    EventId = 2,
-                    Title = "Harry Potter Trivia Night",
-                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(20)), // Event happening 20 days from today
-                    Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(18)), // 6:00 PM
-                    Location = "Library Hall B",
-                    Description = "Test your knowledge of the Harry Potter universe at our trivia night. Great prizes for the winners!",
-                    OrganiserId = " "
-                },
-                new Event
-                {
-                    EventId = 3,
-                    Title = "Twilight Screening & Discussion",
-                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(30)), 
-                    Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(19)), 
-                    Location = "Library Hall C",
-                    Description = "Come watch 'Twilight' with fellow fans and participate in a discussion afterward.",
-                    OrganiserId = " "
-                },
-                new Event
-                {
-                    EventId = 4,
-                    Title = "Percy Jackson Reading & Meet",
-                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(50)), // Event happening 50 days from today
-                    Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(11)), // 11:00 AM
-                    Location = "Library Hall D",
-                    Description = "Join us for a reading of 'Percy Jackson' and meet other fans of the series.",
-                    OrganiserId = " "
-                }
-            );          
+			builder.Entity<BookReview>().HasData(
+				new BookReview {
+					BookReviewId = 1,
+					UserId = "b6463de8-1ab0-4c7e-9684-8821b35f8f6b",
+					Rating = 5,
+					Comment = "An absolutely amazing read! Couldn't put it down.",
+					BookId = 2
+				},
+				new BookReview {
+					BookReviewId = 2,
+					UserId = "f9f6317b-357b-4863-8d90-160e763588cb",
+					Rating = 4,
+					Comment = "Great story and characters. Really enjoyed it.",
+					BookId = 3
+				}
+			);
 
-            builder.Entity<EventReview>().HasData(
-                new EventReview
-                {
-                    EventReviewId = 1,
-                    UserId = " ",
-                    Rating = 5, 
-                    Comment = "Fantastic event! Great organization and the speakers were excellent.",
-                    EventId = 1 
-                },
-                new EventReview
-                {
-                    EventReviewId = 2,
-                    UserId = " ",
-                    Rating = 4,
-                    Comment = "Good event, but the schedule could've been a bit tighter. Still enjoyable.",
-                    EventId = 2 
-                }
-            );
-            */
-        }
-    }
+			builder.Entity<CheckOut>().HasData(
+				// 1. Not Returned, Overdue (30 days ago)
+				new CheckOut {
+					CheckOutId = 1,
+					BookId = 1,
+					UserId = "cec98e7e-f61e-49a2-b205-a28d9ba6b241",
+					IsReturned = false,
+					IsOverdue = true,
+					DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-30)), // 30 days ago
+					CheckoutDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-35)), // 5 days before due
+					AuthorizeCheckout = true
+				},
+				// 2. Not Returned, Still On Time (Due in 5 days)
+				new CheckOut {
+					CheckOutId = 2,
+					BookId = 2,
+					UserId = "51c6054b-4193-4e8f-9311-a558823d11b5",
+					IsReturned = false,
+					IsOverdue = false,
+					DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(5)), // 5 days from now
+					CheckoutDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-25)), // 25 days ago
+					AuthorizeCheckout = true
+				},
+				// 3. Returned (Returned 10 days ago)
+				new CheckOut {
+					CheckOutId = 3,
+					BookId = 3,
+					UserId = "b6463de8-1ab0-4c7e-9684-8821b35f8f6b",
+					IsReturned = true,
+					IsOverdue = false,
+					DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(30)),
+					CheckoutDate = DateOnly.FromDateTime(DateTime.Now),
+					AuthorizeCheckout = true
+				}
+			);
+
+			builder.Entity<Event>().HasData(
+				new Event {
+					EventId = 1,
+					Title = "Book Launch: Airborn",
+					Date = DateOnly.FromDateTime(DateTime.Now.AddDays(10)), // Event happening 10 days from today
+					Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(14)), // 2:00 PM
+					Location = "Library Hall A",
+					Description = "Join us for the launch of the book 'Airborn' by Kenneth Oppel. Meet the author and other fans!",
+					OrganiserId = "9eafc88b-37a6-455c-adc8-420441e1860f"
+				},
+				new Event {
+					EventId = 2,
+					Title = "Harry Potter Trivia Night",
+					Date = DateOnly.FromDateTime(DateTime.Now.AddDays(20)), // Event happening 20 days from today
+					Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(18)), // 6:00 PM
+					Location = "Library Hall B",
+					Description = "Test your knowledge of the Harry Potter universe at our trivia night. Great prizes for the winners!",
+					OrganiserId = "9eafc88b-37a6-455c-adc8-420441e1860f"
+				},
+				new Event {
+					EventId = 3,
+					Title = "Twilight Screening & Discussion",
+					Date = DateOnly.FromDateTime(DateTime.Now.AddDays(30)),
+					Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(19)),
+					Location = "Library Hall C",
+					Description = "Come watch 'Twilight' with fellow fans and participate in a discussion afterward.",
+					OrganiserId = "9eafc88b-37a6-455c-adc8-420441e1860f"
+				},
+				new Event {
+					EventId = 4,
+					Title = "Percy Jackson Reading & Meet",
+					Date = DateOnly.FromDateTime(DateTime.Now.AddDays(50)), // Event happening 50 days from today
+					Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(11)), // 11:00 AM
+					Location = "Library Hall D",
+					Description = "Join us for a reading of 'Percy Jackson' and meet other fans of the series.",
+					OrganiserId = "9eafc88b-37a6-455c-adc8-420441e1860f"
+				}
+			);
+
+			builder.Entity<EventReview>().HasData(
+				new EventReview {
+					EventReviewId = 1,
+					UserId = "f9f6317b-357b-4863-8d90-160e763588cb",
+					Rating = 5,
+					Comment = "Fantastic event! Great organization and the speakers were excellent.",
+					EventId = 1
+				},
+				new EventReview {
+					EventReviewId = 2,
+					UserId = "e340b85c-18e4-4b02-a1d5-d668fee4d956",
+					Rating = 4,
+					Comment = "Good event, but the schedule could've been a bit tighter. Still enjoyable.",
+					EventId = 2
+				}
+			);
+
+		}
+	}
 }

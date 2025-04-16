@@ -15,18 +15,18 @@
 	if (Model == null || !Model.Any()) {
 		<h4>No Active CheckOuts</h4>
 	} else {
-		<table class="table">
+		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
-					<th>Book Title</th>
-					<th>CheckOut Date</th>
-					<th>DueDate</th>
+					<th scope="col">Book Title</th>
+					<th scope="col">CheckOut Date</th>
+					<th scope="col">DueDate</th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach (CheckOut checkout in Model) {
-					<tr class="@(checkout.DueDate >= today ? "danger" : "" )">
-						<td>@checkout.Book.Title</td>
+					<tr class="@(checkout.DueDate >= today ? "" : "table-danger" )">
+						<th scope="row">@checkout.Book.Title</th>
 						<td>@checkout.CheckoutDate</td>
 						<td>@checkout.DueDate</td>
 					</tr>

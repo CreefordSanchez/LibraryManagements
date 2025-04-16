@@ -19,6 +19,9 @@
 	<h5>Scheduled on @ViewBag.Event.Date.ToString()</h5>
 	<p>At @ViewBag.Event.Time.ToString()</p>
 	<p>@ViewBag.Event.Location</p>
+	<br /><br />
+	<h5>Reviews</h5>
+	<p>No reviews for this Event</p>
 } else
 {
 	
@@ -30,19 +33,19 @@
 		</div>
 		<div class="reviews">
 			<h5>Reviews</h5>
-			<table class="table">
+			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th>User</th>
-						<th>Rating</th>
-						<th>Comment</th>
+						<th scope="col">User</th>
+						<th scope="col">Rating</th>
+						<th scope="col">Comment</th>
 					</tr>
 				</thead>
 				<tbody>
 					@foreach (EventAndReview review in Model) {
 						var user = UserManager.FindByIdAsync(review.UserId).Result;
 						<tr>
-							<td>@user</td>
+							<th scope="col">@user</th>
 							<td>@review.Rating</td>
 							<td>@review.Comment</td>
 						</tr>
