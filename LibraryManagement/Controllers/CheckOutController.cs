@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.Controllers {
-	public class CheckOutController(CheckOutService service, BookService bookService) : Controller {
+	public class CheckOutController(CheckOutService service, BookService bookService, CheckOutService checkService) : Controller {
 		private readonly CheckOutService _service = service;
 		private readonly BookService _bookService = bookService;
+		private readonly CheckOutService _checkService = checkService;
 
 		[Authorize(Roles = "Admin")]
 		public IActionResult Index() {
@@ -59,10 +60,16 @@ namespace LibraryManagement.Controllers {
         [HttpGet]
         public IActionResult CreateCheckOut() {
 			var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+			 List<int> notReturnedId = _checkService.GetAllCheckOuts()
+				.Where(co => co.IsReturned == false)
+				.Select(co => co.BookId)
+				.ToList();				
+
 			ViewBag.UserId = userId;
-			ViewBag.BookList = _bookService.GetAllBooks();
 			ViewBag.Checked = DateOnly.FromDateTime(DateTime.Today);
 			ViewBag.DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(30));
+            ViewBag.BookList = _bookService.GetAllBooks()
+                .Where(b => !notReturnedId.Contains(b.BookId));
 
             return View();
         }
