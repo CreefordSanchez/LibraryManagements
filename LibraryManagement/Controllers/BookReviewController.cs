@@ -22,6 +22,7 @@ namespace LibraryManagement.Controllers {
 			return View(_service.GetReviewsByUser(id));
 		}
 
+        [Authorize(Roles = "Admin, User")]
         [HttpGet]
         public IActionResult CreateBookReview() {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -31,8 +32,7 @@ namespace LibraryManagement.Controllers {
             return View();
         }
 
-        [HttpPost]
-        [Authorize(Roles = "Admin"), Authorize(Roles = "User")]
+        [HttpPost]       
         public IActionResult CreateBookReview(BookReview review) {
             if (ModelState.IsValid) {
                 _service.CreateBookReview(review);

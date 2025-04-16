@@ -42,9 +42,9 @@ namespace LibraryManagement.Controllers {
 
             return RedirectToAction(nameof(Index));
         }
-                
+
+        [Authorize(Roles = "Admin, User")]
         [HttpGet]
-        [Authorize(Roles = "Admin"), Authorize(Roles = "User")]
         public IActionResult CreateEventReview()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

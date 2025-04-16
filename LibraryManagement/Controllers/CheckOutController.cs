@@ -55,8 +55,8 @@ namespace LibraryManagement.Controllers {
             return RedirectToAction(nameof(Index));
         }
 
-		[HttpGet]
-        [Authorize(Roles = "Admin"), Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin, User")]
+        [HttpGet]
         public IActionResult CreateCheckOut() {
 			var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 			ViewBag.UserId = userId;

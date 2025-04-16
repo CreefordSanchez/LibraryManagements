@@ -55,8 +55,8 @@ namespace LibraryManagement.Controllers {
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
         [Authorize(Roles = "Admin")]
+        [HttpGet]
         public IActionResult CreateBook() {
 			return View();
 		}
