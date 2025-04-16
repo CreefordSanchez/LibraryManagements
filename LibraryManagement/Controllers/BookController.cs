@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using LibraryManagement.BLL;
+﻿using LibraryManagement.BLL;
 using LibraryManagement.Models;
 using LibraryManagement.Models.ModelViews;
 using Microsoft.AspNetCore.Authorization;
@@ -10,23 +9,25 @@ namespace LibraryManagement.Controllers {
 		private readonly BookService _service = service;
 		private readonly BookReviewService _reviewService = rService;
 
-        public IActionResult Index()
-        {
-            return View(_service.GetAllBooks());
-        }
+		public IActionResult Index() {
+			return View(_service.GetAllBooks());
+		}
 
 		public IActionResult Book(int id) {
 			List<BookReview> bookReviews = _reviewService.GetReviewsByBook(id);
 			List<Book> books = _service.GetAllBooks();
 			var query = books.Join(bookReviews, book => book.BookId, review => review.BookId, (book, review) => new { book, review }).Where(x => x.book.BookId == id)
 				.ToList();
+			ViewBag.Book = books.FirstOrDefault(b => b.BookId == id);
 			List<BookAndReview> bookAndReviews = new List<BookAndReview>();
 			foreach (var item in query) {
 				BookAndReview bookAndReview = new BookAndReview {
 					Title = item.book.Title,
 					Author = item.book.Author,
 					Genre = item.book.Genre,
-					Published = item.book.Published,
+					Picture = item.book.Picture,
+					Published = item.book.Published.ToShortDateString(),
+					UserId = item.review.UserId,
 					Rating = item.review.Rating,
 					Comment = item.review.Comment
 				};
@@ -35,12 +36,11 @@ namespace LibraryManagement.Controllers {
 			return View(bookAndReviews);
 		}
 
-        [HttpGet]
-        public IActionResult Delete(int id)
-        {
-            Book? review = _service.GetBook(id);
-            if (review == null)
-                return NotFound();
+		[HttpGet]
+		public IActionResult Delete(int id) {
+			Book? review = _service.GetBook(id);
+			if (review == null)
+				return NotFound();
 
             DeleteConfirmationViewModel? vm = new DeleteConfirmationViewModel
             {
@@ -54,30 +54,29 @@ namespace LibraryManagement.Controllers {
             return View(review);
         }
 
-        [HttpPost]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            bool deleted = _service.DeleteBook(id);
-            if (!deleted)
-                return NotFound();
+		[HttpPost]
+		public IActionResult DeleteConfirmed(int id) {
+			bool deleted = _service.DeleteBook(id);
+			if (!deleted)
+				return NotFound();
 
-            return RedirectToAction(nameof(Index));
-        }
+			return RedirectToAction(nameof(Index));
+		}
 
-        [Authorize(Roles = "Admin")]
-        [HttpGet]
-        public IActionResult CreateBook() {
+		[Authorize(Roles = "Admin")]
+		[HttpGet]
+		public IActionResult CreateBook() {
 			return View();
 		}
 
 		[HttpPost]
 		public IActionResult CreateBook(Book book) {
-            if (ModelState.IsValid) {
+			if (ModelState.IsValid) {
 				_service.CreateBook(book);
 				return RedirectToAction("Index");
 			}
 
-            return View(book);
+			return View(book);
 		}
 	}
 }

@@ -1,8 +1,8 @@
 ﻿namespace LibraryManagement.Models.ModelViews {
 	public class EventAndReview {
 		public string Title { get; set; }
-		public DateOnly Date { get; set; }
-		public TimeOnly Time { get; set; }
+		public string Date { get; set; }
+		public string Time { get; set; }
 		public string Location { get; set; }
 		public string Description { get; set; }
 		public string OrganiserID { get; set; }

@@ -1,35 +1,30 @@
-﻿using LibraryManagement.BLL;
+﻿using System.Security.Claims;
+using LibraryManagement.BLL;
 using LibraryManagement.Models;
 using LibraryManagement.Models.ModelViews;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace LibraryManagement.Controllers {
-    public class EventReviewController(EventReviewService service, EventService eventService) : Controller {
+	public class EventReviewController(EventReviewService service, EventService eventService) : Controller {
 		private readonly EventReviewService _service = service;
-        private readonly EventService _eventService = eventService;
-        public List<EventReview> GetAllEventReviews() {
+		private readonly EventService _eventService = eventService;
+		public List<EventReview> GetAllEventReviews() {
 			return _service.GetAllEventReviews();
 		}
 
-        public List<EventReview> GetEventReviews(int eventId) {
+		public List<EventReview> GetEventReviews(int eventId) {
 			return _service.GetReviewsByEvent(eventId);
 		}
 		public IActionResult Index() {
-            return View(GetAllEventReviews());
-        }
+			return View(GetAllEventReviews());
+		}
 
-        public IActionResult EventReview(int id) {
-            return View(GetEventReviews(id));
-        }
-
-        [HttpGet]
-        public IActionResult Delete(int id)
-        {
-            EventReview? review = _service.GetById(id);
-            if (review == null)
-                return NotFound();
+		[HttpGet]
+		public IActionResult Delete(int id) {
+			EventReview? review = _service.GetById(id);
+			if (review == null)
+				return NotFound();
 
             DeleteConfirmationViewModel? vm = new DeleteConfirmationViewModel
             {
@@ -43,55 +38,53 @@ namespace LibraryManagement.Controllers {
             return View(review);
         }
 
-        [HttpPost]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            bool deleted = _service.Delete(id);
-            if (!deleted)
-                return NotFound();
+		[HttpPost]
+		public IActionResult DeleteConfirmed(int id) {
+			bool deleted = _service.Delete(id);
+			if (!deleted)
+				return NotFound();
 
-            return RedirectToAction(nameof(Index));
-        }
+			return RedirectToAction(nameof(Index));
+		}
 
-        [Authorize(Roles = "Admin, User")]
-        [HttpGet]
-        public IActionResult CreateEventReview()
-        {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            ViewBag.UserId = userId;
-            ViewBag.EventList = _eventService.GetAllEvents();
+		[Authorize(Roles = "Admin, User")]
+		[HttpGet]
+		public IActionResult CreateEventReview() {
+			var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+			ViewBag.UserId = userId;
+			ViewBag.EventList = _eventService.GetAllEvents();
 
-            return View();
-        }
-       
-        [HttpPost]
-        public IActionResult CreateEventReview(EventReview review) {
-            if (ModelState.IsValid) {
-                _service.CreateEventReview(review);
-                return RedirectToAction("Index");
-            }
+			return View();
+		}
 
-            return View(review);
-        }
+		[HttpPost]
+		public IActionResult CreateEventReview(EventReview review) {
+			if (ModelState.IsValid) {
+				_service.CreateEventReview(review);
+				return RedirectToAction("Index");
+			}
 
-        [HttpGet]
-        public IActionResult Edit(int id) {
-            EventReview? review = _service.GetById(id);
-            if (review == null) {
-                return NotFound();
-            }
-            ViewBag.EventList = _eventService.GetAllEvents();
-            return View(review);
-        }
+			return View(review);
+		}
 
-        [HttpPost]
-        public IActionResult Edit(EventReview review) {
-            if (ModelState.IsValid) {
-                _service.EditEventReview(review);
-                return RedirectToAction("Index");
-            }
-            ViewBag.EventList = _eventService.GetAllEvents();
-            return View(review);
-        }
-    }
+		[HttpGet]
+		public IActionResult Edit(int id) {
+			EventReview? review = _service.GetById(id);
+			if (review == null) {
+				return NotFound();
+			}
+			ViewBag.EventList = _eventService.GetAllEvents();
+			return View(review);
+		}
+
+		[HttpPost]
+		public IActionResult Edit(EventReview review) {
+			if (ModelState.IsValid) {
+				_service.EditEventReview(review);
+				return RedirectToAction("Index");
+			}
+			ViewBag.EventList = _eventService.GetAllEvents();
+			return View(review);
+		}
+	}
 }
