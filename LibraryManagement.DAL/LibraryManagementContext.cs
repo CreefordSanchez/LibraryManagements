@@ -110,8 +110,8 @@ namespace LibraryManagement.DAL
             });
 
             //NOTE: run the program first and go to SQL server to grab Users id and put it here
-
             /*
+            
             builder.Entity<Book>().HasData(
                 new Book
                 {
@@ -173,7 +173,7 @@ namespace LibraryManagement.DAL
                 new BookReview
                 {
                     BookReviewId = 1,
-                    UserId = "9a1be00e-c01f-436d-999c-1743621214c6",
+                    UserId = " ",
                     Rating = 5,
                     Comment = "An absolutely amazing read! Couldn't put it down.",
                     BookId = 2 
@@ -181,7 +181,7 @@ namespace LibraryManagement.DAL
                 new BookReview
                 {
                     BookReviewId = 2,
-                    UserId = "9a1be00e-c01f-436d-999c-1743621214c6",
+                    UserId = " ",
                     Rating = 4,
                     Comment = "Great story and characters. Really enjoyed it.",
                     BookId = 3 
@@ -194,7 +194,7 @@ namespace LibraryManagement.DAL
                 {
                     CheckOutId = 1,
                     BookId = 1,
-                    UserId = "9a1be00e-c01f-436d-999c-1743621214c6",
+                    UserId = " ",
                     IsReturned = false,
                     IsOverdue = true,
                     DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-30)), // 30 days ago
@@ -206,7 +206,7 @@ namespace LibraryManagement.DAL
                 {
                     CheckOutId = 2,
                     BookId = 2,
-                    UserId = "9a1be00e-c01f-436d-999c-1743621214c6",
+                    UserId = " ",
                     IsReturned = false,
                     IsOverdue = false,
                     DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(5)), // 5 days from now
@@ -218,7 +218,7 @@ namespace LibraryManagement.DAL
                 {
                     CheckOutId = 3,
                     BookId = 3,
-                    UserId = "9a1be00e-c01f-436d-999c-1743621214c6",
+                    UserId = " ",
                     IsReturned = true,
                     IsOverdue = false, 
                     DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(30)), 
@@ -236,7 +236,7 @@ namespace LibraryManagement.DAL
                     Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(14)), // 2:00 PM
                     Location = "Library Hall A",
                     Description = "Join us for the launch of the book 'Airborn' by Kenneth Oppel. Meet the author and other fans!",
-                    OrganiserId = "d6a8eefb-0338-44c6-91ee-d393e7d94ff7"
+                    OrganiserId = " "
                 },
                 new Event
                 {
@@ -246,7 +246,7 @@ namespace LibraryManagement.DAL
                     Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(18)), // 6:00 PM
                     Location = "Library Hall B",
                     Description = "Test your knowledge of the Harry Potter universe at our trivia night. Great prizes for the winners!",
-                    OrganiserId = "d6a8eefb-0338-44c6-91ee-d393e7d94ff7"
+                    OrganiserId = " "
                 },
                 new Event
                 {
@@ -256,7 +256,7 @@ namespace LibraryManagement.DAL
                     Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(19)), 
                     Location = "Library Hall C",
                     Description = "Come watch 'Twilight' with fellow fans and participate in a discussion afterward.",
-                    OrganiserId = "d6a8eefb-0338-44c6-91ee-d393e7d94ff7"
+                    OrganiserId = " "
                 },
                 new Event
                 {
@@ -266,7 +266,7 @@ namespace LibraryManagement.DAL
                     Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(11)), // 11:00 AM
                     Location = "Library Hall D",
                     Description = "Join us for a reading of 'Percy Jackson' and meet other fans of the series.",
-                    OrganiserId = "d6a8eefb-0338-44c6-91ee-d393e7d94ff7"
+                    OrganiserId = " "
                 }
             );          
 
@@ -274,7 +274,7 @@ namespace LibraryManagement.DAL
                 new EventReview
                 {
                     EventReviewId = 1,
-                    UserId = "9a1be00e-c01f-436d-999c-1743621214c6",
+                    UserId = " ",
                     Rating = 5, 
                     Comment = "Fantastic event! Great organization and the speakers were excellent.",
                     EventId = 1 
@@ -282,7 +282,7 @@ namespace LibraryManagement.DAL
                 new EventReview
                 {
                     EventReviewId = 2,
-                    UserId = "9a1be00e-c01f-436d-999c-1743621214c6",
+                    UserId = " ",
                     Rating = 4,
                     Comment = "Good event, but the schedule could've been a bit tighter. Still enjoyable.",
                     EventId = 2 
