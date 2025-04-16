@@ -30,6 +30,7 @@
 							<a asp-controller="EventReview" asp-action="EventReviews" asp-route-id="@e.EventId">Reviews</a>
 							@if (User.IsInRole("Admin")) {
 								<a asp-action="Delete" asp-route-id="@e.EventId">Delete</a>
+								<a asp-action="Edit" asp-route-id="@e.EventId">Edit</a>
 							}
 						</td>
 					</tr>
