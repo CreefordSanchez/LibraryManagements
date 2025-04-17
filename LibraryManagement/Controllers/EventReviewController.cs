@@ -35,7 +35,7 @@ namespace LibraryManagement.Controllers {
                 DeleteController = "EventReview"
             };
 
-            return View(review);
+            return View(vm);
         }
 
 		[HttpPost]
