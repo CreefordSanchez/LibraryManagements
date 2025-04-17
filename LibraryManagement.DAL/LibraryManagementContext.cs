@@ -100,9 +100,38 @@ namespace LibraryManagement.DAL {
 			});
 
             //NOTE: run the program first and go to SQL server to grab Users id and put it here
-            
-            
-            /* builder.Entity<Book>().HasData(
+            var hasher = new PasswordHasher<IdentityUser>();
+
+            var user1 = new IdentityUser
+            {
+                Id = "15cd9722-9514-47a9-8496-53d36c2e4df3",
+                UserName = "organizer1@example.com",
+                NormalizedUserName = "ORGANIZER1@EXAMPLE.COM",
+                Email = "organizer1@example.com",
+                NormalizedEmail = "ORGANIZER1@EXAMPLE.COM",
+                EmailConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+                ConcurrencyStamp = Guid.NewGuid().ToString("D"),
+                PasswordHash = hasher.HashPassword(null, "Password123!") // or whatever your policy allows
+            };
+
+            var user2 = new IdentityUser
+            {
+                Id = "cea1739c-5d5e-40c5-a976-9ac6f9a711ce",
+                UserName = "organizer2@example.com",
+                NormalizedUserName = "ORGANIZER2@EXAMPLE.COM",
+                Email = "organizer2@example.com",
+                NormalizedEmail = "ORGANIZER2@EXAMPLE.COM",
+                EmailConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+                ConcurrencyStamp = Guid.NewGuid().ToString("D"),
+                PasswordHash = hasher.HashPassword(null, "Password123!")
+            };
+
+            builder.Entity<IdentityUser>().HasData(user1, user2);
+
+
+            builder.Entity<Book>().HasData(
                 new Book
                 {
                     BookId = 1,
@@ -278,7 +307,6 @@ namespace LibraryManagement.DAL {
                     EventId = 2 
                 }
             );
-            */
         }
     }
 }
