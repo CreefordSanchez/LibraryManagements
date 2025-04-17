@@ -11,25 +11,25 @@
 	if (Model == null || !Model.Any()) {
 		<h4>No Reviews for any event Found</h4>
 	} else {
-		<table class="table">
+		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
-					<th>Event Title</th>
-					<th>User Id</th>
-					<th>Rating</th>
+					<th scope="col">Event Title</th>
+					<th scope="col">User Id</th>
+					<th scope="col">Rating</th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach (EventReview er in Model) {
 					var user = UserManager.FindByIdAsync(er.UserId).Result;
 					<tr>
-						<td>@er.Event.Title</td>
+						<th scope="row">@er.Event.Title</th>
 						<td>@user</td>
 						<td>@er.Rating</td>
 						<td>
 							@if (User.IsInRole("Admin")) {
-								<a asp-action="Delete" asp-route-id="@er.EventReviewId">Delete</a>
-								<a asp-action="Edit" asp-route-id="@er.EventReviewId">Edit</a>
+								<a asp-controller="EventReview" asp-action="Delete" asp-route-id="@er.EventReviewId">Delete</a>
+								<a asp-action="EditReview" asp-route-id="@er.EventReviewId">Edit</a>
 							}
 						
 						</td>

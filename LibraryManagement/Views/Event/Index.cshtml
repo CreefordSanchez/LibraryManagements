@@ -3,7 +3,7 @@
 @inject RoleManager<IdentityRole> RoleManage
 @model IEnumerable<Event>
 @{
-	ViewData["Title"] = "All Evenets";
+	ViewData["Title"] = "All Events";
 }
 
 <h1>All Events</h1>
@@ -11,25 +11,26 @@
 	if (Model == null || !Model.Any()) {
 		<h4>No Events Found</h4>
 	} else {
-		<table class="table">
+		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
-					<th>Title</th>
-					<th>Location</th>
-					<th>Date & Time</th>
-					<th>Actions</th>
+					<th scope="col">Title</th>
+					<th scope="col">Location</th>
+					<th scope="col">Date & Time</th>
+					<th scope="col">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach (Event e in Model) {
-					<tr onclick="document.location.href='Event/Event/@e.EventId'">
-						<td>@e.Title</td>
+					<tr onclick="document.location.href='Event/Event/@e.EventId'" style="cursor: pointer;">
+						<th itemscope="col">@e.Title</th>
 						<td>@e.Location</td>
 						<td>@e.Date.ToString(), @e.Time.ToString()</td>
 						<td>
 							<a asp-controller="Event" asp-action="Event" asp-route-id="@e.EventId">Reviews</a>
 							@if (User.IsInRole("Admin")) {
-								<a asp-action="Delete" asp-route-id="@e.EventId">Delete</a>
+								<a asp-controller="Event" asp-action="Delete" asp-route-id="@e.EventId">Delete</a>
+								<a asp-controller="Event" asp-action="Edit" asp-route-id="@e.EventId">Edit</a>
 							}
 						</td>
 					</tr>

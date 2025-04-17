@@ -17,9 +17,10 @@
 	<h1>@ViewBag.Book.Title</h1>
 	<h5>by @ViewBag.Book.Author</h5>
 	<p>@ViewBag.Book.Genre</p>
-	<p>@ViewBag.Book.Published</p>
-	<img src="@ViewBag.Book.Picture" asp-append-version="true" />
+	<p>Published: @ViewBag.Book.Published</p>
+	<img src="@ViewBag.Book.Picture" asp-append-version="true" height="265" width="190" />
 	<br /><br />
+	<h5>Reviews</h5>
 	<p>No Reviews found for this book</p>
 } else {
 	<div>
@@ -27,23 +28,24 @@
 			<h1>@first.Title</h1>
 			<h5>@first.Author</h5>
 			<p>@first.Genre</p>
-			<p>@first.Published</p>
-			<img src="@first.Picture" asp-append-version="true" />
+			<p>Published: @first.Published</p>
+			<img src="@first.Picture" asp-append-version="true" height="265" width="190"/>
 		</div>
 		<div class="reviews">
-			<table class="table">
+			<h5>Reviews</h5>
+			<table class="table table-striped table-hover table-bordered">
 				<thead>
 					<tr>
-						<th>User</th>
-						<th>Rating</th>
-						<th>Comment</th>
+						<th scope="col">User</th>
+						<th scope="col">Rating</th>
+						<th scope="col">Comment</th>
 					</tr>
 				</thead>
 				<tbody>
 					@foreach (BookAndReview review in Model) {
 						var user = UserManager.FindByIdAsync(review.UserId).Result;
 						<tr>
-							<td>@user</td>
+							<th scope="row">@user</th>
 							<td>@review.Rating</td>
 							<td>@review.Comment</td>
 						</tr>

@@ -4,76 +4,81 @@
 	ViewData["Title"] = "Home Page";
 }
 <div class="text-center">
-	<h1 class="display-4">Welcome</h1>
-	<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+	<h1>Welcome to the Library Management!</h1>
+	<p>A place where all the exciting events and books in our library come together!</p>
 </div>
-<div class="books">
-	<h1>All Books</h1>
-	@{
-		if (!Model.Any()) {
-			<h4>No Books Found</h4>
-		} else {
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Title</th>
-						<th>Author</th>
-						<th>Published Date</th>
-						<th>Reviews</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach (BookAndEvent book in Model) {
-						@if(book.Source.Equals("Book"))
-						{
-							<tr onclick="document.location.href='Book/Book/@book.ID'">
-								<td>@book.Title</td>
-								<td>@book.AuthOrLocation</td>
-								<td>@book.Date</td>
-								<td>
-									<a asp-controller="Book" asp-action="Book" asp-route-id="@book.ID">Reviews</a>
-								</td>
+<br /><br /><br />
+<div class="container-fluid">
+	<div class="row">
+		<div class="books col">
+			<h3 class="text-center"><u>Top Books</u></h3>
+			@{
+				if (!Model.Any()) {
+					<h4 class="text-center">No books with at least one review of 3 or more found</h4>
+				} else {
+					<table class="table table-striped table-hover table-bordered table-sm">
+						<thead>
+							<tr>
+								<th scope="col">Title</th>
+								<th scope="col">Author</th>
+								<th scope="col">Published Date</th>
+								<th scope="col">Reviews</th>
 							</tr>
-						}
-					}
-				</tbody>
-			</table>
-		}
-	}
-</div>
-<div class="events">
-	<h1>Upcomming Events</h1>
-	@{
-		if (!Model.Any()) {
-			<h4>No Upcomming Events Found</h4>
-		} else {
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Title</th>
-						<th>Location</th>
-						<th>Date & Time</th>
-						<th>Reviews</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach (BookAndEvent e in Model) {
-						@if (e.Source.Equals("Event"))
-						{
-							<tr onclick="document.location.href='Event/Event/@e.ID'">
-								<td>@e.Title</td>
-								<td>@e.AuthOrLocation</td>
-								<td>@e.Date.ToString(), @e.Time.ToString()</td>
-								<td>
-									<a asp-controller="Event" asp-action="Event" asp-route-id="@e.ID">Reviews</a>
-								</td>
+						</thead>
+						<tbody>
+							@foreach (BookAndEvent book in Model) {
+								@if(book.Source.Equals("Book"))
+								{
+									<tr onclick="document.location.href='Book/Book/@book.ID'" style="cursor: pointer;">
+										<th scope="row">@book.Title</th>
+										<td>@book.AuthOrLocation</td>
+										<td>@book.Date</td>
+										<td>
+											<a asp-controller="Book" asp-action="Book" asp-route-id="@book.ID">Reviews</a>
+										</td>
+									</tr>
+								}
+							}
+						</tbody>
+					</table>
+				}
+			}
+		</div>
+		<div class="events col">
+			<h3 class="text-center"><u>Upcomming Events</u></h3>
+			@{
+				if (!Model.Any()) {
+					<h4>No Upcomming Events Found</h4>
+				} else {
+					<table class="table table-striped table-hover table-bordered table-sm">
+						<thead>
+							<tr>
+								<th scope="col">Title</th>
+								<th scope="col">Location</th>
+								<th scope="col">Date & Time</th>
+								<th scope="col">Reviews</th>
 							</tr>
-						}
-					}
-				</tbody>
-			</table>
-		}
-	}
+						</thead>
+						<tbody>
+							@foreach (BookAndEvent e in Model) {
+								@if (e.Source.Equals("Event"))
+								{
+									<tr onclick="document.location.href='Event/Event/@e.ID'" style="cursor: pointer;">
+										<th scope="row">@e.Title</th>
+										<td>@e.AuthOrLocation</td>
+										<td>@e.Date.ToString(), @e.Time.ToString()</td>
+										<td>
+											<a asp-controller="Event" asp-action="Event" asp-route-id="@e.ID">Reviews</a>
+										</td>
+									</tr>
+								}
+							}
+						</tbody>
+					</table>
+				}
+			}
+		</div>
+	</div>
 </div>
 
 <!--

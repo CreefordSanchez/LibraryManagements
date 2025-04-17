@@ -3,7 +3,15 @@
 <h1>New Checkout Page</h1>
 
 <form asp-action="CreateCheckOut">
-	<input asp-for="UserId" value="@ViewBag.UserId" type="hidden"/>
+	<label asp-for="UserId">User: </label>
+	<select asp-for="UserId">
+		<option value="">None</option>
+
+		@foreach (var id in ViewBag.UserList) {
+			<option value="@id">@id</option>
+		}
+	</select>
+
 	<input asp-for="IsReturned" value="false" type="hidden"/>
 	<input asp-for="IsOverdue" value="false" type="hidden" />
 	<input asp-for="AuthorizeCheckout" value="true" type="hidden" />

@@ -12,27 +12,27 @@
 	if (Model == null || !Model.Any()) {
 		<h4>No Reviews Found for any book</h4>
 	} else {
-		<table class="table">
+		<table class="table table-striped table-hover table-bordered">
 			<thead>
 				<tr>
-					<th>Book Title</th>
-					<th>Review by</th>
-					<th>Rating</th>
-					<th>Comment</th>
+					<th scope="col">Book Title</th>
+					<th scope="col">Review by</th>
+					<th scope="col">Rating</th>
+					<th scope="col">Comment</th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach (BookReview review in Model) {
 					var user = UserManager.FindByIdAsync(review.UserId).Result;
 					<tr>
-						<td>@review.Book.Title</td>
+						<th scope="col">@review.Book.Title</th>
 						<td>@user</td>
 						<td>@review.Rating</td>
 						<td>@review.Comment</td>
 						<td>
 							@if (User.IsInRole("Admin")) {
-								<a asp-action="Delete" asp-route-id="@review.BookReviewId">Delete</a>
-								<a asp-action="Edit" asp-route-id="@review.BookReviewId">Edit</a>
+								<a asp-controller="BookReview" asp-action="Delete" asp-route-id="@review.BookReviewId">Delete</a>
+								<a asp-controller="BookReview" asp-action="Edit" asp-route-id="@review.BookReviewId">Edit</a>
 							}
 						</td>
 					</tr>
