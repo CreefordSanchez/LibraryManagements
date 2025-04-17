@@ -67,19 +67,31 @@ namespace LibraryManagement.Controllers {
 			return View(review);
 		}
 
-		[HttpGet]
+        [Authorize(Roles = "Admin, User")]
+        [HttpGet]
 		public IActionResult Edit(int id) {
 			EventReview? review = _service.GetById(id);
 			if (review == null) {
 				return NotFound();
 			}
-			ViewBag.EventList = _eventService.GetAllEvents();
+            string currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+			if (User.IsInRole("User") && review.UserId != currentUserId) {
+				return Forbid();
+			}
+            ViewBag.EventList = _eventService.GetAllEvents();
 			return View(review);
 		}
 
+		[Authorize(Roles = "Admin, User")]
 		[HttpPost]
 		public IActionResult Edit(EventReview review) {
-			if (ModelState.IsValid) {
+			string currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+			if (!User.IsInRole("Admin") && review.UserId != currentUserId) { 
+				return Forbid();
+			}
+            if (ModelState.IsValid) {
 				_service.EditEventReview(review);
 				return RedirectToAction("Index");
 			}

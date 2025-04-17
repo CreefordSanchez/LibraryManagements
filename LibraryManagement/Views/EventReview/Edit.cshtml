@@ -18,16 +18,19 @@
                             <option value="@ev.EventId">@ev.Title</option>
                         }
                     </select>
+                    <span asp-validation-for="EventId" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Rating" class="form-label text-primary-custom"></label>
-                    <input asp-for="Rating" class="form-control" />
+                    @* <label asp-for="Rating" class="form-label text-primary-custom"></label> *@
+                    <input asp-for="Rating" class="form-control text-primary-custom" type="number" min="1" max="5" />
+                    <span asp-validation-for="Rating" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="Comment" class="form-label text-primary-custom"></label>
                     <input asp-for="Comment" class="form-control" />
+                    <span asp-validation-for="Comment" class="text-danger"></span>
                 </div>
 
                 <button type="submit" class="btn btn-primary-custom">Update</button>
@@ -36,6 +39,11 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
 
 <style>
     .text-primary-custom {

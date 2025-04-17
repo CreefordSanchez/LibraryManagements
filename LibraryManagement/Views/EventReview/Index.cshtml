@@ -31,7 +31,12 @@
 								<a asp-controller="EventReview" asp-action="Delete" asp-route-id="@er.EventReviewId">Delete</a>
 								<a asp-action="EditReview" asp-route-id="@er.EventReviewId">Edit</a>
 							}
-						
+						</td>
+						<td>
+							@if (User.IsInRole("Admin") || er.UserId == UserManager.GetUserId(User))
+							{
+								<a asp-action="Edit" asp-route-id="@er.EventReviewId" class="btn btn-sm btn-primary me-2">Edit</a>
+							}
 						</td>
 					</tr>
 				}

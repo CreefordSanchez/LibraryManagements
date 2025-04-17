@@ -32,7 +32,12 @@
 						<td>
 							@if (User.IsInRole("Admin")) {
 								<a asp-controller="BookReview" asp-action="Delete" asp-route-id="@review.BookReviewId">Delete</a>
-								<a asp-controller="BookReview" asp-action="Edit" asp-route-id="@review.BookReviewId">Edit</a>
+							}
+						</td>
+						<td>
+							@if (User.IsInRole("Admin") || review.UserId == UserManager.GetUserId(User))
+							{
+								<a asp-action="Edit" asp-route-id="@review.BookReviewId" class="btn btn-sm btn-primary me-2">Edit</a>
 							}
 						</td>
 					</tr>

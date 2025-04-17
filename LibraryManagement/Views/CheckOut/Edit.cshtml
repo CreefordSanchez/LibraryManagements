@@ -13,11 +13,13 @@
                 <div class="mb-3">
                     <label asp-for="CheckoutDate" class="form-label text-primary-custom"></label>
                     <input asp-for="CheckoutDate" class="form-control" />
+                    <span asp-validation-for="CheckoutDate" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="DueDate" class="form-label text-primary-custom"></label>
                     <input asp-for="DueDate" class="form-control" />
+                    <span asp-validation-for="DueDate" class="text-danger"></span>
                 </div>
 
                 <div class="form-check mb-2">
