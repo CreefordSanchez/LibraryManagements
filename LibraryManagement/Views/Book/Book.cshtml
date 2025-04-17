@@ -66,8 +66,7 @@
 
 @if (User.IsInRole("Admin"))
 {
-	string modalId = $"deleteModal-{ViewBag.Book.BookId}";
-	<button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#@modalId">
+	<button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#deleteModal">
 		Delete Book
 	</button>
 
