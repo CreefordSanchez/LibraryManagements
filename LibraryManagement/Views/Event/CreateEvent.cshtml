@@ -1,27 +1,30 @@
 ﻿@model Event
+<div style="display: flex; justify-content: center; align-items: center; height: calc(100vh - 60px - 57px);">
+	<form asp-action="CreateEvent" style="display: grid; border-radius: 10px; border: 3px solid #00669b; padding: 30px;">
+		<h1>Creating Event</h1>
 
-<h1>Creating Event</h1>
+		<input asp-for="OrganiserId" value="@ViewBag.UserId" type="hidden" />
 
-<form asp-action="CreateEvent">
-	<input asp-for="OrganiserId" value="@ViewBag.UserId" type="hidden"/>
+		<label asp-for="Title" style="margin-top: 20px">Title: </label>
+		<input asp-for="Title" />
 
-	<label asp-for="Title">Title: </label>
-	<input asp-for="Title"/>
-	
-	<label asp-for="Date">Date: </label>
-	<input asp-for="Date"/>
+		<label asp-for="Date" style="margin-top: 20px">Date: </label>
+		<input asp-for="Date" />
 
-	
-	<label asp-for="Time">Time: </label>
-	<input asp-for="Time"/>
 
-	
-	<label asp-for="Location">Location: </label>
-	<input asp-for="Location"/>
+		<label asp-for="Time" style="margin-top: 20px">Time: </label>
+		<input asp-for="Time" />
 
-	
-	<label asp-for="Description">Description</label>
-	<input asp-for="Description"/>
 
-	<button type="submit">Create</button>
-</form>
+		<label asp-for="Location" style="margin-top: 20px">Location: </label>
+		<input asp-for="Location" />
+
+
+		<label asp-for="Description" style="margin-top: 20px">Description</label>
+		<input asp-for="Description" />
+
+		<div class="flex-grow-1 justify-content-end" style="margin-top: 20px">
+			<button type="submit" style="background-color: #00669b; color:#fff; width: 80px; border: none; border-radius: 10px;">Create</button>
+		</div>
+	</form>
+</div>
