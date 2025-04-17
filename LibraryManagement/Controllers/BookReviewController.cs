@@ -36,7 +36,10 @@ namespace LibraryManagement.Controllers {
 				return RedirectToAction("Index");
 			}
 
-			return View(review);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            ViewBag.UserId = userId;
+            ViewBag.BookList = _bookService.GetAllBooks();
+            return View(review);
 		}
 
         [HttpGet]

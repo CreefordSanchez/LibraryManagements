@@ -14,8 +14,8 @@
 
 	DeleteConfirmationViewModel deleteModel = new LibraryManagement.Models.ModelViews.DeleteConfirmationViewModel
 	{
-		Id = ViewBag.Book.BookId,
-		Title = ViewBag.Book.Title,
+		Id = ViewBag.Event.EventId,
+		Title = ViewBag.Event.Title,
 		EntityName = "Event",
 		DeleteAction = "DeleteConfirmed",
 		DeleteController = "Event"
@@ -67,8 +67,7 @@
 
 @if (User.IsInRole("Admin"))
 {
-	string modalId = $"deleteModal-{ViewBag.Event.EventId}";
-	<button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#@modalId">
+	<button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#deleteModal">
 		Delete Event
 	</button>
 

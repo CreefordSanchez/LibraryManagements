@@ -62,9 +62,12 @@ namespace LibraryManagement.Controllers {
 			if (ModelState.IsValid) {
 				_service.CreateEventReview(review);
 				return RedirectToAction("Index");
-			}
+            }
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            ViewBag.UserId = userId;
+            ViewBag.EventList = _eventService.GetAllEvents();
 
-			return View(review);
+            return View(review);
 		}
 
         [Authorize(Roles = "Admin, User")]
