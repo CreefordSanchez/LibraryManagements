@@ -12,14 +12,14 @@
 		ViewData["Title"] = first.Title;
 	}
 
-	DeleteConfirmationViewModel deleteModel = new LibraryManagement.Models.ModelViews.DeleteConfirmationViewModel
+/*	DeleteConfirmationViewModel deleteModel = new LibraryManagement.Models.ModelViews.DeleteConfirmationViewModel
 	{
 		Id = ViewBag.Book.BookId,
 		Title = ViewBag.Book.Title,
 		EntityName = "Event",
 		DeleteAction = "DeleteConfirmed",
 		DeleteController = "Event"
-	};
+	};*/
 }
 
 @if (first == null)
@@ -72,7 +72,7 @@
 		Delete Event
 	</button>
 
-	@await Html.PartialAsync("_ConfirmDelete", deleteModel)
+	//@await Html.PartialAsync("_ConfirmDelete", deleteModel)
 }
 
 @if (User.IsInRole("User")) {
