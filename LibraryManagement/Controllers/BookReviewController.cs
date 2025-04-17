@@ -55,7 +55,7 @@ namespace LibraryManagement.Controllers {
                 DeleteController = "BookReview"
             };
 
-            return View();
+            return View(vm);
 		}
 
         [HttpPost]

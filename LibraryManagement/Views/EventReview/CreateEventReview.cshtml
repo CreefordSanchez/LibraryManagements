@@ -1,24 +1,29 @@
 ﻿@model EventReview
 
-<h1>Event Review Creating</h1>
+<div style="display: flex; justify-content: center; align-items: center; height: calc(100vh - 60px - 57px);">
+	<form asp-action="CreateEventReview" style="display: grid; border-radius: 10px; border: 3px solid #00669b; padding: 30px;">
+		<h1>Event Review Creating</h1>
 
-<form asp-action="CreateEventReview">
-	<input asp-for="UserId" value="@ViewBag.UserId" type="hidden"/>
+		<input asp-for="UserId" value="@ViewBag.UserId" type="hidden" />
 
-	<label asp-for="EventId">Event: </label>
-	<select asp-for="EventId">
-		<option value="">None</option>
-		@foreach (Event events in ViewBag.EventList) {
-			<option value="@events.EventId">@events.Title</option>
-		}
-	</select>
-	
-	<label asp-for="Rating">Rating: </label>
-	<input asp-for="Rating"/>
+		<label asp-for="EventId" style="margin-top: 20px">Event: </label>
+		<select asp-for="EventId">
+			<option value="">None</option>
+			@foreach (Event events in ViewBag.EventList)
+			{
+				<option value="@events.EventId">@events.Title</option>
+			}
+		</select>
 
-	
-	<label asp-for="Comment">Comment: </label>
-	<input asp-for="Comment"/>
+		<label asp-for="Rating" style="margin-top: 20px">Rating: </label>
+		<input asp-for="Rating" />
 
-	<button type="submit">Post</button>
-</form>
+
+		<label asp-for="Comment" style="margin-top: 20px">Comment: </label>
+		<input asp-for="Comment" />
+
+		<div class="flex-grow-1 justify-content-end" style="margin-top: 20px">
+			<button type="submit" style="background-color: #00669b; color:#fff; width: 80px; border: none; border-radius: 10px;">Post</button>
+		</div>
+	</form>
+</div>

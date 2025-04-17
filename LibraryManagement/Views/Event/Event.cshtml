@@ -11,6 +11,15 @@
 		first = Model.First();
 		ViewData["Title"] = first.Title;
 	}
+
+	DeleteConfirmationViewModel deleteModel = new LibraryManagement.Models.ModelViews.DeleteConfirmationViewModel
+	{
+		Id = ViewBag.Book.BookId,
+		Title = ViewBag.Book.Title,
+		EntityName = "Event",
+		DeleteAction = "DeleteConfirmed",
+		DeleteController = "Event"
+	};
 }
 
 @if (first == null)
@@ -54,6 +63,16 @@
 			</table>
 		</div>
 	</div>
+}
+
+@if (User.IsInRole("Admin"))
+{
+	string modalId = $"deleteModal-{ViewBag.Event.EventId}";
+	<button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#@modalId">
+		Delete Event
+	</button>
+
+	@await Html.PartialAsync("_ConfirmDelete", deleteModel)
 }
 
 @if (User.IsInRole("User")) {

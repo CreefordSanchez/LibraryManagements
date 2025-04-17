@@ -11,8 +11,16 @@
 		first = Model.First();
 		ViewData["Title"] = first.Title;
 	}
-	
+
+	DeleteConfirmationViewModel deleteModel = new LibraryManagement.Models.ModelViews.DeleteConfirmationViewModel {
+		Id = ViewBag.Book.BookId,
+		Title = ViewBag.Book.Title,
+		EntityName = "Book",
+		DeleteAction = "DeleteConfirmed",
+		DeleteController = "Book"
+	};
 }
+
 @if (first == null) {
 	<h1>@ViewBag.Book.Title</h1>
 	<h5>by @ViewBag.Book.Author</h5>
@@ -56,8 +64,16 @@
 	</div>
 }
 
+@if (User.IsInRole("Admin"))
+{
+	string modalId = $"deleteModal-{ViewBag.Book.BookId}";
+	<button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#@modalId">
+		Delete Book
+	</button>
+
+	@await Html.PartialAsync("_ConfirmDelete", deleteModel)
+}
+
 @if(User.IsInRole("User")){
 	<a asp-controller="BookReview" asp-action="CreateBookReview">Add Review for this Book</a>
 }
-
-

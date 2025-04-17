@@ -1,30 +1,36 @@
 ﻿@model CheckOut;
 
-<h1>New Checkout Page</h1>
+<div style="display: flex; justify-content: center; align-items: center; height: calc(100vh - 60px - 57px);">
+	<form asp-action="CreateCheckOut" style="display: grid; border-radius: 10px; border: 3px solid #00669b; padding: 30px;">
+		<h1>New Checkout Page</h1>
 
-<form asp-action="CreateCheckOut">
-	<label asp-for="UserId">User: </label>
-	<select asp-for="UserId">
-		<option value="">None</option>
+		<label asp-for="UserId" style="margin-top: 20px">User: </label>
+		<select asp-for="UserId">
+			<option value="">None</option>
 
-		@foreach (var id in ViewBag.UserList) {
-			<option value="@id">@id</option>
-		}
-	</select>
+			@foreach (var id in ViewBag.UserList)
+			{
+				<option value="@id">@id</option>
+			}
+		</select>
 
-	<input asp-for="IsReturned" value="false" type="hidden"/>
-	<input asp-for="IsOverdue" value="false" type="hidden" />
-	<input asp-for="AuthorizeCheckout" value="true" type="hidden" />
-	<input asp-for="DueDate" value="@ViewBag.DueDate" type="hidden" />
-	<input asp-for="CheckoutDate" value="@ViewBag.Checked" type="hidden" />
+		<input asp-for="IsReturned" value="false" type="hidden" style="width: 200px; height: 30px;" />
+		<input asp-for="IsOverdue" value="false" type="hidden" style="width: 200px; height: 30px;" />
+		<input asp-for="AuthorizeCheckout" value="true" type="hidden" style="width: 200px; height: 30px;" />
+		<input asp-for="DueDate" value="@ViewBag.DueDate" type="hidden" style="width: 200px; height: 30px;" />
+		<input asp-for="CheckoutDate" value="@ViewBag.Checked" type="hidden" style="width: 200px; height: 30px;" />
 
-	<label asp-for="BookId">Book Id: </label>
-	<select asp-for="BookId">
-		<option value="">None</option>
-		@foreach (Book book in ViewBag.BookList) {
-			<option value="@book.BookId">@book.Title</option>
-		}
-	</select>
+		<label asp-for="BookId" style="margin-top: 20px">Book Id: </label>
+		<select asp-for="BookId">
+			<option value="">None</option>
+			@foreach (Book book in ViewBag.BookList)
+			{
+				<option value="@book.BookId">@book.Title</option>
+			}
+		</select>
 
-	<button type="submit">Checkout</button>
-</form>
+		<div class="flex-grow-1 justify-content-end" style="margin-top: 20px">
+			<button type="submit" style="background-color: #00669b; color:#fff; width: 80px; border: none; border-radius: 10px;">Checkout</button>
+		</div>
+	</form>
+</div>
