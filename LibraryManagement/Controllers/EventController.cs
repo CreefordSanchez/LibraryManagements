@@ -78,7 +78,9 @@ namespace LibraryManagement.Controllers {
 				return RedirectToAction("Index");
 			}
 
-			return View(events);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            ViewBag.UserId = userId;
+            return View(events);
 		}
 		[HttpGet]
 		public IActionResult Edit(int id) {

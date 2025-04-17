@@ -62,7 +62,20 @@ namespace LibraryManagement.Controllers {
 				return RedirectToAction("Index");
 			}
 
-			return View(checkOut);
+            List<int> notReturnedId = _checkService.GetAllCheckOuts()
+               .Where(co => co.IsReturned == false)
+               .Select(co => co.BookId)
+               .ToList();
+
+            ViewBag.Checked = DateOnly.FromDateTime(DateTime.Today);
+            ViewBag.DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(30));
+            ViewBag.UserList = _userManager.Users
+                .Select(u => u.Id)
+                .ToList();
+
+            ViewBag.BookList = _bookService.GetAllBooks()
+                .Where(b => !notReturnedId.Contains(b.BookId));
+            return View(checkOut);
 		}
 
 		[HttpGet]
