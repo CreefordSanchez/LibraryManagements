@@ -68,19 +68,29 @@ namespace LibraryManagement.Controllers {
 			return RedirectToAction(nameof(Index));
 		}
 
-		[HttpGet]
+        [Authorize(Roles = "Admin, User")]
+        [HttpGet]
 		public IActionResult Edit(int id) {
 			BookReview review = _service.GetBookReview(id);
 			if (review == null) {
 				return NotFound();
 			}
-			ViewBag.BookList = _bookService.GetAllBooks();
+            string currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+			if (User.IsInRole("User") && review.UserId != currentUserId) {
+				return Forbid();
+			}
+            ViewBag.BookList = _bookService.GetAllBooks();
 			return View(review);
 		}
-
-		[HttpPost]
+        [Authorize(Roles = "Admin, User")]
+        [HttpPost]
 		public IActionResult Edit(BookReview review) {
-			if (ModelState.IsValid) {
+            string currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+			if (!User.IsInRole("Admin") && review.UserId != currentUserId) {
+				return Forbid();
+			}
+            if (ModelState.IsValid) {
 				_service.EditBookReview(review);
 				return RedirectToAction("Index");
 			}

@@ -100,37 +100,8 @@ namespace LibraryManagement.DAL {
 			});
 
             //NOTE: run the program first and go to SQL server to grab Users id and put it here
-            var hasher = new PasswordHasher<IdentityUser>();
-
-            var user1 = new IdentityUser
-            {
-                Id = "15cd9722-9514-47a9-8496-53d36c2e4df3",
-                UserName = "organizer1@example.com",
-                NormalizedUserName = "ORGANIZER1@EXAMPLE.COM",
-                Email = "organizer1@example.com",
-                NormalizedEmail = "ORGANIZER1@EXAMPLE.COM",
-                EmailConfirmed = true,
-                SecurityStamp = Guid.NewGuid().ToString("D"),
-                ConcurrencyStamp = Guid.NewGuid().ToString("D"),
-                PasswordHash = hasher.HashPassword(null, "Password123!") // or whatever your policy allows
-            };
-
-            var user2 = new IdentityUser
-            {
-                Id = "cea1739c-5d5e-40c5-a976-9ac6f9a711ce",
-                UserName = "organizer2@example.com",
-                NormalizedUserName = "ORGANIZER2@EXAMPLE.COM",
-                Email = "organizer2@example.com",
-                NormalizedEmail = "ORGANIZER2@EXAMPLE.COM",
-                EmailConfirmed = true,
-                SecurityStamp = Guid.NewGuid().ToString("D"),
-                ConcurrencyStamp = Guid.NewGuid().ToString("D"),
-                PasswordHash = hasher.HashPassword(null, "Password123!")
-            };
-
-            builder.Entity<IdentityUser>().HasData(user1, user2);
-
-
+            
+            
             builder.Entity<Book>().HasData(
                 new Book
                 {
@@ -192,7 +163,7 @@ namespace LibraryManagement.DAL {
                 new BookReview
                 {
                     BookReviewId = 1,
-                    UserId = "15cd9722-9514-47a9-8496-53d36c2e4df3",
+                    UserId = " ",
                     Rating = 5,
                     Comment = "An absolutely amazing read! Couldn't put it down.",
                     BookId = 2 
@@ -200,7 +171,7 @@ namespace LibraryManagement.DAL {
                 new BookReview
                 {
                     BookReviewId = 2,
-                    UserId = "15cd9722-9514-47a9-8496-53d36c2e4df3",
+                    UserId = " ",
                     Rating = 4,
                     Comment = "Great story and characters. Really enjoyed it.",
                     BookId = 3 
@@ -213,7 +184,7 @@ namespace LibraryManagement.DAL {
                 {
                     CheckOutId = 1,
                     BookId = 1,
-                    UserId = "15cd9722-9514-47a9-8496-53d36c2e4df3",
+                    UserId = " ",
                     IsReturned = false,
                     IsOverdue = true,
                     DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-30)), // 30 days ago
@@ -225,7 +196,7 @@ namespace LibraryManagement.DAL {
                 {
                     CheckOutId = 2,
                     BookId = 2,
-                    UserId = "15cd9722-9514-47a9-8496-53d36c2e4df3",
+                    UserId = " ",
                     IsReturned = false,
                     IsOverdue = false,
                     DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(5)), // 5 days from now
@@ -237,7 +208,7 @@ namespace LibraryManagement.DAL {
                 {
                     CheckOutId = 3,
                     BookId = 3,
-                    UserId = "15cd9722-9514-47a9-8496-53d36c2e4df3",
+                    UserId = " ",
                     IsReturned = true,
                     IsOverdue = false, 
                     DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(30)), 
@@ -255,7 +226,7 @@ namespace LibraryManagement.DAL {
                     Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(14)), // 2:00 PM
                     Location = "Library Hall A",
                     Description = "Join us for the launch of the book 'Airborn' by Kenneth Oppel. Meet the author and other fans!",
-                    OrganiserId = "15cd9722-9514-47a9-8496-53d36c2e4df3"
+                    OrganiserId = " "
                 },
                 new Event
                 {
@@ -265,7 +236,7 @@ namespace LibraryManagement.DAL {
                     Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(18)), // 6:00 PM
                     Location = "Library Hall B",
                     Description = "Test your knowledge of the Harry Potter universe at our trivia night. Great prizes for the winners!",
-                    OrganiserId = "15cd9722-9514-47a9-8496-53d36c2e4df3"
+                    OrganiserId = " "
                 },
                 new Event
                 {
@@ -275,7 +246,7 @@ namespace LibraryManagement.DAL {
                     Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(19)), 
                     Location = "Library Hall C",
                     Description = "Come watch 'Twilight' with fellow fans and participate in a discussion afterward.",
-                    OrganiserId = "15cd9722-9514-47a9-8496-53d36c2e4df3"
+                    OrganiserId = " "
                 },
                 new Event
                 {
@@ -285,7 +256,7 @@ namespace LibraryManagement.DAL {
                     Time = TimeOnly.FromDateTime(DateTime.Now.AddHours(11)), // 11:00 AM
                     Location = "Library Hall D",
                     Description = "Join us for a reading of 'Percy Jackson' and meet other fans of the series.",
-                    OrganiserId = "15cd9722-9514-47a9-8496-53d36c2e4df3"
+                    OrganiserId = " "
                 }
             );          
 
