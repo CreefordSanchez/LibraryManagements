@@ -38,20 +38,20 @@ namespace LibraryManagement.Controllers {
 
 		[HttpGet]
 		public IActionResult Delete(int id) {
-			Book? review = _service.GetBook(id);
-			if (review == null)
+			Book? book = _service.GetBook(id);
+			if (book == null)
 				return NotFound();
 
             DeleteConfirmationViewModel? vm = new DeleteConfirmationViewModel
             {
-                Id = review.BookId,
-                Title = review.Title.Length > 50 ? review.Title[..50] + "..." : review.Title,
+                Id = book.BookId,
+                Title = book.Title.Length > 50 ? book.Title[..50] + "..." : book.Title,
                 EntityName = "Book",
                 DeleteAction = "DeleteConfirmed",
                 DeleteController = "Book"
             };
 
-            return View(review);
+            return View(vm);
         }
 
 		[HttpPost]
@@ -60,7 +60,7 @@ namespace LibraryManagement.Controllers {
 			if (!deleted)
 				return NotFound();
 
-			return RedirectToAction(nameof(Index));
+			return RedirectToAction("Index");
 		}
 
 		[Authorize(Roles = "Admin")]

@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Identity;
+﻿@using LibraryManagement.Models.ModelViews
+@using Microsoft.AspNetCore.Identity;
 @inject UserManager<IdentityUser> UserManager
 @inject RoleManager<IdentityRole> RoleManage
 @model IEnumerable<Book>
@@ -30,11 +31,8 @@
 						<td class="user-select-none">@book.Author</td>
 						<td class="user-select-none">@book.Published.ToShortDateString()</td>
 						<td class="user-select-none">
-							<a asp-controller="Book" asp-action="Book" asp-route-id="@book.BookId">Reviews</a>
-							@if (User.IsInRole("Admin")){
-								<a asp-controller="Book" asp-action="Delete" asp-route-id="@book.BookId">Delete</a>
-							}
-						</td>
+							<a asp-controller="Book" asp-action="Book" asp-route-id="@book.BookId">Details</a>
+						</td> <!--I spent literal hours trying to find a way to make the modal work here, but after no success, I changed "Review" to "Details" so it'd make sense. -Mat-->
 					</tr>
 				}
 			</tbody>
